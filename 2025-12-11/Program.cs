@@ -69,6 +69,10 @@ namespace _2025_12_11
             //double r3 = d3?.Invoke(1,2) ?? 0;
             //Console.WriteLine(r3);
 
+            ////值类型？ 可控类型 ，可以被赋值为null
+            bool? b1 = null;
+            bool? b2 = true;
+
             #endregion
 
             #region 委托的多播功能 += 添加方法(Add) -=移除方法(Remove)
@@ -156,11 +160,37 @@ namespace _2025_12_11
 
             Console.WriteLine(fc2?.Invoke(new double[]{ 0,0,0}, new int[] {1,2,3}));
 
+            #endregion
+
+
+            #region 应用举例
+
+            double[] doubleArr = new double[] {50,15,-20,-10,55,60, 25 };
+            //double r1 = GetSum(doubleArr, x => { return x > 0; });
+            //规则求和 Func委托+lambda表达式
+            double r1 = GetSum(doubleArr, x => x > 0);  //205
+            double r2 = GetSum(doubleArr, x => x%2 == 0); // 80
+            double r3 = GetSum(doubleArr, x => x%2 != 0); //95
 
 
             #endregion
 
+
         }
+
+        public static double GetSum(double[] inputs, Func<double, bool> fc)
+        {
+            double sum = 0;
+            foreach (var input in inputs) 
+            {   
+                if(fc(input))
+                {
+                    sum += input;
+                }
+            }
+            return sum;
+        }
+
 
         public static double GetSum(double[] inputs)
         {
