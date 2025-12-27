@@ -547,6 +547,7 @@
             this.btnWriteDFloat.TabIndex = 6;
             this.btnWriteDFloat.Text = "32位浮点写入";
             this.btnWriteDFloat.UseVisualStyleBackColor = true;
+            this.btnWriteDFloat.Click += new System.EventHandler(this.btnWriteDFloat_Click);
             // 
             // nudWriteFloatValue
             // 
@@ -591,6 +592,7 @@
             this.btnWriteD32.TabIndex = 6;
             this.btnWriteD32.Text = "32位双整数写入";
             this.btnWriteD32.UseVisualStyleBackColor = true;
+            this.btnWriteD32.Click += new System.EventHandler(this.btnWriteD32_Click);
             // 
             // nudWriteD32Value
             // 
@@ -634,6 +636,7 @@
             this.btnWriteD16.TabIndex = 2;
             this.btnWriteD16.Text = "16位整数写入";
             this.btnWriteD16.UseVisualStyleBackColor = true;
+            this.btnWriteD16.Click += new System.EventHandler(this.btnWriteD16_Click);
             // 
             // nudWriteD16Value
             // 
@@ -709,6 +712,7 @@
             this.btnM_Off.TabIndex = 4;
             this.btnM_Off.Text = "断开";
             this.btnM_Off.UseVisualStyleBackColor = true;
+            this.btnM_Off.Click += new System.EventHandler(this.btnM_off_Click);
             // 
             // btnReadM
             // 
@@ -718,6 +722,7 @@
             this.btnReadM.TabIndex = 4;
             this.btnReadM.Text = "读取";
             this.btnReadM.UseVisualStyleBackColor = true;
+            this.btnReadM.Click += new System.EventHandler(this.btnReadM_Click);
             // 
             // btnM_On
             // 
@@ -727,6 +732,7 @@
             this.btnM_On.TabIndex = 4;
             this.btnM_On.Text = "接通";
             this.btnM_On.UseVisualStyleBackColor = true;
+            this.btnM_On.Click += new System.EventHandler(this.btnM_On_Click);
             // 
             // nudMAddress
             // 
@@ -778,6 +784,7 @@
             this.btnY_Off.TabIndex = 8;
             this.btnY_Off.Text = "断开";
             this.btnY_Off.UseVisualStyleBackColor = true;
+            this.btnY_Off.Click += new System.EventHandler(this.btnY_off_Click);
             // 
             // btnReadY
             // 
@@ -787,6 +794,7 @@
             this.btnReadY.TabIndex = 9;
             this.btnReadY.Text = "读取";
             this.btnReadY.UseVisualStyleBackColor = true;
+            this.btnReadY.Click += new System.EventHandler(this.btnReadY_Click);
             // 
             // btnY_On
             // 
@@ -796,6 +804,7 @@
             this.btnY_On.TabIndex = 10;
             this.btnY_On.Text = "接通";
             this.btnY_On.UseVisualStyleBackColor = true;
+            this.btnY_On.Click += new System.EventHandler(this.btnY_On_Click);
             // 
             // nudYAddress
             // 

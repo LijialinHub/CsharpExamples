@@ -31,7 +31,7 @@ namespace 与FX5U系列PLC的MC通讯
         /// <param name="e"></param>
         private void btnConnect_DisConnect_Click(object sender, EventArgs e)
         {
-            if (btnConnect_DisConnect.Text == "打开")
+            if (btnConnect_DisConnect.Text == "连接")
             {
                 string plcIpAddress = txtIP.Text;//PLC的IP地址
                 int plcPort=int.Parse(txtPort.Text);//端口号
@@ -56,7 +56,7 @@ namespace 与FX5U系列PLC的MC通讯
             else
             {
                 mcNet.ConnectClose();
-                btnConnect_DisConnect.Text = "打开";
+                btnConnect_DisConnect.Text = "连接";
                 btnConnect_DisConnect.BackColor = Color.Linen;
 
             }

@@ -1,5 +1,6 @@
 ﻿using _2025_12_18;
 using HslCommunication;
+using HslCommunication.Controls;
 using HslCommunication.Profinet.Melsec;
 using IniHelper;
 using System;
@@ -122,12 +123,25 @@ namespace _2025_12_27
                 btnOpen.Text = "关闭";
                 btnOpen.BackColor = Color.Red;
 
+                //控件使能
+                groupBox2.Enabled = true;
+                groupBox3.Enabled = true;
+                groupBox4.Enabled = true;
+                groupBox5.Enabled = true;
+
+
             }
             else//关闭
             {
                 melsecFxSerial?.Close();
                 btnOpen.Text = "打开";
                 btnOpen.BackColor = Color.FromArgb(128, 255, 128);
+
+                //控件使能
+                groupBox2.Enabled = false;
+                groupBox3.Enabled = false;
+                groupBox4.Enabled = false;
+                groupBox5.Enabled = false;
             }
 
         }
@@ -146,33 +160,251 @@ namespace _2025_12_27
             serialParamatersEntity.PortName = cmbPortName.Text;
         }
 
-        private void btnReadD16_Click(object sender, EventArgs e)
+
+        /// <summary>
+        /// 写入16位整数
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnWriteD16_Click(object sender, EventArgs e)
         {
             string address = "D" + nudWriteD16Address.Value.ToString();
-            OperateResult operateResult = melsecFxSerial.Write(address, (short)nudWriteD16Value.Value);
+            OperateResult operate = melsecFxSerial.Write(address, (short)nudWriteD16Value.Value);
 
-            if(!operateResult.IsSuccess)
+            if (!operate.IsSuccess)//不成功
             {
-                errorProvider1.SetError(nudWriteD16Address, operateResult.Message);
+                errorProvider1.SetError(nudWriteD16Address, operate.Message);
             }
-            else
+            else//成功
             {
                 errorProvider1.SetError(nudWriteD16Address, null);
             }
+
         }
 
+        /// <summary>
+        /// 写入32位整数
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnWriteD32_Click(object sender, EventArgs e)
+        {
+            string address = "D" + nudWriteD32Address.Value.ToString();
+            OperateResult operate = melsecFxSerial.Write(address, (int)nudWriteD32Value.Value);
+
+            if (!operate.IsSuccess)//不成功
+            {
+                errorProvider1.SetError(nudWriteD32Address, operate.Message);
+            }
+            else//成功
+            {
+                errorProvider1.SetError(nudWriteD32Address, null);
+            }
+        }
+        /// <summary>
+        /// 写入32位浮点数
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnWriteDFloat_Click(object sender, EventArgs e)
+        {
+            string address = "D" + nudWriteFloatAddress.Value.ToString();
+            OperateResult operate = melsecFxSerial.Write(address, (float)nudWriteFloatValue.Value);
+
+            if (!operate.IsSuccess)//不成功
+            {
+                //Message: 异常信息
+                errorProvider1.SetError(nudWriteFloatAddress, operate.Message);
+            }
+            else//成功
+            {
+                errorProvider1.SetError(nudWriteFloatAddress, null);
+            }
+        }
+        /// <summary>
+        /// 读取16位整数
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnReadD16_Click(object sender, EventArgs e)
+        {
+            string address = "D" + nudReadD16Address.Value.ToString();
+            OperateResult<short> result = melsecFxSerial.ReadInt16(address);
+
+            if (!result.IsSuccess)//不成功
+            {
+                errorProvider1.SetError(nudReadD16Address, result.Message);
+            }
+            else//成功
+            {
+                errorProvider1.SetError(nudReadD16Address, null);
+                nudReadD16Value.Value = result.Content;
+            }
+        }
+        /// <summary>
+        /// 读取32位整数
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnReadD32_Click(object sender, EventArgs e)
         {
+            string address = "D" + nudReadD32Address.Value.ToString();
+            OperateResult<int> result = melsecFxSerial.ReadInt32(address);
 
+            if (!result.IsSuccess)//不成功
+            {
+                errorProvider1.SetError(nudReadD32Address, result.Message);
+            }
+            else//成功
+            {
+                errorProvider1.SetError(nudReadD32Address, null);
+                nudReadD32Value.Value = result.Content;
+            }
         }
-
+        /// <summary>
+        /// 读取32位浮点
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnReadDFloat_Click(object sender, EventArgs e)
         {
+            string address = "D" + nudReadDFloatAddress.Value.ToString();
+            OperateResult<float> result = melsecFxSerial.ReadFloat(address);
 
+            if (!result.IsSuccess)//不成功
+            {
+                errorProvider1.SetError(nudReadDFloatAddress, result.Message);
+            }
+            else//成功
+            {
+                errorProvider1.SetError(nudReadDFloatAddress, null);
+                nudReadDFloatValue.Value = (decimal)result.Content;
+
+            }
         }
 
-        
+        /// <summary>
+        /// 读取M点
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnReadM_Click(object sender, EventArgs e)
+        {
+            string address = "M" + nudMAddress.Value.ToString();
+            OperateResult<bool> result = melsecFxSerial.ReadBool(address);
 
-        
+            if (!result.IsSuccess)//不成功
+            {
+                errorProvider1.SetError(nudMAddress, result.Message);
+            }
+            else//成功
+            {
+                errorProvider1.SetError(nudMAddress, null);
+                lblMStatus.LanternBackground = result.Content ? Color.Red : Color.Gray;
+            }
+        }
+
+        /// <summary>
+        /// 连接M点
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnM_On_Click(object sender, EventArgs e)
+        {
+            string address = "M" + nudMAddress.Value.ToString();
+            OperateResult operate = melsecFxSerial.Write(address, true);
+
+            if (!operate.IsSuccess)//不成功
+            {
+                errorProvider1.SetError(nudMAddress, operate.Message);
+            }
+            else//成功
+            {
+                errorProvider1.SetError(nudMAddress, null);
+            }
+        }
+        /// <summary>
+        /// 断开M点
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnM_off_Click(object sender, EventArgs e)
+        {
+            string address = "M" + nudMAddress.Value.ToString();
+            OperateResult operate = melsecFxSerial.Write(address, false);
+
+            if (!operate.IsSuccess)//不成功
+            {
+                errorProvider1.SetError(nudMAddress, operate.Message);
+            }
+            else//成功
+            {
+                errorProvider1.SetError(nudMAddress, null);
+            }
+        }
+
+        /// <summary>
+        /// 读取Y点
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnReadY_Click(object sender, EventArgs e)
+        {
+            string address = "Y" + nudYAddress.Value.ToString();
+            OperateResult<bool> result = melsecFxSerial.ReadBool(address);
+
+            if (!result.IsSuccess)//不成功
+            {
+                errorProvider1.SetError(nudYAddress, result.Message);
+            }
+            else//成功
+            {
+                errorProvider1.SetError(nudYAddress, null);
+                lblYStatus.LanternBackground = result.Content ? Color.Red : Color.Gray;
+            }
+        }
+
+        /// <summary>
+        /// 连接Y点
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnY_On_Click(object sender, EventArgs e)
+        {
+            string address = "Y" + nudYAddress.Value.ToString();
+            OperateResult operate = melsecFxSerial.Write(address, true);
+
+            if (!operate.IsSuccess)//不成功
+            {
+                errorProvider1.SetError(nudYAddress, operate.Message);
+            }
+            else//成功
+            {
+                errorProvider1.SetError(nudYAddress, null);
+            }
+        }
+
+        /// <summary>
+        /// 断开Y点
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnY_off_Click(object sender, EventArgs e)
+        {
+            string address = "Y" + nudYAddress.Value.ToString();
+            OperateResult operate = melsecFxSerial.Write(address, false);
+
+            if (!operate.IsSuccess)//不成功
+            {
+                errorProvider1.SetError(nudYAddress, operate.Message);
+            }
+            else//成功
+            {
+                errorProvider1.SetError(nudYAddress, null);
+            }
+        }
+
+
+
     }
 }
