@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Modbus.Device;
+using System;
 using System.Collections.Generic;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -72,60 +74,231 @@ namespace _2025_12_23
             /// <summary>
             /// 停止 5或8(紧急停机)
             /// </summary>
-            Stop = 8
+            Stop = 5
         }
 
 
+        /// <summary>
+        /// 串口对象
+        /// </summary>
+        private SerialPort serialPort = new SerialPort();
 
+        /// <summary>
+        /// ModbusRTU主站
+        /// </summary>
+        private IModbusMaster ModbusMaster;
 
-        public override void CloseSerialPort()
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// 执行正转命令
+        /// </summary>
+        /// <param name="inverterEntity">变频器对象</param>
+        /// <returns>True：正常 False：执行异常</returns>
         public override void ExecuteForward(InverterEntity inverterEntity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ModbusMaster.WriteSingleRegisterAsync(inverterEntity.StationNumber, (ushort)RegisterAddress.ControlCommand,
+                                                    (ushort)ControlAction.Forward);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
+        /// <summary>
+        /// 执行反转命令
+        /// </summary>
+        /// <param name="inverterEntity">变频器对象</param>
+        /// <returns>True：正常 False：执行异常</returns>
         public override void ExecuteReverse(InverterEntity inverterEntity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ModbusMaster.WriteSingleRegisterAsync(inverterEntity.StationNumber, (ushort)RegisterAddress.ControlCommand,
+                                                    (ushort)ControlAction.Reverse);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
-        public override void ExecuteSetFrequency(InverterEntity inverterEntity, double FrequencyValue)
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// 执行停止命令
+        /// </summary>
+        /// <param name="inverterEntity">变频器对象</param>
+        /// <returns>True：正常 False：执行异常</returns>
         public override void ExecuteStop(InverterEntity inverterEntity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ModbusMaster.WriteSingleRegisterAsync(inverterEntity.StationNumber, (ushort)RegisterAddress.ControlCommand,
+                                                    (ushort)ControlAction.Stop);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
-        public override void GetOutCurrent(InverterEntity inverterEntity)
+        /// <summary>
+        /// 执行设置变频器频率命令
+        /// </summary>
+        /// <param name="inverterEntity"></param>
+        /// <param name="FrequencyValue">频率值</param>
+        /// <returns></returns>
+        public override void ExecuteSetFrequency(InverterEntity inverterEntity, double FrequencyValue)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ushort value = (ushort)(FrequencyValue * 200);
+                ModbusMaster.WriteSingleRegisterAsync(inverterEntity.StationNumber, (ushort)RegisterAddress.FrequencyCommand, value);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
-        public override void GetOutVoltage(InverterEntity inverterEntity)
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// 读取运行频率
+        /// </summary>
+        /// <param name="inverterEntity">变频器对象</param>
+        /// <returns>True：正常 False：执行异常</returns>
         public override void GetRunningFrequency(InverterEntity inverterEntity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ushort[] res = ModbusMaster.ReadHoldingRegisters(inverterEntity.StationNumber,
+                                                 (ushort)RegisterAddress.RunningFrequency,
+                                                 1);
+                inverterEntity.RunningFrequency = res[0] / 100.0;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
+        /// <summary>
+        /// 读取输出电流
+        /// </summary>
+        /// <param name="inverterEntity"></param>
+        /// <returns></returns>
+        public override void GetOutCurrent(InverterEntity inverterEntity)
+        {
+            try
+            {
+                ushort[] res = ModbusMaster.ReadHoldingRegisters(inverterEntity.StationNumber,
+                                                 (ushort)RegisterAddress.OutCurrent,
+                                                 1);
+                inverterEntity.OutputCurrent = res[0] / 100.0;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// 读取输出电压
+        /// </summary>
+        /// <param name="inverterEntity"></param>
+        /// <returns></returns>
+        public override void GetOutVoltage(InverterEntity inverterEntity)
+        {
+            try
+            {
+                ushort[] res = ModbusMaster.ReadHoldingRegisters(inverterEntity.StationNumber,
+                                                 (ushort)RegisterAddress.OutVoltage,
+                                                 1);
+                inverterEntity.OutputVoltage = res[0] / 10.0;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// 读取运行状态
+        /// </summary>
+        /// <param name="inverterEntity"></param>
+        /// <returns></returns>
         public override void GetRunningStatus(InverterEntity inverterEntity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ushort[] res = ModbusMaster.ReadHoldingRegisters(inverterEntity.StationNumber,
+                                                (ushort)RegisterAddress.RunningStatus,
+                                                1);
+                
+                inverterEntity.IsStop = res[0] != 3;
+                inverterEntity.IsForward = res[0] == 1;
+                inverterEntity.IsReverse = res[0] == 2;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
+        /// <summary>
+        /// 打开串口
+        /// </summary>
+        /// <param name="serialParamatersEntity"></param>
         public override void OpenSerialPort(SerialParamatersEntity serialParamatersEntity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (!serialPort.IsOpen)
+                {
+                    serialPort.PortName = serialParamatersEntity.PortName;
+                    serialPort.BaudRate = serialParamatersEntity.BaudRate;
+                    serialPort.DataBits = serialParamatersEntity.DataBits;
+                    serialPort.Parity = serialParamatersEntity.ParityBits;
+                    serialPort.StopBits = serialParamatersEntity.StopBits;
+                    ModbusMaster = ModbusSerialMaster.CreateRtu(serialPort); //创建ModbusRTU主站
+                    serialPort.Open();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// 关闭串口
+        /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
+        public override void CloseSerialPort()
+        {
+            try
+            {
+                if (serialPort.IsOpen)
+                {
+                    ModbusMaster.Dispose();  //释放ModbusMaster主站资源
+                    serialPort.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
     }
 }

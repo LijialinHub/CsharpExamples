@@ -22,7 +22,9 @@ namespace _2025_12_23
         /// <summary>
         /// 变频器通讯控制
         /// </summary>
-        public InverterCommunicationControl inverterCommunicationControl = new DeltaInverterModbus_RtuDAL();
+        //public InverterCommunicationControl inverterCommunicationControl = new DeltaInverterModbus_RtuDAL();
+
+        public InverterCommunicationControl inverterCommunicationControl = new HuiChuanInverterModbus_RtuDAL();
         /// <summary>
         /// 取消信号
         /// </summary>
