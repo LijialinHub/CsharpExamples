@@ -154,7 +154,7 @@ namespace _2025_12_23
         /// </summary>
         private void timerUpdataUIDisplayData_Tick(object sender, EventArgs e)
         {
-            lblStop.BackColor = inverterEntity.IsStop ? Color.DimGray : Color.Red;
+            lblStop.BackColor = inverterEntity.IsStop ? Color.Red : Color.DimGray;
             lblForward.BackColor = inverterEntity.IsForward ? Color.Green : Color.DimGray;
             lblBack.BackColor = inverterEntity.IsReverse ? Color.Yellow : Color.DimGray;
 

@@ -239,7 +239,7 @@ namespace _2025_12_23
                 int r1 = res[0] & 0b0000000000000011; //取0号1号位元 0b11
                 int r2 = res[0] & 0b0000000000011000; //取3号4号位元 0b11000
 
-                inverterEntity.IsStop = (res[0] & r1) != 0;
+                inverterEntity.IsStop = (r1 == 0);
                 inverterEntity.IsForward = (r1 == 0b11 && r2 == 0b00);
                 inverterEntity.IsReverse = (r1 == 0b11 && r2 == 0b11000);
 

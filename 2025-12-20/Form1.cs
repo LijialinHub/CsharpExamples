@@ -35,7 +35,8 @@ namespace _2025_12_20
                 if(tcpClient.StartConnect(txtServerIP.Text.Trim(), Convert.ToInt32(mtxtServerPort.Text), out string res))
                 {
                     this.Text = $"TCP客户端[{tcpClient.GetLocalIPAndPort()}]";
-                    tcpClient.RealTimeReceive(receiveData=> 
+                    tcpClient.RealTimeReceive(
+                        receiveData=> 
                     {
                         string receiveInfo = $"{DateTime.Now.ToString("HH:mm:ss")} : {receiveData}\r\n";
                         this.Invoke(new Action(() => 
