@@ -71,7 +71,7 @@ namespace DAL
         /// <returns></returns>
         public DbParameter CreateParameter(string parameterName, object value)
         {
-            return new OleDbParameter();
+            return new OleDbParameter(parameterName, value);
         }
 
         /// <summary>

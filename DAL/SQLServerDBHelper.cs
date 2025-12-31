@@ -25,7 +25,7 @@ namespace DAL
 
         public DbParameter CreateParameter(string parameterName, object value)
         {
-            return new SqlParameter();
+            return new SqlParameter(parameterName, value);
         }
 
         public void CreateDataBase(string dbName)

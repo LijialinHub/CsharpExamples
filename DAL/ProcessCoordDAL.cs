@@ -111,7 +111,14 @@ namespace DAL
                 string sql = $"insert into {tableName}" +
                     $"(Num,XPosition,YPosition,ZPosition) " +
                     $"value(@Num,@XPosition,@YPosition,@ZPosition)";
-
+                DbParameter[] parameters = new DbParameter[] 
+                {
+                    DataBaseServer.CreateParameter("@Num", processCoordEntity.Num),
+                    DataBaseServer.CreateParameter("@XPosition", processCoordEntity.XPosition),
+                    DataBaseServer.CreateParameter("@YPosition", processCoordEntity.YPosition),
+                    DataBaseServer.CreateParameter("@ZPosition", processCoordEntity.ZPosition)
+                };
+               
                 return DataBaseServer.ExecuteNonQuery(DbName, sql);
             }
             catch (Exception ex)
