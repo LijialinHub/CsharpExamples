@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 using ADOX;
 using IniHelper;
 using System.Data.OleDb;
-using System.Data; //Access数据库ADO组件在这个里面
+using System.Data;
+using System.Runtime.Remoting; //Access数据库ADO组件在这个里面
 
 namespace DAL
 {   
@@ -46,26 +47,34 @@ namespace DAL
     /// <summary>
     /// Access数据库服务类
     /// </summary>
-    public class AccessDBHelper
+    public class AccessDBHelper : IDataBaseServer
     {
         
         //Provider=Microsoft.ACE.OLEDB.12.0;
         //Data Source = C:\Users\Lijialin\Desktop\AccessTest\Test1.accdb
 
-        public static string connectionFixStr = ConfigurationManager.ConnectionStrings["AccessDB1"].ConnectionString;
+        //public static string connectionFixStr = ConfigurationManager.ConnectionStrings["AccessDB1"].ConnectionString;
+
+        public string ConnectionFixStr
+        {
+            get
+            {
+                return ConfigurationManager.ConnectionStrings["AccessDB1"].ConnectionString;
+            }
+        }
 
 
         /// <summary>
         /// 创建数据库
         /// </summary>
         /// <param name="dbName"></param>
-        public static void CreateDataBase(string dbName)
+        public  void CreateDataBase(string dbName)
         {
             try
             {
                 //Accesss数据库创建固定语法(需要引用Com中的ADOX)
                 Catalog catalog = new Catalog();
-                catalog.Create(connectionFixStr + dbName);
+                catalog.Create(ConnectionFixStr + dbName);
             }
             catch (Exception ex)
             {
@@ -78,7 +87,7 @@ namespace DAL
         /// 删除数据库
         /// </summary>
         /// <param name="dbName"></param>
-        public static void DeleteDataBase(string dbName)
+        public  void DeleteDataBase(string dbName)
         {
             try
             {
@@ -96,10 +105,10 @@ namespace DAL
         /// </summary>
         /// <param name="dbName"></param>
         /// <param name="sql"></param>
-        public static void CreateTable(string dbName, string sql)
+        public  void CreateTable(string dbName, string sql)
         {
             //1.创建连接对象
-            OleDbConnection oleDbConnection = new OleDbConnection(connectionFixStr + dbName);
+            OleDbConnection oleDbConnection = new OleDbConnection(ConnectionFixStr + dbName);
             //2.创建命令对象
             OleDbCommand oleDbCommand = new OleDbCommand(sql, oleDbConnection);
             try
@@ -128,10 +137,10 @@ namespace DAL
         /// </summary>
         /// <param name="dbName"></param>
         /// <param name="sql"></param>
-        public static void DeleteTable(string dbName, string sql)
+        public  void DeleteTable(string dbName, string sql)
         {
             //1.创建连接对象
-            OleDbConnection oleDbConnection = new OleDbConnection(connectionFixStr + dbName);
+            OleDbConnection oleDbConnection = new OleDbConnection(ConnectionFixStr + dbName);
             //2.创建命令对象
             OleDbCommand oleDbCommand = new OleDbCommand(sql, oleDbConnection);
             try
@@ -162,10 +171,10 @@ namespace DAL
         /// <param name="sql">SQL语句</param>
         /// <param name="parameters">参数</param>
         /// <returns>受影响行数</returns>
-        public static int ExecuteNonQuery(string dbName, string sql, OleDbParameter[] parameters = null)
+        public  int ExecuteNonQuery(string dbName, string sql, DbParameter[] parameters = null)
         {
             //1.创建连接对象
-            OleDbConnection oleDbConnection = new OleDbConnection(connectionFixStr + dbName);
+            OleDbConnection oleDbConnection = new OleDbConnection(ConnectionFixStr + dbName);
             //2.创建命令对象
             OleDbCommand oleDbCommand = new OleDbCommand(sql, oleDbConnection);
             try
@@ -194,6 +203,160 @@ namespace DAL
             }
         }
 
+        /// <summary>
+        /// 获取数据库数据到内存
+        /// </summary>
+        /// <param name="dbName"></param>
+        /// <param name="sql"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public  DataSet GetDataSet(string dbName, string sql, DbParameter[] parameters = null)
+        {
+            OleDbConnection oleDbConnection = new OleDbConnection (ConnectionFixStr + dbName);
+            //创建适配器对象
+            OleDbDataAdapter oleDbDataAdapter = new OleDbDataAdapter(sql, oleDbConnection);
 
+            try
+            {
+                oleDbConnection.Open();
+                if (parameters != null) 
+                {
+                    oleDbDataAdapter.SelectCommand.Parameters.AddRange (parameters);
+                }
+                DataSet dataSet = new DataSet(); //创建内存数据库
+                oleDbDataAdapter.Fill(dataSet);
+                return dataSet;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally 
+            {
+                if(oleDbConnection.State == ConnectionState.Open)
+                {
+                    oleDbConnection.Close();
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// 标量查询(最大值 最小值 平均值...)
+        /// </summary>
+        /// <param name="dbName"></param>
+        /// <param name="sql"></param>
+        /// <param name="oleDbParameters"></param>
+        /// <returns>第一行的第一列结果</returns>
+        public  object ExecuteScalar(string dbName, string sql, DbParameter[] oleDbParameters = null)
+        {
+            OleDbConnection oleDbConnection = new OleDbConnection(ConnectionFixStr + dbName);
+            OleDbCommand oleDbCommand = new OleDbCommand(sql, oleDbConnection);
+
+            try
+            {
+                oleDbConnection.Open();
+                if(oleDbParameters != null)
+                {
+                    oleDbCommand.Parameters.AddRange (oleDbParameters);
+                }
+
+                //返回第一行第一列的结果
+                return oleDbCommand.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                if(oleDbConnection.State == ConnectionState.Open)
+                { 
+                    oleDbConnection.Close(); 
+                }
+            }
+        }
+
+        /// <summary>
+        /// 逐行查询
+        /// </summary>
+        /// <param name="dbName">数据库名</param>
+        /// <param name="sql">sql语句</param>
+        /// <param name="oleDbParameters">sql语句参数</param>
+        /// <returns>OledbDataReader逐行读取对象</returns>
+        public  DbDataReader ExecuteDataReader(string dbName, string sql, DbParameter[] oleDbParameters = null)
+        {
+            OleDbConnection oleDbConnection = new OleDbConnection(ConnectionFixStr +dbName);
+            OleDbCommand oleDbCommand = new OleDbCommand (sql, oleDbConnection);
+
+            try
+            {
+                oleDbConnection.Open();
+                
+                if(oleDbParameters != null)
+                {
+                    oleDbCommand.Parameters.AddRange(oleDbParameters);
+                }
+
+                return oleDbCommand.ExecuteReader(CommandBehavior.CloseConnection);
+                //关闭OleDbDataReader对象时候 OleDbConnection也会被关闭
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
+        }
+        
+        /// <summary>
+        /// 读取数据库中的表格名
+        /// </summary>
+        /// <param name="dbName"></param>
+        /// <returns></returns>
+        public  List<string> GetTableNames(string dbName)
+        {
+            OleDbConnection connection = new OleDbConnection(ConnectionFixStr + dbName);
+            List<string> listNames = new List<string>();
+
+            try
+            {
+                connection.Open();
+                //返回的数据源(数据库)的架构信息
+                DataTable dataTable = connection.GetSchema("Tables");
+
+                #region 方法一
+                //foreach (DataRow row in dataTable.Rows)
+                //{
+                //    if (row["TABLE_TYPE"].ToString() == "TABLE")
+                //    {
+                //        listNames.Add(row["TABLE_NAME"].ToString());
+                //    }
+                //}
+                #endregion
+
+                #region 方法二
+                listNames = dataTable.Rows.Cast<DataRow>().Where(dr => dr["TABLE_TYPE"].ToString() == "TABLE").
+                    Select(dr => dr["TABLE_NAME"].ToString()).ToList();
+
+                #endregion
+
+
+
+                return listNames;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+
+        }
+
+    
     }
 }

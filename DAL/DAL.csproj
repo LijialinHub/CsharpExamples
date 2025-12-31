@@ -47,8 +47,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessDBHelper.cs" />
+    <Compile Include="IDataBaseServer.cs" />
     <Compile Include="IniHelper.cs" />
+    <Compile Include="ProcessCoordDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SQLServerDBHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Entity\Entity.csproj">
+      <Project>{17bae959-90e8-4533-a9d6-ddf0ca402125}</Project>
+      <Name>Entity</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
