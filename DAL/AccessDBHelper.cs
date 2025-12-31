@@ -63,6 +63,16 @@ namespace DAL
             }
         }
 
+        /// <summary>
+        /// 创建数据盒子
+        /// </summary>
+        /// <param name="parameterName"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public DbParameter CreateParameter(string parameterName, object value)
+        {
+            return new OleDbParameter();
+        }
 
         /// <summary>
         /// 创建数据库

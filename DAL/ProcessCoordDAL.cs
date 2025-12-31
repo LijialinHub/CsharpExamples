@@ -184,10 +184,10 @@ namespace DAL
 
                 DbParameter[] dbParameters = new DbParameter[]
                 {
-                    new OleDbParameter("@XPosition", processCoordEntity.XPosition),
-                    new OleDbParameter("@YPosition", processCoordEntity.YPosition),
-                    new OleDbParameter("@ZPosition", processCoordEntity.ZPosition),
-                    new OleDbParameter("@Num", processCoordEntity.Num)
+                    DataBaseServer.CreateParameter("@XPosition", processCoordEntity.XPosition),
+                    DataBaseServer.CreateParameter("@YPosition", processCoordEntity.YPosition),
+                    DataBaseServer.CreateParameter("@ZPosition", processCoordEntity.ZPosition),
+                    DataBaseServer.CreateParameter("@Num", processCoordEntity.Num)
                 };
 
                 return DataBaseServer.ExecuteNonQuery(DbName, sql, dbParameters);
