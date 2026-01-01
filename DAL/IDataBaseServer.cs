@@ -11,12 +11,19 @@ namespace DAL
     /// <summary>
     /// 数据库服务接口
     /// </summary>
-    interface IDataBaseServer  //接口默认就是public
+    public interface IDataBaseServer  //接口默认就是public
                                //接口所有成员都是未实现的(相当于抽象)，只能正常子类实现
                                //一个类可以继承多个接口，只能继承一个类
     {
 
         string ConnectionFixStr { get; }
+
+        /// <summary>
+        /// 判断数据库是否存在
+        /// </summary>
+        /// <param name="dbName"></param>
+        /// <returns></returns>
+        bool IsDataBaseExist(string dbName);
 
         /// <summary>
         /// 创建数据库参数对象

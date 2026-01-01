@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.打开数据库ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.accessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,10 +38,10 @@
             this.绘图参数ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsslExecuteResult = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsslDbName = new System.Windows.Forms.ToolStripStatusLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.picTrackDisplay = new System.Windows.Forms.PictureBox();
@@ -63,13 +63,13 @@
             this.btnInsertRecord = new System.Windows.Forms.Button();
             this.btnAddRecord = new System.Windows.Forms.Button();
             this.dgvDisplay = new System.Windows.Forms.DataGridView();
-            this.btnRemoveProduct = new System.Windows.Forms.Button();
-            this.cmbProductName = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnRemoveProduct = new System.Windows.Forms.Button();
+            this.cmbProductName = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -89,7 +89,7 @@
             this.参数PToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1222, 38);
+            this.menuStrip1.Size = new System.Drawing.Size(1222, 36);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -106,8 +106,9 @@
             // 
             this.accessToolStripMenuItem.Name = "accessToolStripMenuItem";
             this.accessToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.A)));
-            this.accessToolStripMenuItem.Size = new System.Drawing.Size(259, 36);
+            this.accessToolStripMenuItem.Size = new System.Drawing.Size(270, 36);
             this.accessToolStripMenuItem.Text = "Access";
+            this.accessToolStripMenuItem.Click += new System.EventHandler(this.accessToolStripMenuItem_Click);
             // 
             // 创建数据库CToolStripMenuItem
             // 
@@ -125,6 +126,7 @@
             | System.Windows.Forms.Keys.A)));
             this.accessToolStripMenuItem1.Size = new System.Drawing.Size(333, 36);
             this.accessToolStripMenuItem1.Text = "Access";
+            this.accessToolStripMenuItem1.Click += new System.EventHandler(this.accessToolStripMenuItem1_Click);
             // 
             // 参数PToolStripMenuItem
             // 
@@ -146,10 +148,10 @@
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
-            this.toolStripStatusLabel2,
+            this.tsslExecuteResult,
             this.toolStripStatusLabel3,
             this.toolStripStatusLabel4,
-            this.toolStripStatusLabel5});
+            this.tsslDbName});
             this.statusStrip1.Location = new System.Drawing.Point(0, 655);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1222, 35);
@@ -165,12 +167,12 @@
             this.toolStripStatusLabel1.Text = "执行结果：";
             this.toolStripStatusLabel1.Click += new System.EventHandler(this.toolStripStatusLabel1_Click);
             // 
-            // toolStripStatusLabel2
+            // tsslExecuteResult
             // 
-            this.toolStripStatusLabel2.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Bold);
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(82, 28);
-            this.toolStripStatusLabel2.Text = "*******";
+            this.tsslExecuteResult.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Bold);
+            this.tsslExecuteResult.Name = "tsslExecuteResult";
+            this.tsslExecuteResult.Size = new System.Drawing.Size(82, 28);
+            this.tsslExecuteResult.Text = "*******";
             // 
             // toolStripStatusLabel3
             // 
@@ -186,12 +188,12 @@
             this.toolStripStatusLabel4.Size = new System.Drawing.Size(159, 28);
             this.toolStripStatusLabel4.Text = "数据库文件名：";
             // 
-            // toolStripStatusLabel5
+            // tsslDbName
             // 
-            this.toolStripStatusLabel5.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Bold);
-            this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
-            this.toolStripStatusLabel5.Size = new System.Drawing.Size(82, 28);
-            this.toolStripStatusLabel5.Text = "*******";
+            this.tsslDbName.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Bold);
+            this.tsslDbName.Name = "tsslDbName";
+            this.tsslDbName.Size = new System.Drawing.Size(82, 28);
+            this.tsslDbName.Text = "*******";
             // 
             // tableLayoutPanel1
             // 
@@ -201,11 +203,11 @@
             this.tableLayoutPanel1.Controls.Add(this.panel2, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 38);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 36);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1222, 617);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1222, 619);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // panel2
@@ -218,7 +220,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(614, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(605, 611);
+            this.panel2.Size = new System.Drawing.Size(605, 613);
             this.panel2.TabIndex = 1;
             // 
             // picTrackDisplay
@@ -286,7 +288,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(605, 611);
+            this.panel1.Size = new System.Drawing.Size(605, 613);
             this.panel1.TabIndex = 0;
             // 
             // txtYAxis
@@ -370,6 +372,7 @@
             this.btnRemoveAll.TabIndex = 4;
             this.btnRemoveAll.Text = "删除所有";
             this.btnRemoveAll.UseVisualStyleBackColor = true;
+            this.btnRemoveAll.Click += new System.EventHandler(this.btnRemoveAll_Click);
             // 
             // btnRemoveRecord
             // 
@@ -380,6 +383,7 @@
             this.btnRemoveRecord.TabIndex = 4;
             this.btnRemoveRecord.Text = "删除记录";
             this.btnRemoveRecord.UseVisualStyleBackColor = true;
+            this.btnRemoveRecord.Click += new System.EventHandler(this.btnRemoveRecord_Click);
             // 
             // btnModifyRecord
             // 
@@ -390,6 +394,7 @@
             this.btnModifyRecord.TabIndex = 4;
             this.btnModifyRecord.Text = "修改记录";
             this.btnModifyRecord.UseVisualStyleBackColor = true;
+            this.btnModifyRecord.Click += new System.EventHandler(this.btnModifyRecord_Click);
             // 
             // btnInsertRecord
             // 
@@ -400,6 +405,7 @@
             this.btnInsertRecord.TabIndex = 4;
             this.btnInsertRecord.Text = "插入记录";
             this.btnInsertRecord.UseVisualStyleBackColor = true;
+            this.btnInsertRecord.Click += new System.EventHandler(this.btnInsertRecord_Click);
             // 
             // btnAddRecord
             // 
@@ -410,20 +416,21 @@
             this.btnAddRecord.TabIndex = 4;
             this.btnAddRecord.Text = "新增记录";
             this.btnAddRecord.UseVisualStyleBackColor = true;
+            this.btnAddRecord.Click += new System.EventHandler(this.btnAddRecord_Click);
             // 
             // dgvDisplay
             // 
             this.dgvDisplay.AllowUserToAddRows = false;
             this.dgvDisplay.AllowUserToDeleteRows = false;
             this.dgvDisplay.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvDisplay.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDisplay.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvDisplay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDisplay.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -441,37 +448,7 @@
             this.dgvDisplay.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDisplay.Size = new System.Drawing.Size(476, 430);
             this.dgvDisplay.TabIndex = 3;
-            // 
-            // btnRemoveProduct
-            // 
-            this.btnRemoveProduct.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btnRemoveProduct.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
-            this.btnRemoveProduct.Location = new System.Drawing.Point(337, 9);
-            this.btnRemoveProduct.Name = "btnRemoveProduct";
-            this.btnRemoveProduct.Size = new System.Drawing.Size(121, 57);
-            this.btnRemoveProduct.TabIndex = 2;
-            this.btnRemoveProduct.Text = "删除产品";
-            this.btnRemoveProduct.UseVisualStyleBackColor = false;
-            // 
-            // cmbProductName
-            // 
-            this.cmbProductName.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
-            this.cmbProductName.FormattingEnabled = true;
-            this.cmbProductName.Location = new System.Drawing.Point(136, 18);
-            this.cmbProductName.Name = "cmbProductName";
-            this.cmbProductName.Size = new System.Drawing.Size(182, 32);
-            this.cmbProductName.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(20, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(110, 24);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "产品名称";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.dgvDisplay.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDisplay_CellClick);
             // 
             // Column1
             // 
@@ -505,6 +482,40 @@
             this.Column4.Name = "Column4";
             this.Column4.ReadOnly = true;
             // 
+            // btnRemoveProduct
+            // 
+            this.btnRemoveProduct.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btnRemoveProduct.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
+            this.btnRemoveProduct.Location = new System.Drawing.Point(337, 9);
+            this.btnRemoveProduct.Name = "btnRemoveProduct";
+            this.btnRemoveProduct.Size = new System.Drawing.Size(121, 57);
+            this.btnRemoveProduct.TabIndex = 2;
+            this.btnRemoveProduct.Text = "删除产品";
+            this.btnRemoveProduct.UseVisualStyleBackColor = false;
+            this.btnRemoveProduct.Click += new System.EventHandler(this.btnRemoveProduct_Click);
+            // 
+            // cmbProductName
+            // 
+            this.cmbProductName.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
+            this.cmbProductName.FormattingEnabled = true;
+            this.cmbProductName.Location = new System.Drawing.Point(136, 18);
+            this.cmbProductName.Name = "cmbProductName";
+            this.cmbProductName.Size = new System.Drawing.Size(182, 32);
+            this.cmbProductName.TabIndex = 1;
+            this.cmbProductName.SelectedIndexChanged += new System.EventHandler(this.cmbProductName_SelectedIndexChanged);
+            this.cmbProductName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmbProductName_KeyDown);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(20, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(110, 24);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "产品名称";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -519,6 +530,7 @@
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmMain_FormClosed);
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -547,10 +559,10 @@
         private System.Windows.Forms.ToolStripMenuItem accessToolStripMenuItem1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripStatusLabel tsslExecuteResult;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
+        private System.Windows.Forms.ToolStripStatusLabel tsslDbName;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;

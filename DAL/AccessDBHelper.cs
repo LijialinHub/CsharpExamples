@@ -64,6 +64,16 @@ namespace DAL
         }
 
         /// <summary>
+        /// 判断数据库是否存在
+        /// </summary>
+        /// <param name="dbName">数据库名或者路径</param>
+        /// <returns>True:存在 False:不存在</returns>
+        public bool IsDataBaseExist(string dbName)
+        {
+            return File.Exists(dbName);
+        }
+
+        /// <summary>
         /// 创建数据库参数对象
         /// </summary>
         /// <param name="parameterName">变量名</param>
