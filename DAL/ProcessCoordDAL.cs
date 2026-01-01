@@ -119,7 +119,7 @@ namespace DAL
                     DataBaseServer.CreateParameter("@ZPosition", processCoordEntity.ZPosition)
                 };
                
-                return DataBaseServer.ExecuteNonQuery(DbName, sql);
+                return DataBaseServer.ExecuteNonQuery(DbName, sql, parameters);
             }
             catch (Exception ex)
             {

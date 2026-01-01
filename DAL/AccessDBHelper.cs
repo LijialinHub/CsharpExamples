@@ -64,10 +64,10 @@ namespace DAL
         }
 
         /// <summary>
-        /// 创建数据盒子
+        /// 创建数据库参数对象
         /// </summary>
-        /// <param name="parameterName"></param>
-        /// <param name="value"></param>
+        /// <param name="parameterName">变量名</param>
+        /// <param name="value">实参值</param>
         /// <returns></returns>
         public DbParameter CreateParameter(string parameterName, object value)
         {

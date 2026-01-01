@@ -19,10 +19,10 @@ namespace DAL
         string ConnectionFixStr { get; }
 
         /// <summary>
-        /// 创建参数盒子
+        /// 创建数据库参数对象
         /// </summary>
-        /// <param name="parameterName"></param>
-        /// <param name="value"></param>
+        /// <param name="parameterName">变量名</param>
+        /// <param name="value">实参值</param>
         /// <returns></returns>
         DbParameter CreateParameter(string parameterName, object value);
 
