@@ -22,6 +22,11 @@ namespace _2025_12_30
         private DataHandleBLL dataHandleBLL = new DataHandleBLL();
 
         /// <summary>
+        /// 绘图业务逻辑对象
+        /// </summary>
+        private DrawHandleBLL drawHandleBLL;
+
+        /// <summary>
         /// 加工坐标点集合(来自数据库)
         /// </summary>
         private BindingList<ProcessCoordEntity> processCoordEntities = new BindingList<ProcessCoordEntity>();
@@ -69,6 +74,8 @@ namespace _2025_12_30
             dgvDisplay.AutoGenerateColumns = false;  //不自动创建列 按照指定的来
             dgvDisplay.DataSource = processCoordEntities;
 
+            drawHandleBLL = new DrawHandleBLL(picTrackDisplay);
+            drawHandleBLL.CoordinatesReset();
         }
 
 
@@ -464,6 +471,39 @@ namespace _2025_12_30
 
                 throw;
             }
+        }
+
+        private void 绘图参数ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmDrawParams frmDrawParams = new frmDrawParams();
+            frmDrawParams.Show();
+        }
+
+        /// <summary>
+        /// 数据点显示
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void btnShowDataPoint_Click(object sender, EventArgs e)
+        {
+
+            drawHandleBLL.CoordinatesReset();
+            await drawHandleBLL.DisplayDataPointsAsync(Brushes.Red, processCoordEntities, DrawParams);
+
+           
+        }
+
+        /// <summary>
+        /// 开始加工
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void btnStart_Click(object sender, EventArgs e)
+        {
+            drawHandleBLL.CoordinatesReset();
+            await drawHandleBLL.DrawTrackAsync(new Pen(Color.Red, 2), processCoordEntities, DrawParams);
+
+            MessageBox.Show("绘制结束！");
         }
     }
 }

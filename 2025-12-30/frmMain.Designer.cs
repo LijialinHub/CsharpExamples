@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.打开数据库ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.accessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -106,7 +106,7 @@
             // 
             this.accessToolStripMenuItem.Name = "accessToolStripMenuItem";
             this.accessToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.A)));
-            this.accessToolStripMenuItem.Size = new System.Drawing.Size(270, 36);
+            this.accessToolStripMenuItem.Size = new System.Drawing.Size(259, 36);
             this.accessToolStripMenuItem.Text = "Access";
             this.accessToolStripMenuItem.Click += new System.EventHandler(this.accessToolStripMenuItem_Click);
             // 
@@ -140,8 +140,9 @@
             // 绘图参数ToolStripMenuItem
             // 
             this.绘图参数ToolStripMenuItem.Name = "绘图参数ToolStripMenuItem";
-            this.绘图参数ToolStripMenuItem.Size = new System.Drawing.Size(198, 36);
+            this.绘图参数ToolStripMenuItem.Size = new System.Drawing.Size(270, 36);
             this.绘图参数ToolStripMenuItem.Text = "绘图参数";
+            this.绘图参数ToolStripMenuItem.Click += new System.EventHandler(this.绘图参数ToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -253,6 +254,7 @@
             this.btnStart.TabIndex = 2;
             this.btnStart.Text = "开始加工";
             this.btnStart.UseVisualStyleBackColor = false;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // btnShowDataPoint
             // 
@@ -264,6 +266,7 @@
             this.btnShowDataPoint.TabIndex = 2;
             this.btnShowDataPoint.Text = "数据点显示";
             this.btnShowDataPoint.UseVisualStyleBackColor = false;
+            this.btnShowDataPoint.Click += new System.EventHandler(this.btnShowDataPoint_Click);
             // 
             // panel1
             // 
@@ -423,14 +426,14 @@
             this.dgvDisplay.AllowUserToAddRows = false;
             this.dgvDisplay.AllowUserToDeleteRows = false;
             this.dgvDisplay.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvDisplay.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDisplay.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvDisplay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDisplay.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
