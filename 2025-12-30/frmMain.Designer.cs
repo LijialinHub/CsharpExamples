@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.打开数据库ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.accessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -89,7 +89,7 @@
             this.参数PToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1222, 36);
+            this.menuStrip1.Size = new System.Drawing.Size(1222, 38);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -99,7 +99,7 @@
             this.accessToolStripMenuItem});
             this.打开数据库ToolStripMenuItem.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.打开数据库ToolStripMenuItem.Name = "打开数据库ToolStripMenuItem";
-            this.打开数据库ToolStripMenuItem.Size = new System.Drawing.Size(166, 32);
+            this.打开数据库ToolStripMenuItem.Size = new System.Drawing.Size(166, 34);
             this.打开数据库ToolStripMenuItem.Text = "打开数据库(&O)";
             // 
             // accessToolStripMenuItem
@@ -116,7 +116,7 @@
             this.accessToolStripMenuItem1});
             this.创建数据库CToolStripMenuItem.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Bold);
             this.创建数据库CToolStripMenuItem.Name = "创建数据库CToolStripMenuItem";
-            this.创建数据库CToolStripMenuItem.Size = new System.Drawing.Size(163, 32);
+            this.创建数据库CToolStripMenuItem.Size = new System.Drawing.Size(163, 34);
             this.创建数据库CToolStripMenuItem.Text = "创建数据库(&C)";
             // 
             // accessToolStripMenuItem1
@@ -134,13 +134,13 @@
             this.绘图参数ToolStripMenuItem});
             this.参数PToolStripMenuItem.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Bold);
             this.参数PToolStripMenuItem.Name = "参数PToolStripMenuItem";
-            this.参数PToolStripMenuItem.Size = new System.Drawing.Size(100, 32);
+            this.参数PToolStripMenuItem.Size = new System.Drawing.Size(100, 34);
             this.参数PToolStripMenuItem.Text = "参数(&P)";
             // 
             // 绘图参数ToolStripMenuItem
             // 
             this.绘图参数ToolStripMenuItem.Name = "绘图参数ToolStripMenuItem";
-            this.绘图参数ToolStripMenuItem.Size = new System.Drawing.Size(270, 36);
+            this.绘图参数ToolStripMenuItem.Size = new System.Drawing.Size(198, 36);
             this.绘图参数ToolStripMenuItem.Text = "绘图参数";
             this.绘图参数ToolStripMenuItem.Click += new System.EventHandler(this.绘图参数ToolStripMenuItem_Click);
             // 
@@ -204,11 +204,11 @@
             this.tableLayoutPanel1.Controls.Add(this.panel2, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 36);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 38);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1222, 619);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1222, 617);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // panel2
@@ -221,7 +221,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(614, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(605, 613);
+            this.panel2.Size = new System.Drawing.Size(605, 611);
             this.panel2.TabIndex = 1;
             // 
             // picTrackDisplay
@@ -291,7 +291,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(605, 613);
+            this.panel1.Size = new System.Drawing.Size(605, 611);
             this.panel1.TabIndex = 0;
             // 
             // txtYAxis
@@ -426,14 +426,14 @@
             this.dgvDisplay.AllowUserToAddRows = false;
             this.dgvDisplay.AllowUserToDeleteRows = false;
             this.dgvDisplay.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvDisplay.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDisplay.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvDisplay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDisplay.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
