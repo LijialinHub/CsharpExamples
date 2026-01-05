@@ -114,7 +114,7 @@ namespace Csv文件读写
 
                     var colHeads = line.Split(',');
                     colHeads.All(str => dgvDisplay.Columns.Add($"N_{str}", str) >= 0);
-
+                    
                     //读取行数据
                     while(true)
                     {
