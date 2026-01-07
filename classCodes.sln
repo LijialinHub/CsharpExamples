@@ -149,6 +149,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Csv文件读写", "Csv文�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "雷赛DMC2410控制卡基础功能", "雷赛DMC2410控制卡基础功能\雷赛DMC2410控制卡基础功能.csproj", "{E4AA5C05-0201-4EA6-86CC-DDFD911B3C7C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeiSaiControlCardCutProjectDemo", "LeiSaiControlCardCutProjectDemo\LeiSaiControlCardCutProjectDemo.csproj", "{FD367DDA-6DEC-4B48-9DC4-AC96F06BE796}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -613,6 +615,14 @@ Global
 		{E4AA5C05-0201-4EA6-86CC-DDFD911B3C7C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E4AA5C05-0201-4EA6-86CC-DDFD911B3C7C}.Release|x64.ActiveCfg = Release|Any CPU
 		{E4AA5C05-0201-4EA6-86CC-DDFD911B3C7C}.Release|x64.Build.0 = Release|Any CPU
+		{FD367DDA-6DEC-4B48-9DC4-AC96F06BE796}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD367DDA-6DEC-4B48-9DC4-AC96F06BE796}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD367DDA-6DEC-4B48-9DC4-AC96F06BE796}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FD367DDA-6DEC-4B48-9DC4-AC96F06BE796}.Debug|x64.Build.0 = Debug|Any CPU
+		{FD367DDA-6DEC-4B48-9DC4-AC96F06BE796}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD367DDA-6DEC-4B48-9DC4-AC96F06BE796}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD367DDA-6DEC-4B48-9DC4-AC96F06BE796}.Release|x64.ActiveCfg = Release|Any CPU
+		{FD367DDA-6DEC-4B48-9DC4-AC96F06BE796}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -688,6 +698,7 @@ Global
 		{5EDA2205-3840-4B72-BCFC-B6CB52F6A096} = {E40948DB-72AD-4A1C-93F5-E5D43EAFB162}
 		{E536A28A-576A-490A-B20F-E74E38307D44} = {909A4366-1E28-4033-8429-45F43A609381}
 		{E4AA5C05-0201-4EA6-86CC-DDFD911B3C7C} = {909A4366-1E28-4033-8429-45F43A609381}
+		{FD367DDA-6DEC-4B48-9DC4-AC96F06BE796} = {909A4366-1E28-4033-8429-45F43A609381}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6153578C-9FDA-48B8-8756-14271318ABAA}

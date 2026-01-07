@@ -624,5 +624,110 @@ namespace 雷赛DMC2410控制卡基础功能
             } 
 
         }
+
+
+        /// <summary>
+        /// 设置比较器
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnComporeConfig_Click(object sender, EventArgs e)
+        {
+            /*执行位置比较时
+             *每个比较点的触发
+             */
+            
+            
+            
+            //参数： card 卡号
+            //queue 比较队列号，取值范围0~1
+            //enable 比较功能状态， 0：禁止比较功能 1：使能比较功能
+            //axis 指定轴号，取值范围0~3
+            //cmp_source 比较源 0：比较指令位置 1：比较编码器位置
+            Dmc2410.d2410_compare_config_Extern(0, 0, 1, 0, 0);
+        }
+
+        private void btnComporeClear_Click(object sender, EventArgs e)
+        {
+
+            //功能 清除所有比较点
+            //参数 card 卡号 queue 比较队列号 取值范围0~1
+            Dmc2410.d2410_compare_clear_points_Extern(0, 0);
+        }
+
+        /// <summary>
+        /// 获取当前比较点位置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnCurrentComparePoint_Click(object sender, EventArgs e)
+        {
+            //功能 获取当前比较点位置
+            //参数 card 卡号 queue 队列号 取值范围0~1
+            //返回值 当前比较点位置值
+            int res = Dmc2410.d2410_compare_get_current_point_Extern(0, 0);
+            txtCompareGetCurrent.Text = res.ToString();
+        }
+
+
+        /// <summary>
+        /// 已比较点数量
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnComporePointsCount_Click(object sender, EventArgs e)
+        {   
+            //功能 查询已经比较过得点个数
+            //参数 card 卡号 queue 比较队列号 取值范围0~1
+            //返回值 已经比较过的点个数
+            var res = Dmc2410.d2410_compare_get_points_runned_Extern(0, 0);
+            txtComporePointsCount.Text = res.ToString();
+        }
+
+        /// <summary>
+        /// 可加入点数量
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnRemainingPoints_Click(object sender, EventArgs e)
+        {   
+            //功能 查询可加入比较点数量
+            //参数 card 卡号 queue 队列号 取值范围0~1
+            //返回值 剩余可用的比较点数量
+            int res = Dmc2410.d2410_compare_get_points_remained_Extern(0, 0);
+            txtRemainingPoints.Text = res.ToString();
+        }
+
+        /// <summary>
+        /// <summary>
+        /// 添加比较点
+        /// </summary>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnCompareAdd_Click(object sender, EventArgs e)
+        {
+            //每组最多添加8个比较点
+            for (int i = 0; i < dgvDisplay.Rows.Count - 1; i++)
+            {
+                //位置坐标
+                uint pos = uint.Parse(dgvDisplay.Rows[i].Cells[0].Value.ToString());
+
+                //dir 比较方向 0：小于等于 1：大于等于
+                //action 比较点触发功能 3==》取反IO 此时，对应的动作参数actpara就是输出的位号
+                uint actparea = uint.Parse(dgvDisplay.Rows[i].Cells[1].Value.ToString());
+                Dmc2410.d2410_compare_add_point_Extern(0, 0, pos, 1, 3, actparea);
+            }
+        }
+
+        /// <summary>
+        /// 清除表格
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

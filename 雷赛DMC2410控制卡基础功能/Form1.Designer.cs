@@ -1,4 +1,4 @@
-﻿namespace 雷赛DMC2410控制卡基础功能
+namespace 雷赛DMC2410控制卡基础功能
 {
     partial class Form1
     {
@@ -134,9 +134,6 @@
             this.txtCompareGetCurrent = new System.Windows.Forms.TextBox();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnCompareAdd = new System.Windows.Forms.Button();
-            this.dgvDisplay = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnEmergencyStop = new System.Windows.Forms.Button();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
@@ -158,6 +155,9 @@
             this.label22 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
+            this.dgvDisplay = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudRunSpeed)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -169,9 +169,9 @@
             this.groupBox5.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDisplay)).BeginInit();
             this.panel1.SuspendLayout();
             this.groupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDisplay)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -1194,6 +1194,7 @@
             // groupBox6
             // 
             this.groupBox6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.groupBox6.Controls.Add(this.dgvDisplay);
             this.groupBox6.Controls.Add(this.btnRemainingPoints);
             this.groupBox6.Controls.Add(this.btnComporePointsCount);
             this.groupBox6.Controls.Add(this.btnCurrentComparePoint);
@@ -1207,7 +1208,6 @@
             this.groupBox6.Controls.Add(this.txtCompareGetCurrent);
             this.groupBox6.Controls.Add(this.btnClear);
             this.groupBox6.Controls.Add(this.btnCompareAdd);
-            this.groupBox6.Controls.Add(this.dgvDisplay);
             this.groupBox6.Location = new System.Drawing.Point(938, 254);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(562, 341);
@@ -1225,6 +1225,7 @@
             this.btnRemainingPoints.TabIndex = 14;
             this.btnRemainingPoints.Text = "可加入点数量";
             this.btnRemainingPoints.UseVisualStyleBackColor = false;
+            this.btnRemainingPoints.Click += new System.EventHandler(this.btnRemainingPoints_Click);
             // 
             // btnComporePointsCount
             // 
@@ -1236,6 +1237,7 @@
             this.btnComporePointsCount.TabIndex = 14;
             this.btnComporePointsCount.Text = "已比较点数量";
             this.btnComporePointsCount.UseVisualStyleBackColor = false;
+            this.btnComporePointsCount.Click += new System.EventHandler(this.btnComporePointsCount_Click);
             // 
             // btnCurrentComparePoint
             // 
@@ -1247,6 +1249,7 @@
             this.btnCurrentComparePoint.TabIndex = 14;
             this.btnCurrentComparePoint.Text = "当前比较点位置";
             this.btnCurrentComparePoint.UseVisualStyleBackColor = false;
+            this.btnCurrentComparePoint.Click += new System.EventHandler(this.btnCurrentComparePoint_Click);
             // 
             // btnComporeClear
             // 
@@ -1258,6 +1261,7 @@
             this.btnComporeClear.TabIndex = 14;
             this.btnComporeClear.Text = "清除所有比较点";
             this.btnComporeClear.UseVisualStyleBackColor = false;
+            this.btnComporeClear.Click += new System.EventHandler(this.btnComporeClear_Click);
             // 
             // btnComporeConfig
             // 
@@ -1269,6 +1273,7 @@
             this.btnComporeConfig.TabIndex = 14;
             this.btnComporeConfig.Text = "设置位置比较器";
             this.btnComporeConfig.UseVisualStyleBackColor = false;
+            this.btnComporeConfig.Click += new System.EventHandler(this.btnComporeConfig_Click);
             // 
             // label43
             // 
@@ -1302,6 +1307,7 @@
             this.txtRemainingPoints.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtRemainingPoints.Location = new System.Drawing.Point(315, 286);
             this.txtRemainingPoints.Name = "txtRemainingPoints";
+            this.txtRemainingPoints.ReadOnly = true;
             this.txtRemainingPoints.Size = new System.Drawing.Size(82, 31);
             this.txtRemainingPoints.TabIndex = 12;
             // 
@@ -1310,6 +1316,7 @@
             this.txtComporePointsCount.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtComporePointsCount.Location = new System.Drawing.Point(316, 171);
             this.txtComporePointsCount.Name = "txtComporePointsCount";
+            this.txtComporePointsCount.ReadOnly = true;
             this.txtComporePointsCount.Size = new System.Drawing.Size(82, 31);
             this.txtComporePointsCount.TabIndex = 11;
             // 
@@ -1318,6 +1325,7 @@
             this.txtCompareGetCurrent.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtCompareGetCurrent.Location = new System.Drawing.Point(316, 72);
             this.txtCompareGetCurrent.Name = "txtCompareGetCurrent";
+            this.txtCompareGetCurrent.ReadOnly = true;
             this.txtCompareGetCurrent.Size = new System.Drawing.Size(82, 31);
             this.txtCompareGetCurrent.TabIndex = 10;
             // 
@@ -1331,6 +1339,7 @@
             this.btnClear.TabIndex = 7;
             this.btnClear.Text = "清除表格";
             this.btnClear.UseVisualStyleBackColor = false;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // btnCompareAdd
             // 
@@ -1342,39 +1351,7 @@
             this.btnCompareAdd.TabIndex = 7;
             this.btnCompareAdd.Text = "添加比较点";
             this.btnCompareAdd.UseVisualStyleBackColor = false;
-            // 
-            // dgvDisplay
-            // 
-            this.dgvDisplay.AllowUserToAddRows = false;
-            this.dgvDisplay.AllowUserToDeleteRows = false;
-            this.dgvDisplay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDisplay.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2});
-            this.dgvDisplay.Location = new System.Drawing.Point(14, 39);
-            this.dgvDisplay.Name = "dgvDisplay";
-            this.dgvDisplay.ReadOnly = true;
-            this.dgvDisplay.RowHeadersVisible = false;
-            this.dgvDisplay.RowHeadersWidth = 62;
-            this.dgvDisplay.RowTemplate.Height = 30;
-            this.dgvDisplay.Size = new System.Drawing.Size(240, 296);
-            this.dgvDisplay.TabIndex = 0;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "比较位置";
-            this.Column1.MinimumWidth = 8;
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 120;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "取反输出点";
-            this.Column2.MinimumWidth = 8;
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Width = 150;
+            this.btnCompareAdd.Click += new System.EventHandler(this.btnCompareAdd_Click);
             // 
             // panel1
             // 
@@ -1601,6 +1578,34 @@
             this.label15.TabIndex = 2;
             this.label15.Text = "输入信号";
             // 
+            // dgvDisplay
+            // 
+            this.dgvDisplay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDisplay.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2});
+            this.dgvDisplay.Location = new System.Drawing.Point(7, 30);
+            this.dgvDisplay.Name = "dgvDisplay";
+            this.dgvDisplay.RowHeadersVisible = false;
+            this.dgvDisplay.RowHeadersWidth = 62;
+            this.dgvDisplay.RowTemplate.Height = 30;
+            this.dgvDisplay.Size = new System.Drawing.Size(247, 305);
+            this.dgvDisplay.TabIndex = 15;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "位置比较";
+            this.Column1.MinimumWidth = 8;
+            this.Column1.Name = "Column1";
+            this.Column1.Width = 120;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "取反输出点";
+            this.Column2.MinimumWidth = 8;
+            this.Column2.Name = "Column2";
+            this.Column2.Width = 150;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -1618,7 +1623,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "雷赛DMC2410";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Click += new System.EventHandler(this.btnMicroMove_Click);
@@ -1643,10 +1648,10 @@
             this.groupBox8.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDisplay)).EndInit();
             this.panel1.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDisplay)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1767,7 +1772,6 @@
         private System.Windows.Forms.Label lblOUT4;
         private System.Windows.Forms.Label label39;
         private System.Windows.Forms.Label label37;
-        private System.Windows.Forms.DataGridView dgvDisplay;
         private System.Windows.Forms.Button btnCompareAdd;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.TextBox txtRemainingPoints;
@@ -1781,6 +1785,10 @@
         private System.Windows.Forms.Button btnCurrentComparePoint;
         private System.Windows.Forms.Button btnComporeClear;
         private System.Windows.Forms.Button btnComporeConfig;
+        private System.Windows.Forms.TextBox txtComparePosition;
+        private System.Windows.Forms.TextBox txtOutputBit;
+        private System.Windows.Forms.Button btnAddRow;
+        private System.Windows.Forms.DataGridView dgvDisplay;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
     }
