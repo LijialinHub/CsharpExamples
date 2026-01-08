@@ -14,7 +14,7 @@
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,6 +37,10 @@
     <Reference Include="HZH_Controls, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\HZH_Controls.1.5.240416\lib\net40\HZH_Controls.dll</HintPath>
     </Reference>
+    <Reference Include="Interop.ADOX">
+      <HintPath>..\Entity\obj\Debug\Interop.ADOX.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="SunnyUI, Version=3.9.1.0, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\SunnyUI.3.9.1\lib\net472\SunnyUI.dll</HintPath>
     </Reference>
@@ -43,6 +48,7 @@
       <HintPath>..\packages\SunnyUI.Common.3.9.1\lib\net472\SunnyUI.Common.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
     <Reference Include="System.Web.Extensions" />
@@ -57,16 +63,45 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="BLL\工艺流程业务逻辑\ProcessFlowBLL.cs" />
+    <Compile Include="BLL\数据处理业务逻辑\DataHandleBLL.cs" />
+    <Compile Include="BLL\绘图处理业务逻辑\DrawHandleBLL.cs" />
+    <Compile Include="BLL\运动处理业务逻辑\MotionHandleBLL.cs" />
+    <Compile Include="DAL\控制卡访问\DMC2410.cs" />
+    <Compile Include="DAL\数据库访问\AccessDBHelper.cs" />
+    <Compile Include="DAL\数据库访问\IDataBaseServer.cs" />
+    <Compile Include="DAL\Ini文件访问\IniHelper.cs" />
+    <Compile Include="DAL\控制卡访问\LeiSaiCard.cs" />
+    <Compile Include="DAL\控制卡访问\MotionCard.cs" />
+    <Compile Include="DAL\数据库访问\ProcessCoordDAL.cs" />
+    <Compile Include="DAL\数据库访问\SQLServerDBHelper.cs" />
+    <Compile Include="Entity\Axis.cs" />
+    <Compile Include="Entity\DrawParamsEntity.cs" />
+    <Compile Include="Entity\IOCraftEntity.cs" />
+    <Compile Include="Entity\IOType.cs" />
+    <Compile Include="Entity\ProcessCoordEntity.cs" />
+    <Compile Include="UI\frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="UI\frmMain.Designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="UI\frmAxisParamsSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\frmAxisParamsSet.designer.cs">
+      <DependentUpon>frmAxisParamsSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\frmDrawParams.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\frmDrawParams.Designer.cs">
+      <DependentUpon>frmDrawParams.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="UI\frmMain.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -78,6 +113,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UI\frmAxisParamsSet.resx">
+      <DependentUpon>frmAxisParamsSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\frmDrawParams.resx">
+      <DependentUpon>frmDrawParams.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -92,5 +133,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
