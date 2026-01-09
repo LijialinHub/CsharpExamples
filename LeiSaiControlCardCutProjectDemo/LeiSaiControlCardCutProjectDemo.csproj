@@ -34,13 +34,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HZH_Controls, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HZH_Controls.1.5.240416\lib\net40\HZH_Controls.dll</HintPath>
-    </Reference>
     <Reference Include="Interop.ADOX">
       <HintPath>..\Entity\obj\Debug\Interop.ADOX.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="SunnyUI, Version=3.9.1.0, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\SunnyUI.3.9.1\lib\net472\SunnyUI.dll</HintPath>
     </Reference>

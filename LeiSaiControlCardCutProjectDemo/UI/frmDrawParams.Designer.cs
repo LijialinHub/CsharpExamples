@@ -159,7 +159,7 @@
             // frmDrawParams
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(373, 271);
             this.Controls.Add(this.nudYOffset);
             this.Controls.Add(this.label4);

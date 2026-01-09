@@ -68,9 +68,9 @@ namespace DAL
                             $"{tableName} " +
                             $"(Id autoincrement primary key, " +
                             $"Num int," +
-                            $" XPosition decimal(6,2), " +
-                            $"YPosition decimal(6,2), " +
-                            $"ZPosition decimal(6,2) )";
+                            $" XPosition decimal(10,4), " +
+                            $"YPosition decimal(10,4), " +
+                            $"ZPosition decimal(10,4) )";
 
                 DataBaseServer.CreateTable(DbName, sql);
             }

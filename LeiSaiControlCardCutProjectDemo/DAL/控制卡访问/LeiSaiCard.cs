@@ -153,9 +153,9 @@ namespace DAL
                     }
                 });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
 
@@ -167,7 +167,9 @@ namespace DAL
             Axis.EmgMark = false;
         }
 
-
+        /// <summary>
+        /// 暂停
+        /// </summary>
         public override void PressPause()
         {
             try
@@ -192,6 +194,9 @@ namespace DAL
             }
         }
 
+        /// <summary>
+        /// 急停复位
+        /// </summary>
         public override void LoosenPause()
         {
             Axis.PauseMark = false;
@@ -243,9 +248,9 @@ namespace DAL
                 Dmc2410.d2410_set_position(ax.Axis_Num, 0);
                 ax.OverGoHomeMark = true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
 
@@ -287,10 +292,10 @@ namespace DAL
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
 
         }
@@ -336,10 +341,10 @@ namespace DAL
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
 
 
@@ -383,10 +388,10 @@ namespace DAL
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
         }
 
