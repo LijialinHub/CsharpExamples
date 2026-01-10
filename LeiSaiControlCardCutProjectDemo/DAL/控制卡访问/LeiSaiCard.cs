@@ -279,6 +279,7 @@ namespace DAL
                                          Ax2.Axis_Num,
                                          (int)(dst2 * Ax2.PulseEquivalent),
                                          1);
+                
 
                 if (error2 != 0)
                 { throw new Exception($"两轴插补运动发生异常：错误代码" + error2); }

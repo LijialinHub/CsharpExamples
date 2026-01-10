@@ -40,6 +40,13 @@ namespace LeiSaiControlCardCutProjectDemo
         /// </summary>
         private MotionHandleBLL motionHandleBLL = new MotionHandleBLL();
 
+        /// <summary>
+        /// 工艺流程业务逻辑对象
+        /// </summary>
+        private ProcessFlowBLL processFlowBLL = new ProcessFlowBLL();
+
+        
+
         #endregion
 
         #region 实体
@@ -90,7 +97,7 @@ namespace LeiSaiControlCardCutProjectDemo
         /// <param name="e"></param>
         private async void Form1_Load(object sender, EventArgs e)
         {
-            if(!motionHandleBLL.OpenCard(out string res))
+            if(motionHandleBLL.OpenCard(out string res))
             {
                 MessageBox.Show(res, "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 
@@ -125,8 +132,6 @@ namespace LeiSaiControlCardCutProjectDemo
 
                 //控制卡信号
                 motionHandleBLL.RealTimeReadAxisData(IOCraftEntity, X_Axis, Y_Axis, Z_Axis);
-
-
 
             }
             else
@@ -182,9 +187,9 @@ namespace LeiSaiControlCardCutProjectDemo
 
             #region 位置显示
 
-            lblPositionX.Value = Math.Round(X_Axis.Position, 4);  // 保留4位小数显示
-            lblPositionY.Value = Math.Round(Y_Axis.Position, 4);
-            lblPositionZ.Value = Math.Round(Z_Axis.Position, 4);
+            lblPositionX.Value = X_Axis.Position;  // 保留4位小数显示
+            lblPositionY.Value = Y_Axis.Position;
+            lblPositionZ.Value =Z_Axis.Position;
 
 
             lblDisplayXOverGoHomeMark.Text = X_Axis.OverGoHomeMark ? "X轴回原点完成" : "X轴未回原点";
@@ -240,6 +245,8 @@ namespace LeiSaiControlCardCutProjectDemo
             #region 自动运行状态
 
             uiLightCuterStatus.State = IOCraftEntity.Cutter.StatusValue ? UILightState.On : UILightState.Off;
+
+            lblStatus.Text = processFlowBLL.autoProcessStep.ToString();
 
             #endregion
 
@@ -733,6 +740,86 @@ namespace LeiSaiControlCardCutProjectDemo
                 throw;
             }
 
+        }
+
+        /// <summary>
+        /// 自动运行
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async  void btnStart_Click(object sender, EventArgs e)
+        {
+            if(!X_Axis.OverGoHomeMark || !Y_Axis.OverGoHomeMark || !Z_Axis.OverGoHomeMark)
+            {
+                MessageBox.Show("回原点未完成！", "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if(dgvDisplay.Rows.Count == 0)
+            {
+                MessageBox.Show("表格中没有任何数据！", "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            if(processFlowBLL.autoProcessStep != AutoProcessStep.AutomaticallyStopping)
+            {
+                MessageBox.Show("自动进行中！", "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            processFlowBLL.processCoordEntities = processCoordEntities;
+            processFlowBLL.iOCraftEntity = IOCraftEntity;
+            processFlowBLL.AxisList = new List<Axis>() { X_Axis, Y_Axis, Z_Axis };
+
+            processFlowBLL.UiDoSomething -= processFlowBLL_UiDoSomething;
+            processFlowBLL.UiDoSomething += processFlowBLL_UiDoSomething;
+
+            cmbProductNames.Enabled = false;
+            btnDelProduct.Enabled = false;
+
+            await processFlowBLL.AutoRunAsync();
+
+            cmbProductNames.Enabled = true;
+            btnDelProduct.Enabled = true;
+
+            
+        }
+
+        private void processFlowBLL_UiDoSomething(int num)
+        {
+            
+            this.Invoke(new Action(() =>
+            {
+                dgvDisplay.Rows[num].Selected = true;
+            }));
+        }
+
+        /// <summary>
+        /// 暂停
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnPause_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        /// <summary>
+        /// 全自动半自动切换
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="index"></param>
+        /// <param name="text"></param>
+        private void radGroupAutoSelect_ValueChanged(object sender, int index, string text)
+        {
+            if(text == "半自动")
+            {
+                processFlowBLL.FullyAutomaticMark = false;
+            }
+            else
+            {
+                processFlowBLL.FullyAutomaticMark = true;
+            }
         }
     }
 }
