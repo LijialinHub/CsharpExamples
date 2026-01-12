@@ -255,7 +255,8 @@ namespace BLL
             iOEntity.MaterialSignals.StatusValue = motion.ReadInBit(axis, iOEntity.MaterialSignals.BitNo);
 
             axis.Axis_CardNo = iOEntity.Cutter.CardNo;
-            iOEntity.Cutter.StatusValue = motion.ReadInBit(axis, iOEntity.Cutter.BitNo);
+            //iOEntity.Cutter.StatusValue = motion.ReadInBit(axis, iOEntity.Cutter.BitNo);
+            iOEntity.Cutter.StatusValue = motion.ReadOutBit(axis, iOEntity.Cutter.BitNo);
             
         }
 

@@ -25,10 +25,10 @@ namespace LeiSaiControlCardCutProjectDemo
         /// <param name="e"></param>
         private void frmDrawParams_Load(object sender, EventArgs e)
         {
-            nudXAxisScalar.DataBindings.Add("Value", frmMain.DrawParamsEntity, "XDrawScale", false, DataSourceUpdateMode.OnPropertyChanged);
-            nudYAxisScalar.DataBindings.Add("Value", frmMain.DrawParamsEntity, "YDrawScale", false, DataSourceUpdateMode.OnPropertyChanged);
-            nudXOffset.DataBindings.Add("value", frmMain.DrawParamsEntity, "XDrawOffset", false, DataSourceUpdateMode.OnPropertyChanged);
-            nudYOffset.DataBindings.Add("value", frmMain.DrawParamsEntity, "YDrawOffset", false, DataSourceUpdateMode.OnPropertyChanged);
+            nudXAxisScalar.DataBindings.Add("Value", frmMainAdapt.DrawParamsEntity, "XDrawScale", false, DataSourceUpdateMode.OnPropertyChanged);
+            nudYAxisScalar.DataBindings.Add("Value", frmMainAdapt.DrawParamsEntity, "YDrawScale", false, DataSourceUpdateMode.OnPropertyChanged);
+            nudXOffset.DataBindings.Add("value", frmMainAdapt.DrawParamsEntity, "XDrawOffset", false, DataSourceUpdateMode.OnPropertyChanged);
+            nudYOffset.DataBindings.Add("value", frmMainAdapt.DrawParamsEntity, "YDrawOffset", false, DataSourceUpdateMode.OnPropertyChanged);
         }
     }
 }

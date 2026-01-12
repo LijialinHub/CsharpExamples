@@ -66,7 +66,7 @@ namespace LeiSaiControlCardCutProjectDemo
 
         //轴实体
         public Axis X_Axis = new Axis() { Axis_CardNo = 0, Axis_Num = 0, Axis_Name = "X轴" };
-        public Axis Y_Axis = new Axis() { Axis_CardNo = 0, Axis_Num = 1, Axis_Name = "Y轴" };
+        public Axis Y_Axis = new Axis() { Axis_CardNo = 0, Axis_Num = 3, Axis_Name = "Y轴" };
         public Axis Z_Axis = new Axis() { Axis_CardNo = 0, Axis_Num = 2, Axis_Name = "Z轴" };
 
         /// <summary>
@@ -656,7 +656,7 @@ namespace LeiSaiControlCardCutProjectDemo
 
             #region 轴状态
 
-            gpbAxisStatus.Controls.Cast<Control>().Where(light => light is UILight).
+            tableLayoutPanel8.Controls.Cast<Control>().Where(light => light is UILight).
             Cast<UILight>().
             ForEach(light =>
             {
@@ -868,6 +868,21 @@ namespace LeiSaiControlCardCutProjectDemo
             {
                 chkMicroMove.Text = "点动";
                 chkMicroMove.BackColor = Color.FromArgb(0, 128, 255);
+            }
+        }
+
+        private void dgvDisplay_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                int num = dgvDisplay.SelectedIndex;
+                cmbSelectPos.SelectedIndex = num;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }

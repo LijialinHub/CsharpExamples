@@ -170,7 +170,6 @@
             // 
             // menuStrip1
             // 
-            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.参数窗体ToolStripMenuItem,
@@ -179,7 +178,7 @@
             this.绘图参数ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 35);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1800, 32);
+            this.menuStrip1.Size = new System.Drawing.Size(1801, 32);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -187,7 +186,7 @@
             // 
             this.参数窗体ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("参数窗体ToolStripMenuItem.Image")));
             this.参数窗体ToolStripMenuItem.Name = "参数窗体ToolStripMenuItem";
-            this.参数窗体ToolStripMenuItem.Size = new System.Drawing.Size(122, 28);
+            this.参数窗体ToolStripMenuItem.Size = new System.Drawing.Size(92, 28);
             this.参数窗体ToolStripMenuItem.Text = "参数窗体";
             this.参数窗体ToolStripMenuItem.Click += new System.EventHandler(this.参数窗体ToolStripMenuItem_Click);
             // 
@@ -195,7 +194,7 @@
             // 
             this.打开数据库ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("打开数据库ToolStripMenuItem.Image")));
             this.打开数据库ToolStripMenuItem.Name = "打开数据库ToolStripMenuItem";
-            this.打开数据库ToolStripMenuItem.Size = new System.Drawing.Size(140, 28);
+            this.打开数据库ToolStripMenuItem.Size = new System.Drawing.Size(104, 28);
             this.打开数据库ToolStripMenuItem.Text = "打开数据库";
             this.打开数据库ToolStripMenuItem.Click += new System.EventHandler(this.打开数据库ToolStripMenuItem_Click);
             // 
@@ -203,7 +202,7 @@
             // 
             this.创建数据库ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("创建数据库ToolStripMenuItem.Image")));
             this.创建数据库ToolStripMenuItem.Name = "创建数据库ToolStripMenuItem";
-            this.创建数据库ToolStripMenuItem.Size = new System.Drawing.Size(140, 28);
+            this.创建数据库ToolStripMenuItem.Size = new System.Drawing.Size(104, 28);
             this.创建数据库ToolStripMenuItem.Text = "创建数据库";
             this.创建数据库ToolStripMenuItem.Click += new System.EventHandler(this.创建数据库ToolStripMenuItem_Click);
             // 
@@ -211,7 +210,7 @@
             // 
             this.绘图参数ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("绘图参数ToolStripMenuItem.Image")));
             this.绘图参数ToolStripMenuItem.Name = "绘图参数ToolStripMenuItem";
-            this.绘图参数ToolStripMenuItem.Size = new System.Drawing.Size(122, 28);
+            this.绘图参数ToolStripMenuItem.Size = new System.Drawing.Size(92, 28);
             this.绘图参数ToolStripMenuItem.Text = "绘图参数";
             this.绘图参数ToolStripMenuItem.Click += new System.EventHandler(this.绘图参数ToolStripMenuItem_Click);
             // 
@@ -234,7 +233,7 @@
             this.uiPanel1.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiPanel1.Name = "uiPanel1";
             this.uiPanel1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(155)))), ((int)(((byte)(40)))));
-            this.uiPanel1.Size = new System.Drawing.Size(643, 879);
+            this.uiPanel1.Size = new System.Drawing.Size(825, 889);
             this.uiPanel1.Style = Sunny.UI.UIStyle.Custom;
             this.uiPanel1.TabIndex = 1;
             this.uiPanel1.Text = null;
@@ -245,7 +244,7 @@
             this.cmbProductNames.FormattingEnabled = true;
             this.cmbProductNames.Location = new System.Drawing.Point(251, 20);
             this.cmbProductNames.Name = "cmbProductNames";
-            this.cmbProductNames.Size = new System.Drawing.Size(121, 32);
+            this.cmbProductNames.Size = new System.Drawing.Size(121, 24);
             this.cmbProductNames.TabIndex = 5;
             this.cmbProductNames.SelectedIndexChanged += new System.EventHandler(this.cmbProductNames_SelectedIndexChanged);
             this.cmbProductNames.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmbProductNames_KeyDown);
@@ -320,7 +319,6 @@
             this.dgvDisplay.StripeOddColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
             this.dgvDisplay.TabIndex = 3;
             this.dgvDisplay.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDisplay_CellClick);
-            this.dgvDisplay.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDisplay_CellContentClick);
             // 
             // Column1
             // 
@@ -1642,19 +1640,19 @@
             // tsslExecuteInfo
             // 
             this.tsslExecuteInfo.Name = "tsslExecuteInfo";
-            this.tsslExecuteInfo.Size = new System.Drawing.Size(74, 42);
+            this.tsslExecuteInfo.Size = new System.Drawing.Size(48, 44);
             this.tsslExecuteInfo.Text = "********";
             // 
             // toolStripStatusLabel3
             // 
             this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(330, 42);
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(264, 44);
             this.toolStripStatusLabel3.Text = "                                                                ";
             // 
             // toolStripStatusLabel6
             // 
             this.toolStripStatusLabel6.Name = "toolStripStatusLabel6";
-            this.toolStripStatusLabel6.Size = new System.Drawing.Size(140, 42);
+            this.toolStripStatusLabel6.Size = new System.Drawing.Size(95, 44);
             this.toolStripStatusLabel6.Text = "当前数据库名称:";
             // 
             // tsslDataBaseName
@@ -1662,7 +1660,7 @@
             this.tsslDataBaseName.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tsslDataBaseName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.tsslDataBaseName.Name = "tsslDataBaseName";
-            this.tsslDataBaseName.Size = new System.Drawing.Size(97, 42);
+            this.tsslDataBaseName.Size = new System.Drawing.Size(66, 44);
             this.tsslDataBaseName.Text = "***.mdb";
             // 
             // timer1
@@ -1674,7 +1672,10 @@
             // frmMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(1800, 930);
+            this.AutoScroll = true;
+            this.AutoScrollMinSize = new System.Drawing.Size(800, 800);
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(1620, 920);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.uiLightCuterStatus);
             this.Controls.Add(this.gpbAxisStatus);
@@ -1686,9 +1687,8 @@
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.MaximizeBox = false;
             this.Name = "frmMain";
-            this.ShowRect = false;
+            this.Resizable = true;
             this.Text = "雷赛控制卡切割器演示案例";
             this.TitleColor = System.Drawing.Color.Navy;
             this.ZoomScaleRect = new System.Drawing.Rectangle(22, 22, 1142, 673);
