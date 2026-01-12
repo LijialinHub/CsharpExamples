@@ -191,7 +191,7 @@ namespace DAL
         /// <param name="sql">SQL语句</param>
         /// <param name="parameters">参数</param>
         /// <returns>受影响行数</returns>
-        public  int ExecuteNonQuery(string dbName, string sql, DbParameter[] parameters = null)
+        public int ExecuteNonQuery(string dbName, string sql, DbParameter[] parameters = null)
         {
             //1.创建连接对象
             OleDbConnection oleDbConnection = new OleDbConnection(ConnectionFixStr + dbName);

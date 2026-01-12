@@ -166,7 +166,7 @@
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(117, 28);
             this.toolStripStatusLabel1.Text = "执行结果：";
-            this.toolStripStatusLabel1.Click += new System.EventHandler(this.toolStripStatusLabel1_Click);
+            //this.toolStripStatusLabel1.Click += new System.EventHandler(this.toolStripStatusLabel1_Click);
             // 
             // tsslExecuteResult
             // 
@@ -517,7 +517,7 @@
             this.label1.Size = new System.Drawing.Size(110, 24);
             this.label1.TabIndex = 0;
             this.label1.Text = "产品名称";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            //this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // frmMain
             // 

@@ -46,15 +46,7 @@ namespace _2025_12_30
             InitializeComponent();
         }
 
-        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
 
         /// <summary>
         /// 窗体加载

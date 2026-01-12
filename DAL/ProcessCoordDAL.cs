@@ -186,11 +186,7 @@ namespace DAL
         {
             try
             {
-                //string sql = $"update {tableName} " +
-                //    $"set XPosition=@XPosition, YPosition=@YPosition, ZPosition=@ZPosition " +
-                //    $"where Num=@Num";
-
-
+               
                 string sql = $"update {tableName} " +
                              $"set XPosition = @XPosition, YPosition = @YPosition, ZPosition = @ZPosition " +
                              $"where Num = @Num";

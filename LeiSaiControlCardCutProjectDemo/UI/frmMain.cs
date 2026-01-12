@@ -143,10 +143,25 @@ namespace LeiSaiControlCardCutProjectDemo
         }
 
         
-
+        /// <summary>
+        /// 急停
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uiImageButton1_Click(object sender, EventArgs e)
         {
-            btnEms.Selected = btnEms.Selected ? false : true;
+            //btnEms.Selected = btnEms.Selected ? false : true;
+
+            if(!btnEms.Selected)
+            {
+                processFlowBLL.PressEmg();
+                btnEms.Selected  = true;
+            }
+            else
+            {
+                processFlowBLL.LoosenEmg();
+                btnEms.Selected = false;
+            }
         }
 
         /// <summary>
@@ -246,7 +261,50 @@ namespace LeiSaiControlCardCutProjectDemo
 
             uiLightCuterStatus.State = IOCraftEntity.Cutter.StatusValue ? UILightState.On : UILightState.Off;
 
-            lblStatus.Text = processFlowBLL.autoProcessStep.ToString();
+
+            switch(processFlowBLL.autoProcessStep)
+            {
+                case AutoProcessStep.AutomaticallyStopping:
+                    lblStatus.Text = "自动停止中...";
+                    break;
+                case AutoProcessStep.MoveToProcessedPosition:
+                    lblStatus.Text = "移动到待加工位置" + (Axis.PauseMark?"_暂停中":"");
+                    break;
+                
+                case AutoProcessStep.DetectMaterialSignal:
+                        lblStatus.Text = "检测物料到位信号" + (Axis.PauseMark ? "_暂停中" : "");
+                    break;
+
+                case AutoProcessStep.TurnOnCutter:
+                    lblStatus.Text = "打开切割器" + (Axis.PauseMark ? "_暂停中" : "");
+                break;
+
+                case AutoProcessStep.ZAxisMoveToFitstPoint:
+                lblStatus.Text = "Z轴移动到加工的第一个点" + (Axis.PauseMark ? "_暂停中" : "");
+                break;
+
+                case AutoProcessStep.ProcessFromTableData:
+                    lblStatus.Text = "从表格数据中获取加工数据" + (Axis.PauseMark ? "_暂停中" : "");
+                break;
+
+                case AutoProcessStep.AxisGotoSafePosition:
+                lblStatus.Text = "Z轴移动到安全位置" + (Axis.PauseMark ? "_暂停中" : "");
+                break;
+                
+                case AutoProcessStep.TurnOffCutter:
+                    lblStatus.Text = "关闭切割器" + (Axis.PauseMark ? "_暂停中" : "");
+                break;
+
+                case AutoProcessStep.GoHomeEliminateErrors:
+                    lblStatus.Text = "消除误差" + (Axis.PauseMark ? "_暂停中" : "");
+                break;
+            }
+
+
+            //lblStatus.Text = processFlowBLL.autoProcessStep.ToString();
+
+
+
 
             #endregion
 
@@ -651,8 +709,6 @@ namespace LeiSaiControlCardCutProjectDemo
             }
         }
 
-
-
         private void dgvDisplay_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -767,8 +823,11 @@ namespace LeiSaiControlCardCutProjectDemo
             }
 
             processFlowBLL.processCoordEntities = processCoordEntities;
-            processFlowBLL.iOCraftEntity = IOCraftEntity;
             processFlowBLL.AxisList = new List<Axis>() { X_Axis, Y_Axis, Z_Axis };
+            processFlowBLL.iOCraftEntity = IOCraftEntity;
+      
+            processFlowBLL.drawHandleBLL = drawHandleBLL;
+            processFlowBLL.drawParamsEntity = DrawParamsEntity;
 
             processFlowBLL.UiDoSomething -= processFlowBLL_UiDoSomething;
             processFlowBLL.UiDoSomething += processFlowBLL_UiDoSomething;
@@ -794,13 +853,27 @@ namespace LeiSaiControlCardCutProjectDemo
         }
 
         /// <summary>
-        /// 暂停
+        /// 暂停_再启动
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnPause_Click(object sender, EventArgs e)
-        {
+        {   
+            //如果不是自动运行中，则无法执行暂停
+            if(processFlowBLL.autoProcessStep == AutoProcessStep.AutomaticallyStopping) { return; }
 
+            if(btnPause.Text == "暂停")
+            {   
+                processFlowBLL.Pause();
+                btnPause.Text = "再启动";
+                btnPause.FillColor = Color.Red;
+            }
+            else
+            {   
+                processFlowBLL.StartAgain();
+                btnPause.Text = "暂停";
+                btnPause.FillColor = Color.FromArgb(255, 128, 0);
+            }
         }
 
 

@@ -89,7 +89,13 @@ namespace BLL
             pictureBox.Image = bmp;
         }
 
-
+        /// <summary>
+        /// 绘制坐标点
+        /// </summary>
+        /// <param name="brush"></param>
+        /// <param name="processCoordEntities">坐标点集合</param>
+        /// <param name="drawParamsEntity">绘图参数实体</param>
+        /// <returns></returns>
         public async Task DisplayDataPointsAsync(Brush brush, 
                                         BindingList<ProcessCoordEntity> processCoordEntities,
                                         DrawParamsEntity drawParamsEntity)
@@ -121,8 +127,8 @@ namespace BLL
         /// 绘制轨迹方法
         /// </summary>
         /// <param name="pen"></param>
-        /// <param name="processCoordEntities"></param>
-        /// <param name="drawParamsEntity"></param>
+        /// <param name="processCoordEntities">坐标点集合</param>
+        /// <param name="drawParamsEntity">绘图参数实体</param>
         /// <returns></returns>
         public async Task DrawTrackAsync(Pen pen,
                                         BindingList<ProcessCoordEntity> processCoordEntities,

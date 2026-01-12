@@ -43,6 +43,11 @@ namespace BLL
             this.pictureBox = pictureBox;
         }
 
+        /// <summary>
+        /// 绘图停止信号
+        /// </summary>
+        private CancellationTokenSource cts;
+
 
         /// <summary>
         /// 坐标复原方法
@@ -124,26 +129,22 @@ namespace BLL
         /// <param name="processCoordEntities"></param>
         /// <param name="drawParamsEntity"></param>
         /// <returns></returns>
-        public async Task DrawTrackAsync(Pen pen,
-                                        BindingList<ProcessCoordEntity> processCoordEntities,
+        public void  DrawTrack(Pen pen,
+                                        Axis XAxis, Axis YAxis,
                                         DrawParamsEntity drawParamsEntity ) 
         {
+            float pixX = (float)(XAxis.Position * drawParamsEntity.XDrawScale + drawParamsEntity.XDrawOffset);
+            float pixY = (float)(YAxis.Position * drawParamsEntity.YDrawScale + drawParamsEntity.YDrawOffset);
 
-            if (processCoordEntities.Count == 0)
-            {
-                return;
-            }
 
-            float pixX = (float)(processCoordEntities[0].XPosition * drawParamsEntity.XDrawScale + drawParamsEntity.XDrawOffset);
-            float pixY = (float)(processCoordEntities[0].YPosition * drawParamsEntity.YDrawScale + drawParamsEntity.YDrawOffset);
-
-            await Task.Run(() =>
-            {
-                for (int i = 1; i < processCoordEntities.Count; i++)
+            cts = new CancellationTokenSource();
+            Task.Run(() =>
+            {    
+                while (!cts.IsCancellationRequested)
                 {
-                    Thread.Sleep(1000);
-                    float pixX2 = (float)(processCoordEntities[i].XPosition * drawParamsEntity.XDrawScale + drawParamsEntity.XDrawOffset);
-                    float pixY2 = (float)(processCoordEntities[i].YPosition * drawParamsEntity.YDrawScale + drawParamsEntity.YDrawOffset);
+                    Thread.Sleep(100);
+                    float pixX2 = (float)(XAxis.Position * drawParamsEntity.XDrawScale + drawParamsEntity.XDrawOffset);
+                    float pixY2 = (float)(YAxis.Position * drawParamsEntity.YDrawScale + drawParamsEntity.YDrawOffset);
 
                     g.DrawLine(pen, pixX, pixY, pixX2, pixY2);
 
@@ -155,12 +156,18 @@ namespace BLL
                     pixX = pixX2;
                     pixY = pixY2;
                 }
-                
-
-                
-            });
+            },cts.Token);
 
 
+        }
+
+        /// <summary>
+        /// 停止绘图
+        /// </summary>
+        public void StopDraw()
+        {
+            cts?.Cancel();
+            //cts?.Dispose();
         }
 
     }
