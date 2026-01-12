@@ -128,10 +128,19 @@ namespace LeiSaiControlCardCutProjectDemo
                 cmbSelectPos.DisplayMember = "Num";
                 cmbSelectPos.DataSource = processCoordEntities;
 
-                
-
                 //控制卡信号
                 motionHandleBLL.RealTimeReadAxisData(IOCraftEntity, X_Axis, Y_Axis, Z_Axis);
+
+                //自动工艺流程相关数据
+                processFlowBLL.processCoordEntities = processCoordEntities;
+                processFlowBLL.AxisList = new List<Axis>() { X_Axis, Y_Axis, Z_Axis };
+                processFlowBLL.iOCraftEntity = IOCraftEntity;
+
+                processFlowBLL.drawHandleBLL = drawHandleBLL;
+                processFlowBLL.drawParamsEntity = DrawParamsEntity;
+
+                processFlowBLL.UiDoSomething -= processFlowBLL_UiDoSomething;
+                processFlowBLL.UiDoSomething += processFlowBLL_UiDoSomething;
 
             }
             else
@@ -822,15 +831,7 @@ namespace LeiSaiControlCardCutProjectDemo
                 return;
             }
 
-            processFlowBLL.processCoordEntities = processCoordEntities;
-            processFlowBLL.AxisList = new List<Axis>() { X_Axis, Y_Axis, Z_Axis };
-            processFlowBLL.iOCraftEntity = IOCraftEntity;
-      
-            processFlowBLL.drawHandleBLL = drawHandleBLL;
-            processFlowBLL.drawParamsEntity = DrawParamsEntity;
-
-            processFlowBLL.UiDoSomething -= processFlowBLL_UiDoSomething;
-            processFlowBLL.UiDoSomething += processFlowBLL_UiDoSomething;
+           
 
             cmbProductNames.Enabled = false;
             btnDelProduct.Enabled = false;
@@ -893,6 +894,11 @@ namespace LeiSaiControlCardCutProjectDemo
             {
                 processFlowBLL.FullyAutomaticMark = true;
             }
+        }
+
+        private void dgvDisplay_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

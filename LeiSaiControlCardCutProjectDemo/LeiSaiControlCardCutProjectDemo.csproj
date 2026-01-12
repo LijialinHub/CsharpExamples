@@ -78,6 +78,12 @@
     <Compile Include="Entity\IOCraftEntity.cs" />
     <Compile Include="Entity\IOType.cs" />
     <Compile Include="Entity\ProcessCoordEntity.cs" />
+    <Compile Include="UI\frmMainAdapt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\frmMainAdapt.Designer.cs">
+      <DependentUpon>frmMainAdapt.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,6 +104,9 @@
     <Compile Include="UI\frmDrawParams.Designer.cs">
       <DependentUpon>frmDrawParams.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UI\frmMainAdapt.resx">
+      <DependentUpon>frmMainAdapt.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
