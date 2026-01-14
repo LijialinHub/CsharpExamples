@@ -12,10 +12,10 @@ namespace DAL
     /// <summary>
     /// 雷赛运动控制卡类
     /// </summary>
-    public class LeiSaiCard : MotionCard
+    public class LeiSaiCard : MotionCard        
     {
         /// <summary>
-        /// Jog负方向运动
+        /// Jog负方向运动            
         /// </summary>
         /// <param name="ax">轴</param>
         /// <param name="highorlow">高速(true)或低速(false)</param>

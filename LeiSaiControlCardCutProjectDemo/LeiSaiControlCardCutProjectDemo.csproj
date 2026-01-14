@@ -66,6 +66,8 @@
     <Compile Include="BLL\绘图处理业务逻辑\DrawHandleBLL.cs" />
     <Compile Include="BLL\运动处理业务逻辑\MotionHandleBLL.cs" />
     <Compile Include="DAL\控制卡访问\DMC2410.cs" />
+    <Compile Include="DAL\控制卡访问\LeiSaiCard5410.cs" />
+    <Compile Include="DAL\控制卡访问\LTDMC.cs" />
     <Compile Include="DAL\数据库访问\AccessDBHelper.cs" />
     <Compile Include="DAL\数据库访问\IDataBaseServer.cs" />
     <Compile Include="DAL\Ini文件访问\IniHelper.cs" />
