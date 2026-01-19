@@ -35,11 +35,11 @@
             this.button2 = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.菜单ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.打开单张图片ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.打开图片文件夹ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label3 = new System.Windows.Forms.Label();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.hWindowControl1 = new HalconDotNet.HWindowControl();
-            this.打开单张图片ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.打开图片文件夹ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -115,8 +115,24 @@
             this.打开图片文件夹ToolStripMenuItem});
             this.菜单ToolStripMenuItem.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.菜单ToolStripMenuItem.Name = "菜单ToolStripMenuItem";
-            this.菜单ToolStripMenuItem.Size = new System.Drawing.Size(70, 34);
+            this.菜单ToolStripMenuItem.Size = new System.Drawing.Size(70, 32);
             this.菜单ToolStripMenuItem.Text = "菜单";
+            // 
+            // 打开单张图片ToolStripMenuItem
+            // 
+            this.打开单张图片ToolStripMenuItem.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.打开单张图片ToolStripMenuItem.Name = "打开单张图片ToolStripMenuItem";
+            this.打开单张图片ToolStripMenuItem.Size = new System.Drawing.Size(240, 34);
+            this.打开单张图片ToolStripMenuItem.Text = "打开单张图片";
+            this.打开单张图片ToolStripMenuItem.Click += new System.EventHandler(this.打开单张图片ToolStripMenuItem_Click);
+            // 
+            // 打开图片文件夹ToolStripMenuItem
+            // 
+            this.打开图片文件夹ToolStripMenuItem.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.打开图片文件夹ToolStripMenuItem.Name = "打开图片文件夹ToolStripMenuItem";
+            this.打开图片文件夹ToolStripMenuItem.Size = new System.Drawing.Size(240, 34);
+            this.打开图片文件夹ToolStripMenuItem.Text = "打开图片文件夹";
+            this.打开图片文件夹ToolStripMenuItem.Click += new System.EventHandler(this.打开图片文件夹ToolStripMenuItem_Click);
             // 
             // label3
             // 
@@ -143,27 +159,11 @@
             this.hWindowControl1.BackColor = System.Drawing.Color.Black;
             this.hWindowControl1.BorderColor = System.Drawing.Color.Black;
             this.hWindowControl1.ImagePart = new System.Drawing.Rectangle(0, 0, 640, 480);
-            this.hWindowControl1.Location = new System.Drawing.Point(35, 50);
+            this.hWindowControl1.Location = new System.Drawing.Point(53, 66);
             this.hWindowControl1.Name = "hWindowControl1";
             this.hWindowControl1.Size = new System.Drawing.Size(830, 381);
             this.hWindowControl1.TabIndex = 5;
             this.hWindowControl1.WindowSize = new System.Drawing.Size(830, 381);
-            // 
-            // 打开单张图片ToolStripMenuItem
-            // 
-            this.打开单张图片ToolStripMenuItem.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.打开单张图片ToolStripMenuItem.Name = "打开单张图片ToolStripMenuItem";
-            this.打开单张图片ToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            this.打开单张图片ToolStripMenuItem.Text = "打开单张图片";
-            this.打开单张图片ToolStripMenuItem.Click += new System.EventHandler(this.打开单张图片ToolStripMenuItem_Click);
-            // 
-            // 打开图片文件夹ToolStripMenuItem
-            // 
-            this.打开图片文件夹ToolStripMenuItem.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.打开图片文件夹ToolStripMenuItem.Name = "打开图片文件夹ToolStripMenuItem";
-            this.打开图片文件夹ToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            this.打开图片文件夹ToolStripMenuItem.Text = "打开图片文件夹";
-            this.打开图片文件夹ToolStripMenuItem.Click += new System.EventHandler(this.打开图片文件夹ToolStripMenuItem_Click);
             // 
             // Form1
             // 
