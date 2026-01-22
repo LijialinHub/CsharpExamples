@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.菜单ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.打开单张图片ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,7 +57,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip();
             this.圆形ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.矩形ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.旋转矩形ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -128,28 +127,28 @@
             // 圆形ToolStripMenuItem
             // 
             this.圆形ToolStripMenuItem.Name = "圆形ToolStripMenuItem";
-            this.圆形ToolStripMenuItem.Size = new System.Drawing.Size(198, 36);
+            this.圆形ToolStripMenuItem.Size = new System.Drawing.Size(270, 36);
             this.圆形ToolStripMenuItem.Text = "圆形";
             this.圆形ToolStripMenuItem.Click += new System.EventHandler(this.ROISelect);
             // 
             // 平行矩形ToolStripMenuItem
             // 
             this.平行矩形ToolStripMenuItem.Name = "平行矩形ToolStripMenuItem";
-            this.平行矩形ToolStripMenuItem.Size = new System.Drawing.Size(198, 36);
+            this.平行矩形ToolStripMenuItem.Size = new System.Drawing.Size(270, 36);
             this.平行矩形ToolStripMenuItem.Text = "平行矩形";
             this.平行矩形ToolStripMenuItem.Click += new System.EventHandler(this.ROISelect);
             // 
             // 旋转矩形ToolStripMenuItem
             // 
             this.旋转矩形ToolStripMenuItem.Name = "旋转矩形ToolStripMenuItem";
-            this.旋转矩形ToolStripMenuItem.Size = new System.Drawing.Size(198, 36);
+            this.旋转矩形ToolStripMenuItem.Size = new System.Drawing.Size(270, 36);
             this.旋转矩形ToolStripMenuItem.Text = "旋转矩形";
             this.旋转矩形ToolStripMenuItem.Click += new System.EventHandler(this.ROISelect);
             // 
             // 任意区域ToolStripMenuItem
             // 
             this.任意区域ToolStripMenuItem.Name = "任意区域ToolStripMenuItem";
-            this.任意区域ToolStripMenuItem.Size = new System.Drawing.Size(198, 36);
+            this.任意区域ToolStripMenuItem.Size = new System.Drawing.Size(270, 36);
             this.任意区域ToolStripMenuItem.Text = "任意区域";
             this.任意区域ToolStripMenuItem.Click += new System.EventHandler(this.ROISelect);
             // 
