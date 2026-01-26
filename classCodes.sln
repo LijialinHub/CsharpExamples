@@ -161,6 +161,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROI制作", "ROI制作\ROI�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "形状匹配", "形状匹配\形状匹配.csproj", "{BAAB5501-75AD-4380-AEA0-D5ACF2444B15}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PanelSeparationMachineV1.26", "PanelSeparationMachineV1.26\PanelSeparationMachineV1.26.csproj", "{1AEC580A-388B-490D-8502-43B126C845E9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "分板机综合案例", "分板机综合案例", "{E68E675C-3D44-491A-939D-36ECA3A3595B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -657,6 +661,14 @@ Global
 		{BAAB5501-75AD-4380-AEA0-D5ACF2444B15}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BAAB5501-75AD-4380-AEA0-D5ACF2444B15}.Release|x64.ActiveCfg = Release|Any CPU
 		{BAAB5501-75AD-4380-AEA0-D5ACF2444B15}.Release|x64.Build.0 = Release|Any CPU
+		{1AEC580A-388B-490D-8502-43B126C845E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AEC580A-388B-490D-8502-43B126C845E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AEC580A-388B-490D-8502-43B126C845E9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1AEC580A-388B-490D-8502-43B126C845E9}.Debug|x64.Build.0 = Debug|Any CPU
+		{1AEC580A-388B-490D-8502-43B126C845E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AEC580A-388B-490D-8502-43B126C845E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AEC580A-388B-490D-8502-43B126C845E9}.Release|x64.ActiveCfg = Release|Any CPU
+		{1AEC580A-388B-490D-8502-43B126C845E9}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -738,6 +750,8 @@ Global
 		{B11F7570-F1DF-46AD-88C9-8D8A117332DC} = {909A4366-1E28-4033-8429-45F43A609381}
 		{4695D13E-CF07-4E34-AE9F-EB5637D8DA88} = {B11F7570-F1DF-46AD-88C9-8D8A117332DC}
 		{BAAB5501-75AD-4380-AEA0-D5ACF2444B15} = {B11F7570-F1DF-46AD-88C9-8D8A117332DC}
+		{1AEC580A-388B-490D-8502-43B126C845E9} = {E68E675C-3D44-491A-939D-36ECA3A3595B}
+		{E68E675C-3D44-491A-939D-36ECA3A3595B} = {909A4366-1E28-4033-8429-45F43A609381}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6153578C-9FDA-48B8-8756-14271318ABAA}
