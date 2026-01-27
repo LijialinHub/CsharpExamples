@@ -184,6 +184,10 @@ namespace BLL
             iniFiles.WriteString("视觉参数", "贪婪度", vision.Greedness.ToString());
             iniFiles.WriteString("视觉参数", "重叠度", vision.MaxOverlap.ToString());
             iniFiles.WriteString("视觉参数", "匹配分数", vision.MatchScores.ToString());
+
+            iniFiles.WriteString("视觉参数", "拍照高度", vision.BDHeight.ToString());
+            iniFiles.WriteString("视觉参数", "X方向像素和机械比值", vision.XDirPixToMachine.ToString());
+            iniFiles.WriteString("视觉参数", "Y方向像素和机械比值", vision.YDirPixToMachine.ToString());
         }
 
         /// <summary>
@@ -194,13 +198,17 @@ namespace BLL
         {
             IniFiles iniFiles = new IniFiles(Environment.CurrentDirectory + @"\参数.ini");
 
-            vision.StrSN = iniFiles.ReadString("视觉参数", "相机序列号", "");
+            vision.StrSN = iniFiles.ReadString("视觉参数", "相机序列号", "RG0260011022");
             vision.ExposeTime = double.Parse(iniFiles.ReadString("视觉参数", "曝光时间", "6000.0"));
             vision.Gain = double.Parse(iniFiles.ReadString("视觉参数", "增益", "0.0"));
 
             vision.Greedness = double.Parse(iniFiles.ReadString("视觉参数", "贪婪度", "0.0"));
             vision.MaxOverlap = double.Parse(iniFiles.ReadString("视觉参数", "重叠度", "0.0"));
             vision.MatchScores = double.Parse(iniFiles.ReadString("视觉参数", "匹配分数", "0.0"));
+
+            vision.BDHeight = double.Parse(iniFiles.ReadString("视觉参数", "拍照高度", "0"));
+            vision.XDirPixToMachine = double.Parse(iniFiles.ReadString("视觉参数", "X方向像素和机械比值", "0"));
+            vision.YDirPixToMachine = double.Parse(iniFiles.ReadString("视觉参数", "Y方向像素和机械比值", "0"));
         }
 
 

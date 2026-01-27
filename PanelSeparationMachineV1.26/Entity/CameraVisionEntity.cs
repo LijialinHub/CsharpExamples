@@ -112,7 +112,58 @@ namespace Entity
         }
 
 
+        #region 相机标定用到的数据
 
+        private double _BDHeight;
+        /// <summary>
+        /// 标定拍照高度
+        /// </summary>
+        public double BDHeight
+        {
+            get { return _BDHeight; }
+            set
+            {
+                if (_BDHeight == value) { return; }
+                _BDHeight = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private double _XDirPixToMachine;
+        /// <summary>
+        /// X轴像素和机械比值
+        /// </summary>
+
+        public double XDirPixToMachine
+        {
+            get { return _XDirPixToMachine; }
+            set
+            {
+                if (_XDirPixToMachine == value) { return; }
+                _XDirPixToMachine = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private double _YDirPixToMachine;
+        /// <summary>
+        /// Y轴像素和机械比值
+        /// </summary>
+
+        public double YDirPixToMachine
+        {
+            get { return _YDirPixToMachine; }
+            set
+            {
+                if (_YDirPixToMachine == value) { return; }
+                _YDirPixToMachine = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        #endregion
 
 
     }

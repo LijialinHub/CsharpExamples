@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>favicon.ico</ApplicationIcon>
+    <ApplicationIcon>i6tse-3rp8m-001.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GxIAPINET">
@@ -99,15 +99,39 @@
     <Compile Include="Entity\PixelPos.cs" />
     <Compile Include="Entity\ProcessCoordEntity.cs" />
     <Compile Include="Entity\RoiSelect.cs" />
-    <Compile Include="frmMain.cs">
+    <Compile Include="UI\frmAxisParamsSet.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmMain.Designer.cs">
+    <Compile Include="UI\frmAxisParamsSet.designer.cs">
+      <DependentUpon>frmAxisParamsSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\frmDrawParams.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\frmDrawParams.Designer.cs">
+      <DependentUpon>frmDrawParams.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="frmMain.resx">
+    <Compile Include="UI\frmSelectRoi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\frmSelectRoi.Designer.cs">
+      <DependentUpon>frmSelectRoi.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="UI\frmAxisParamsSet.resx">
+      <DependentUpon>frmAxisParamsSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\frmDrawParams.resx">
+      <DependentUpon>frmDrawParams.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -119,6 +143,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UI\frmSelectRoi.resx">
+      <DependentUpon>frmSelectRoi.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
