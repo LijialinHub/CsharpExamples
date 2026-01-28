@@ -77,7 +77,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.chkContinuousAcq = new Sunny.UI.UICheckBox();
             this.lblExposureTime = new Sunny.UI.UILabel();
-            this.uiTabControl1 = new Sunny.UI.UITabControl();
+            this.tabControlDisplay = new Sunny.UI.UITabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
@@ -232,7 +232,7 @@
             this.uiTableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.uiTableLayoutPanel2.SuspendLayout();
-            this.uiTabControl1.SuspendLayout();
+            this.tabControlDisplay.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
@@ -289,7 +289,7 @@
             this.tableLayoutPanel1.Controls.Add(this.statusStrip1, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.uiTableLayoutPanel1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.uiTabControl1, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.tabControlDisplay, 1, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 35);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -371,6 +371,7 @@
             this.重新登录ToolStripMenuItem.Name = "重新登录ToolStripMenuItem";
             this.重新登录ToolStripMenuItem.Size = new System.Drawing.Size(136, 36);
             this.重新登录ToolStripMenuItem.Text = "重新登录";
+            this.重新登录ToolStripMenuItem.Click += new System.EventHandler(this.重新登录ToolStripMenuItem_Click);
             // 
             // 产品信息ToolStripMenuItem
             // 
@@ -780,29 +781,30 @@
             this.lblExposureTime.Text = "****";
             this.lblExposureTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // uiTabControl1
+            // tabControlDisplay
             // 
-            this.uiTabControl1.Controls.Add(this.tabPage1);
-            this.uiTabControl1.Controls.Add(this.tabPage2);
-            this.uiTabControl1.Controls.Add(this.tabPage3);
-            this.uiTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.uiTabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
-            this.uiTabControl1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiTabControl1.ItemSize = new System.Drawing.Size(150, 40);
-            this.uiTabControl1.Location = new System.Drawing.Point(652, 83);
-            this.uiTabControl1.MainPage = "";
-            this.uiTabControl1.MenuStyle = Sunny.UI.UIMenuStyle.Custom;
-            this.uiTabControl1.Name = "uiTabControl1";
-            this.uiTabControl1.SelectedIndex = 0;
-            this.uiTabControl1.Size = new System.Drawing.Size(745, 683);
-            this.uiTabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.uiTabControl1.TabBackColor = System.Drawing.Color.RoyalBlue;
-            this.uiTabControl1.TabIndex = 4;
-            this.uiTabControl1.TabSelectedColor = System.Drawing.Color.DarkBlue;
-            this.uiTabControl1.TabSelectedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.uiTabControl1.TabSelectedHighColor = System.Drawing.Color.Navy;
-            this.uiTabControl1.TabUnSelectedColor = System.Drawing.Color.RoyalBlue;
-            this.uiTabControl1.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tabControlDisplay.Controls.Add(this.tabPage1);
+            this.tabControlDisplay.Controls.Add(this.tabPage2);
+            this.tabControlDisplay.Controls.Add(this.tabPage3);
+            this.tabControlDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlDisplay.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            this.tabControlDisplay.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tabControlDisplay.ItemSize = new System.Drawing.Size(150, 40);
+            this.tabControlDisplay.Location = new System.Drawing.Point(652, 83);
+            this.tabControlDisplay.MainPage = "";
+            this.tabControlDisplay.MenuStyle = Sunny.UI.UIMenuStyle.Custom;
+            this.tabControlDisplay.Name = "tabControlDisplay";
+            this.tabControlDisplay.SelectedIndex = 0;
+            this.tabControlDisplay.Size = new System.Drawing.Size(745, 683);
+            this.tabControlDisplay.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.tabControlDisplay.TabBackColor = System.Drawing.Color.RoyalBlue;
+            this.tabControlDisplay.TabIndex = 4;
+            this.tabControlDisplay.TabSelectedColor = System.Drawing.Color.DarkBlue;
+            this.tabControlDisplay.TabSelectedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.tabControlDisplay.TabSelectedHighColor = System.Drawing.Color.Navy;
+            this.tabControlDisplay.TabUnSelectedColor = System.Drawing.Color.RoyalBlue;
+            this.tabControlDisplay.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tabControlDisplay.SelectedIndexChanged += new System.EventHandler(this.tabControlDisplay_SelectedIndexChanged);
             // 
             // tabPage1
             // 
@@ -2639,7 +2641,7 @@
             this.tabPage3.Controls.Add(this.tableLayoutPanel20);
             this.tabPage3.Location = new System.Drawing.Point(0, 40);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(200, 60);
+            this.tabPage3.Size = new System.Drawing.Size(745, 643);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "相机设置";
             // 
@@ -2660,7 +2662,7 @@
             this.tableLayoutPanel20.RowCount = 2;
             this.tableLayoutPanel20.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 52.41058F));
             this.tableLayoutPanel20.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 47.58942F));
-            this.tableLayoutPanel20.Size = new System.Drawing.Size(200, 60);
+            this.tableLayoutPanel20.Size = new System.Drawing.Size(745, 643);
             this.tableLayoutPanel20.TabIndex = 0;
             // 
             // uiGroupBox4
@@ -2668,12 +2670,12 @@
             this.uiGroupBox4.Controls.Add(this.tableLayoutPanel22);
             this.uiGroupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiGroupBox4.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiGroupBox4.Location = new System.Drawing.Point(70, 5);
+            this.uiGroupBox4.Location = new System.Drawing.Point(252, 5);
             this.uiGroupBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiGroupBox4.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiGroupBox4.Name = "uiGroupBox4";
             this.uiGroupBox4.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
-            this.uiGroupBox4.Size = new System.Drawing.Size(60, 21);
+            this.uiGroupBox4.Size = new System.Drawing.Size(245, 327);
             this.uiGroupBox4.TabIndex = 1;
             this.uiGroupBox4.Text = "模板制作";
             this.uiGroupBox4.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
@@ -2698,7 +2700,7 @@
             this.tableLayoutPanel22.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19.71326F));
             this.tableLayoutPanel22.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.43011F));
             this.tableLayoutPanel22.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19.35484F));
-            this.tableLayoutPanel22.Size = new System.Drawing.Size(60, 0);
+            this.tableLayoutPanel22.Size = new System.Drawing.Size(245, 295);
             this.tableLayoutPanel22.TabIndex = 0;
             // 
             // uiButton14
@@ -2707,12 +2709,12 @@
             this.uiButton14.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiButton14.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.uiButton14.Font = new System.Drawing.Font("宋体", 8F);
-            this.uiButton14.Location = new System.Drawing.Point(41, 3);
+            this.uiButton14.Location = new System.Drawing.Point(131, 239);
             this.uiButton14.Margin = new System.Windows.Forms.Padding(13, 3, 13, 3);
             this.uiButton14.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiButton14.Name = "uiButton14";
             this.uiButton14.Radius = 15;
-            this.uiButton14.Size = new System.Drawing.Size(6, 1);
+            this.uiButton14.Size = new System.Drawing.Size(101, 53);
             this.uiButton14.TabIndex = 17;
             this.uiButton14.Text = "去Mark1拍照";
             this.uiButton14.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -2723,12 +2725,12 @@
             this.btnMatchMpdel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnMatchMpdel.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.btnMatchMpdel.Font = new System.Drawing.Font("宋体", 8F);
-            this.btnMatchMpdel.Location = new System.Drawing.Point(13, 3);
+            this.btnMatchMpdel.Location = new System.Drawing.Point(13, 239);
             this.btnMatchMpdel.Margin = new System.Windows.Forms.Padding(13, 3, 13, 3);
             this.btnMatchMpdel.MinimumSize = new System.Drawing.Size(1, 1);
             this.btnMatchMpdel.Name = "btnMatchMpdel";
             this.btnMatchMpdel.Radius = 15;
-            this.btnMatchMpdel.Size = new System.Drawing.Size(2, 1);
+            this.btnMatchMpdel.Size = new System.Drawing.Size(92, 53);
             this.btnMatchMpdel.TabIndex = 16;
             this.btnMatchMpdel.Text = "匹配模板";
             this.btnMatchMpdel.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -2739,12 +2741,12 @@
             this.btnCreateModel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnCreateModel.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.btnCreateModel.Font = new System.Drawing.Font("宋体", 8F);
-            this.btnCreateModel.Location = new System.Drawing.Point(41, 3);
+            this.btnCreateModel.Location = new System.Drawing.Point(131, 179);
             this.btnCreateModel.Margin = new System.Windows.Forms.Padding(13, 3, 13, 3);
             this.btnCreateModel.MinimumSize = new System.Drawing.Size(1, 1);
             this.btnCreateModel.Name = "btnCreateModel";
             this.btnCreateModel.Radius = 15;
-            this.btnCreateModel.Size = new System.Drawing.Size(6, 1);
+            this.btnCreateModel.Size = new System.Drawing.Size(101, 54);
             this.btnCreateModel.TabIndex = 15;
             this.btnCreateModel.Text = "生成模板";
             this.btnCreateModel.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -2754,12 +2756,12 @@
             this.btnSelectRoi.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSelectRoi.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSelectRoi.Font = new System.Drawing.Font("宋体", 8F);
-            this.btnSelectRoi.Location = new System.Drawing.Point(13, 3);
+            this.btnSelectRoi.Location = new System.Drawing.Point(13, 179);
             this.btnSelectRoi.Margin = new System.Windows.Forms.Padding(13, 3, 13, 3);
             this.btnSelectRoi.MinimumSize = new System.Drawing.Size(1, 1);
             this.btnSelectRoi.Name = "btnSelectRoi";
             this.btnSelectRoi.Radius = 15;
-            this.btnSelectRoi.Size = new System.Drawing.Size(2, 1);
+            this.btnSelectRoi.Size = new System.Drawing.Size(92, 54);
             this.btnSelectRoi.TabIndex = 14;
             this.btnSelectRoi.Text = "选择ROI";
             this.btnSelectRoi.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -2773,7 +2775,7 @@
             this.pictureBox7.Margin = new System.Windows.Forms.Padding(0);
             this.pictureBox7.Name = "pictureBox7";
             this.tableLayoutPanel22.SetRowSpan(this.pictureBox7, 3);
-            this.pictureBox7.Size = new System.Drawing.Size(60, 1);
+            this.pictureBox7.Size = new System.Drawing.Size(245, 176);
             this.pictureBox7.TabIndex = 18;
             this.pictureBox7.TabStop = false;
             // 
@@ -2787,7 +2789,7 @@
             this.uiGroupBox2.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiGroupBox2.Name = "uiGroupBox2";
             this.uiGroupBox2.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
-            this.uiGroupBox2.Size = new System.Drawing.Size(58, 21);
+            this.uiGroupBox2.Size = new System.Drawing.Size(240, 327);
             this.uiGroupBox2.TabIndex = 0;
             this.uiGroupBox2.Text = "参数";
             this.uiGroupBox2.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
@@ -2817,7 +2819,7 @@
             this.tableLayoutPanel21.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel21.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel21.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel21.Size = new System.Drawing.Size(58, 0);
+            this.tableLayoutPanel21.Size = new System.Drawing.Size(240, 295);
             this.tableLayoutPanel21.TabIndex = 0;
             // 
             // label10
@@ -2825,10 +2827,10 @@
             this.label10.AutoSize = true;
             this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label10.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Bold);
-            this.label10.Location = new System.Drawing.Point(0, 0);
+            this.label10.Location = new System.Drawing.Point(0, 236);
             this.label10.Margin = new System.Windows.Forms.Padding(0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(23, 1);
+            this.label10.Size = new System.Drawing.Size(96, 59);
             this.label10.TabIndex = 14;
             this.label10.Text = "匹配分数";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2838,13 +2840,13 @@
             this.nudMatchScoreSet.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.nudMatchScoreSet.Dock = System.Windows.Forms.DockStyle.Fill;
             this.nudMatchScoreSet.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nudMatchScoreSet.Location = new System.Drawing.Point(27, 15);
+            this.nudMatchScoreSet.Location = new System.Drawing.Point(100, 251);
             this.nudMatchScoreSet.Margin = new System.Windows.Forms.Padding(4, 15, 4, 10);
             this.nudMatchScoreSet.MinimumSize = new System.Drawing.Size(1, 16);
             this.nudMatchScoreSet.Name = "nudMatchScoreSet";
             this.nudMatchScoreSet.Padding = new System.Windows.Forms.Padding(5);
             this.nudMatchScoreSet.ShowText = false;
-            this.nudMatchScoreSet.Size = new System.Drawing.Size(27, 16);
+            this.nudMatchScoreSet.Size = new System.Drawing.Size(136, 34);
             this.nudMatchScoreSet.Step = 1D;
             this.nudMatchScoreSet.TabIndex = 15;
             this.nudMatchScoreSet.Text = "0.80";
@@ -2856,10 +2858,10 @@
             this.label9.AutoSize = true;
             this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label9.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Bold);
-            this.label9.Location = new System.Drawing.Point(0, 0);
+            this.label9.Location = new System.Drawing.Point(0, 177);
             this.label9.Margin = new System.Windows.Forms.Padding(0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(23, 1);
+            this.label9.Size = new System.Drawing.Size(96, 59);
             this.label9.TabIndex = 12;
             this.label9.Text = "贪婪度";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2869,13 +2871,13 @@
             this.nudMaxGreed.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.nudMaxGreed.Dock = System.Windows.Forms.DockStyle.Fill;
             this.nudMaxGreed.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nudMaxGreed.Location = new System.Drawing.Point(27, 15);
+            this.nudMaxGreed.Location = new System.Drawing.Point(100, 192);
             this.nudMaxGreed.Margin = new System.Windows.Forms.Padding(4, 15, 4, 10);
             this.nudMaxGreed.MinimumSize = new System.Drawing.Size(1, 16);
             this.nudMaxGreed.Name = "nudMaxGreed";
             this.nudMaxGreed.Padding = new System.Windows.Forms.Padding(5);
             this.nudMaxGreed.ShowText = false;
-            this.nudMaxGreed.Size = new System.Drawing.Size(27, 16);
+            this.nudMaxGreed.Size = new System.Drawing.Size(136, 34);
             this.nudMaxGreed.Step = 1D;
             this.nudMaxGreed.TabIndex = 13;
             this.nudMaxGreed.Text = "0.90";
@@ -2887,10 +2889,10 @@
             this.label8.AutoSize = true;
             this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label8.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Bold);
-            this.label8.Location = new System.Drawing.Point(0, 0);
+            this.label8.Location = new System.Drawing.Point(0, 118);
             this.label8.Margin = new System.Windows.Forms.Padding(0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(23, 1);
+            this.label8.Size = new System.Drawing.Size(96, 59);
             this.label8.TabIndex = 10;
             this.label8.Text = "重叠度";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2900,13 +2902,13 @@
             this.nudMaxOverlap.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.nudMaxOverlap.Dock = System.Windows.Forms.DockStyle.Fill;
             this.nudMaxOverlap.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nudMaxOverlap.Location = new System.Drawing.Point(27, 15);
+            this.nudMaxOverlap.Location = new System.Drawing.Point(100, 133);
             this.nudMaxOverlap.Margin = new System.Windows.Forms.Padding(4, 15, 4, 10);
             this.nudMaxOverlap.MinimumSize = new System.Drawing.Size(1, 16);
             this.nudMaxOverlap.Name = "nudMaxOverlap";
             this.nudMaxOverlap.Padding = new System.Windows.Forms.Padding(5);
             this.nudMaxOverlap.ShowText = false;
-            this.nudMaxOverlap.Size = new System.Drawing.Size(27, 16);
+            this.nudMaxOverlap.Size = new System.Drawing.Size(136, 34);
             this.nudMaxOverlap.Step = 1D;
             this.nudMaxOverlap.TabIndex = 11;
             this.nudMaxOverlap.Text = "0.50";
@@ -2918,10 +2920,10 @@
             this.label7.AutoSize = true;
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label7.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Bold);
-            this.label7.Location = new System.Drawing.Point(0, 0);
+            this.label7.Location = new System.Drawing.Point(0, 59);
             this.label7.Margin = new System.Windows.Forms.Padding(0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(23, 1);
+            this.label7.Size = new System.Drawing.Size(96, 59);
             this.label7.TabIndex = 8;
             this.label7.Text = "增益";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2931,13 +2933,13 @@
             this.nudGainSet.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.nudGainSet.Dock = System.Windows.Forms.DockStyle.Fill;
             this.nudGainSet.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nudGainSet.Location = new System.Drawing.Point(27, 15);
+            this.nudGainSet.Location = new System.Drawing.Point(100, 74);
             this.nudGainSet.Margin = new System.Windows.Forms.Padding(4, 15, 4, 10);
             this.nudGainSet.MinimumSize = new System.Drawing.Size(1, 16);
             this.nudGainSet.Name = "nudGainSet";
             this.nudGainSet.Padding = new System.Windows.Forms.Padding(5);
             this.nudGainSet.ShowText = false;
-            this.nudGainSet.Size = new System.Drawing.Size(27, 16);
+            this.nudGainSet.Size = new System.Drawing.Size(136, 34);
             this.nudGainSet.Step = 1D;
             this.nudGainSet.TabIndex = 9;
             this.nudGainSet.Text = "0.00";
@@ -2952,7 +2954,7 @@
             this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Margin = new System.Windows.Forms.Padding(0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(23, 1);
+            this.label4.Size = new System.Drawing.Size(96, 59);
             this.label4.TabIndex = 6;
             this.label4.Text = "曝光";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2963,7 +2965,7 @@
             this.nudExposureSet.DecimalPlaces = 0;
             this.nudExposureSet.Dock = System.Windows.Forms.DockStyle.Fill;
             this.nudExposureSet.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nudExposureSet.Location = new System.Drawing.Point(27, 15);
+            this.nudExposureSet.Location = new System.Drawing.Point(100, 15);
             this.nudExposureSet.Margin = new System.Windows.Forms.Padding(4, 15, 4, 10);
             this.nudExposureSet.Maximum = 100000D;
             this.nudExposureSet.Minimum = 36D;
@@ -2971,7 +2973,7 @@
             this.nudExposureSet.Name = "nudExposureSet";
             this.nudExposureSet.Padding = new System.Windows.Forms.Padding(5);
             this.nudExposureSet.ShowText = false;
-            this.nudExposureSet.Size = new System.Drawing.Size(27, 16);
+            this.nudExposureSet.Size = new System.Drawing.Size(136, 34);
             this.nudExposureSet.Step = 1D;
             this.nudExposureSet.TabIndex = 7;
             this.nudExposureSet.Text = "60000";
@@ -2985,12 +2987,12 @@
             this.tableLayoutPanel24.Controls.Add(this.radGroupMatchSelect, 0, 1);
             this.tableLayoutPanel24.Controls.Add(this.radGroupMarkSelect, 0, 0);
             this.tableLayoutPanel24.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel24.Location = new System.Drawing.Point(137, 3);
+            this.tableLayoutPanel24.Location = new System.Drawing.Point(504, 3);
             this.tableLayoutPanel24.Name = "tableLayoutPanel24";
             this.tableLayoutPanel24.RowCount = 2;
             this.tableLayoutPanel24.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel24.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel24.Size = new System.Drawing.Size(60, 25);
+            this.tableLayoutPanel24.Size = new System.Drawing.Size(238, 331);
             this.tableLayoutPanel24.TabIndex = 3;
             // 
             // radGroupMatchSelect
@@ -2999,12 +3001,12 @@
             this.radGroupMatchSelect.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
             this.radGroupMatchSelect.Items.AddRange(new object[] {
             "形状匹配"});
-            this.radGroupMatchSelect.Location = new System.Drawing.Point(4, 17);
+            this.radGroupMatchSelect.Location = new System.Drawing.Point(4, 170);
             this.radGroupMatchSelect.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.radGroupMatchSelect.MinimumSize = new System.Drawing.Size(1, 1);
             this.radGroupMatchSelect.Name = "radGroupMatchSelect";
             this.radGroupMatchSelect.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
-            this.radGroupMatchSelect.Size = new System.Drawing.Size(52, 3);
+            this.radGroupMatchSelect.Size = new System.Drawing.Size(230, 156);
             this.radGroupMatchSelect.TabIndex = 8;
             this.radGroupMatchSelect.Text = "匹配样式";
             this.radGroupMatchSelect.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
@@ -3021,7 +3023,7 @@
             this.radGroupMarkSelect.MinimumSize = new System.Drawing.Size(1, 1);
             this.radGroupMarkSelect.Name = "radGroupMarkSelect";
             this.radGroupMarkSelect.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
-            this.radGroupMarkSelect.Size = new System.Drawing.Size(52, 2);
+            this.radGroupMarkSelect.Size = new System.Drawing.Size(230, 155);
             this.radGroupMarkSelect.TabIndex = 7;
             this.radGroupMarkSelect.Text = "选择";
             this.radGroupMarkSelect.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
@@ -3032,12 +3034,12 @@
             this.uiGroupBox5.Controls.Add(this.tableLayoutPanel23);
             this.uiGroupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiGroupBox5.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiGroupBox5.Location = new System.Drawing.Point(4, 36);
+            this.uiGroupBox5.Location = new System.Drawing.Point(4, 342);
             this.uiGroupBox5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiGroupBox5.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiGroupBox5.Name = "uiGroupBox5";
             this.uiGroupBox5.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
-            this.uiGroupBox5.Size = new System.Drawing.Size(192, 19);
+            this.uiGroupBox5.Size = new System.Drawing.Size(737, 296);
             this.uiGroupBox5.TabIndex = 4;
             this.uiGroupBox5.Text = "标定";
             this.uiGroupBox5.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
@@ -3068,7 +3070,7 @@
             this.tableLayoutPanel23.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel23.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel23.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel23.Size = new System.Drawing.Size(192, 0);
+            this.tableLayoutPanel23.Size = new System.Drawing.Size(737, 264);
             this.tableLayoutPanel23.TabIndex = 3;
             // 
             // txtCalibrationHeight
@@ -3076,14 +3078,14 @@
             this.txtCalibrationHeight.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtCalibrationHeight.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtCalibrationHeight.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtCalibrationHeight.Location = new System.Drawing.Point(29, 20);
+            this.txtCalibrationHeight.Location = new System.Drawing.Point(91, 196);
             this.txtCalibrationHeight.Margin = new System.Windows.Forms.Padding(8, 20, 8, 20);
             this.txtCalibrationHeight.MinimumSize = new System.Drawing.Size(1, 16);
             this.txtCalibrationHeight.Name = "txtCalibrationHeight";
             this.txtCalibrationHeight.Padding = new System.Windows.Forms.Padding(5);
             this.txtCalibrationHeight.ReadOnly = true;
             this.txtCalibrationHeight.ShowText = false;
-            this.txtCalibrationHeight.Size = new System.Drawing.Size(20, 16);
+            this.txtCalibrationHeight.Size = new System.Drawing.Size(125, 48);
             this.txtCalibrationHeight.TabIndex = 31;
             this.txtCalibrationHeight.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txtCalibrationHeight.Watermark = "";
@@ -3093,14 +3095,14 @@
             this.txtPixTomm_Y.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtPixTomm_Y.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtPixTomm_Y.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtPixTomm_Y.Location = new System.Drawing.Point(29, 20);
+            this.txtPixTomm_Y.Location = new System.Drawing.Point(91, 108);
             this.txtPixTomm_Y.Margin = new System.Windows.Forms.Padding(8, 20, 8, 20);
             this.txtPixTomm_Y.MinimumSize = new System.Drawing.Size(1, 16);
             this.txtPixTomm_Y.Name = "txtPixTomm_Y";
             this.txtPixTomm_Y.Padding = new System.Windows.Forms.Padding(5);
             this.txtPixTomm_Y.ReadOnly = true;
             this.txtPixTomm_Y.ShowText = false;
-            this.txtPixTomm_Y.Size = new System.Drawing.Size(20, 16);
+            this.txtPixTomm_Y.Size = new System.Drawing.Size(125, 48);
             this.txtPixTomm_Y.TabIndex = 27;
             this.txtPixTomm_Y.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txtPixTomm_Y.Watermark = "";
@@ -3110,10 +3112,10 @@
             this.label25.AutoSize = true;
             this.label25.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label25.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Bold);
-            this.label25.Location = new System.Drawing.Point(57, 0);
+            this.label25.Location = new System.Drawing.Point(224, 176);
             this.label25.Margin = new System.Windows.Forms.Padding(0);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(15, 1);
+            this.label25.Size = new System.Drawing.Size(58, 88);
             this.label25.TabIndex = 22;
             this.label25.Text = "mm";
             this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3123,10 +3125,10 @@
             this.label23.AutoSize = true;
             this.label23.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label23.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Bold);
-            this.label23.Location = new System.Drawing.Point(0, 0);
+            this.label23.Location = new System.Drawing.Point(0, 176);
             this.label23.Margin = new System.Windows.Forms.Padding(0);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(21, 1);
+            this.label23.Size = new System.Drawing.Size(83, 88);
             this.label23.TabIndex = 20;
             this.label23.Text = "Z向系数";
             this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3136,10 +3138,10 @@
             this.label19.AutoSize = true;
             this.label19.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label19.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Bold);
-            this.label19.Location = new System.Drawing.Point(57, 0);
+            this.label19.Location = new System.Drawing.Point(224, 88);
             this.label19.Margin = new System.Windows.Forms.Padding(0);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(15, 1);
+            this.label19.Size = new System.Drawing.Size(58, 88);
             this.label19.TabIndex = 16;
             this.label19.Text = "pix/mm";
             this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3149,10 +3151,10 @@
             this.label17.AutoSize = true;
             this.label17.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label17.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Bold);
-            this.label17.Location = new System.Drawing.Point(0, 0);
+            this.label17.Location = new System.Drawing.Point(0, 88);
             this.label17.Margin = new System.Windows.Forms.Padding(0);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(21, 1);
+            this.label17.Size = new System.Drawing.Size(83, 88);
             this.label17.TabIndex = 14;
             this.label17.Text = "Y向系数";
             this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3162,10 +3164,10 @@
             this.label13.AutoSize = true;
             this.label13.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label13.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Bold);
-            this.label13.Location = new System.Drawing.Point(57, 0);
+            this.label13.Location = new System.Drawing.Point(224, 0);
             this.label13.Margin = new System.Windows.Forms.Padding(0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(15, 1);
+            this.label13.Size = new System.Drawing.Size(58, 88);
             this.label13.TabIndex = 10;
             this.label13.Text = "pix/mm";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3178,7 +3180,7 @@
             this.label11.Location = new System.Drawing.Point(0, 0);
             this.label11.Margin = new System.Windows.Forms.Padding(0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(21, 1);
+            this.label11.Size = new System.Drawing.Size(83, 88);
             this.label11.TabIndex = 7;
             this.label11.Text = "X向系数";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3188,14 +3190,14 @@
             this.txtPixTomm_X.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtPixTomm_X.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtPixTomm_X.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtPixTomm_X.Location = new System.Drawing.Point(29, 20);
+            this.txtPixTomm_X.Location = new System.Drawing.Point(91, 20);
             this.txtPixTomm_X.Margin = new System.Windows.Forms.Padding(8, 20, 8, 20);
             this.txtPixTomm_X.MinimumSize = new System.Drawing.Size(1, 16);
             this.txtPixTomm_X.Name = "txtPixTomm_X";
             this.txtPixTomm_X.Padding = new System.Windows.Forms.Padding(5);
             this.txtPixTomm_X.ReadOnly = true;
             this.txtPixTomm_X.ShowText = false;
-            this.txtPixTomm_X.Size = new System.Drawing.Size(20, 16);
+            this.txtPixTomm_X.Size = new System.Drawing.Size(125, 48);
             this.txtPixTomm_X.TabIndex = 23;
             this.txtPixTomm_X.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.txtPixTomm_X.Watermark = "";
@@ -3234,7 +3236,7 @@
             this.tableLayoutPanel2.PerformLayout();
             this.uiTableLayoutPanel2.ResumeLayout(false);
             this.uiTableLayoutPanel2.PerformLayout();
-            this.uiTabControl1.ResumeLayout(false);
+            this.tabControlDisplay.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
@@ -3325,7 +3327,7 @@
         private Sunny.UI.UITrackBar tkbExposureTime;
         private Sunny.UI.UILabel lblGain;
         private Sunny.UI.UILabel lblExposureTime;
-        private Sunny.UI.UITabControl uiTabControl1;
+        private Sunny.UI.UITabControl tabControlDisplay;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;

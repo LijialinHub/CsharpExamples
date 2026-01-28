@@ -1,16 +1,18 @@
-﻿using System;
+using BLL;
+using Common;
+using Entity;
+using Sunny.UI;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using BLL;
-using Entity;
-using Sunny.UI;
 
 
 namespace PanelSeparationMachineV1._26
@@ -124,10 +126,11 @@ namespace PanelSeparationMachineV1._26
         private void Form1_Load(object sender, EventArgs e)
         {
 
-            if (motionHandleBLL.OpenCard(out string res))
+            if (!motionHandleBLL.OpenCard(out string res))
             {
                 MessageBox.Show(res, "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                DisplayCurrentUser();
 
                 # region 绘图相关
 
@@ -220,6 +223,14 @@ namespace PanelSeparationMachineV1._26
 
         }
 
+        private void DisplayCurrentUser()
+        {
+            FieldInfo fieldInfo = typeof(UserEntity.Level).GetField(CurrentUserEntity.JobLevel.ToString());
+            DescriptionCustomAttribute descriptionCustomAttribute = (DescriptionCustomAttribute)fieldInfo.GetCustomAttribute(typeof(DescriptionCustomAttribute)); ;
+
+            string level = descriptionCustomAttribute.Description;
+            this.Text = $"当前用户: {CurrentUserEntity.Name} {CurrentUserEntity.EmployeeID} {level}";
+        }
 
 
         /// <summary>
@@ -303,7 +314,7 @@ namespace PanelSeparationMachineV1._26
 
             nudMaxOverlap.DataBindings.Add("Value", CameraVisionEntity, "MaxOverlap", false, DataSourceUpdateMode.OnPropertyChanged);
 
-            nudMaxGreed.DataBindings.Add("Value", CameraVisionEntity, "Greediness", false, DataSourceUpdateMode.OnPropertyChanged);
+            nudMaxGreed.DataBindings.Add("Value", CameraVisionEntity, "Greedness", false, DataSourceUpdateMode.OnPropertyChanged);
 
             nudMatchScoreSet.DataBindings.Add("Value", CameraVisionEntity, "MatchScores", false, DataSourceUpdateMode.OnPropertyChanged);
 
@@ -936,6 +947,50 @@ namespace PanelSeparationMachineV1._26
             {
                 processFlowBLL.LoosenEmg();
                 uIButton.Selected = false;
+            }
+        }
+
+        /// <summary>
+        /// 切换页面
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tabControlDisplay_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int num = tabControlDisplay.SelectedIndex;
+            if (num == -1) { return; }
+
+            if (num == 1) //选中示教页面
+            {
+                if (CurrentUserEntity.JobLevel < UserEntity.Level.Technician)
+                {
+                    tabControlDisplay.SelectedIndex = 0;
+                    MessageBox.Show("您没有权限访问此页面！(技术员登记以上才能进入)", "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+            }
+
+            else if (num == 2) //相机设置页面
+            {
+                if (CurrentUserEntity.JobLevel < UserEntity.Level.Engineer)
+                {
+                    tabControlDisplay.SelectedIndex = 0;
+                    MessageBox.Show("您没有权限访问此页面！(工程师等级以上才能进入)", "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+
+
+
+        }
+
+        private void 重新登录ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmLogin frmLogin = new frmLogin();
+            frmLogin.ShowDialog();
+            if (frmLogin.DialogResult == DialogResult.OK)
+            {
+                tabControlDisplay.SelectedIndex = 0; //返回第一个画面
+                DisplayCurrentUser();
             }
         }
     }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    [Serializable] //这个类可以被二进制序列化
+    //[Serializable]
     public class UserInfoDAL
     {   
         /// <summary>

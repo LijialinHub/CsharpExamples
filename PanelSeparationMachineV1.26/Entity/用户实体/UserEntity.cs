@@ -12,6 +12,7 @@ namespace Entity
     /// <summary>
     /// 用户实体类
     /// </summary>
+    [Serializable] //这个类可以被二进制序列化
     public class UserEntity : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -107,12 +108,12 @@ namespace Entity
 
 
 
-        private string _Password;
+        private int _Password;
         /// <summary>
         /// 密码
         /// </summary>
 
-        public string Password
+        public int Password
         {
             get { return _Password; }
             set

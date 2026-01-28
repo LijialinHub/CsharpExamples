@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLogin));
+            this.components = new System.ComponentModel.Container();
             this.uiTitlePanel1 = new Sunny.UI.UITitlePanel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -37,13 +37,17 @@
             this.uiLabel2 = new Sunny.UI.UILabel();
             this.txtPassword = new Sunny.UI.UITextBox();
             this.uiLabel3 = new Sunny.UI.UILabel();
-            this.txtLevel = new Sunny.UI.UITextBox();
+            this.txtUserName = new Sunny.UI.UITextBox();
             this.btnOk = new Sunny.UI.UIButton();
             this.btnCancel = new Sunny.UI.UIButton();
             this.uiAvatarUser = new Sunny.UI.UIAvatar();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.uiLabel4 = new Sunny.UI.UILabel();
+            this.txtLevel = new Sunny.UI.UITextBox();
             this.uiTitlePanel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // uiTitlePanel1
@@ -94,8 +98,10 @@
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 39.77695F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.22305F));
+            this.tableLayoutPanel2.Controls.Add(this.uiLabel4, 0, 3);
+            this.tableLayoutPanel2.Controls.Add(this.txtLevel, 1, 3);
             this.tableLayoutPanel2.Controls.Add(this.uiLabel3, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.txtLevel, 1, 2);
+            this.tableLayoutPanel2.Controls.Add(this.txtUserName, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.uiLabel2, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.txtPassword, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.uiLabel1, 0, 0);
@@ -103,10 +109,11 @@
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 3;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.RowCount = 4;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(269, 241);
             this.tableLayoutPanel2.TabIndex = 3;
             // 
@@ -117,7 +124,7 @@
             this.uiLabel1.ForeColor = System.Drawing.Color.White;
             this.uiLabel1.Location = new System.Drawing.Point(3, 0);
             this.uiLabel1.Name = "uiLabel1";
-            this.uiLabel1.Size = new System.Drawing.Size(101, 80);
+            this.uiLabel1.Size = new System.Drawing.Size(101, 60);
             this.uiLabel1.TabIndex = 0;
             this.uiLabel1.Text = "工号";
             this.uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -127,25 +134,27 @@
             this.txtId.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtId.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtId.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtId.Location = new System.Drawing.Point(131, 25);
-            this.txtId.Margin = new System.Windows.Forms.Padding(24, 25, 24, 25);
+            this.txtId.Location = new System.Drawing.Point(131, 10);
+            this.txtId.Margin = new System.Windows.Forms.Padding(24, 10, 24, 10);
             this.txtId.MinimumSize = new System.Drawing.Size(1, 16);
             this.txtId.Name = "txtId";
             this.txtId.Padding = new System.Windows.Forms.Padding(5);
             this.txtId.ShowText = false;
-            this.txtId.Size = new System.Drawing.Size(114, 30);
+            this.txtId.Size = new System.Drawing.Size(114, 40);
             this.txtId.TabIndex = 1;
+            this.txtId.Tag = "工号";
             this.txtId.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             this.txtId.Watermark = "";
+            this.txtId.TextChanged += new System.EventHandler(this.txt_TextChanged);
             // 
             // uiLabel2
             // 
             this.uiLabel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiLabel2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.uiLabel2.ForeColor = System.Drawing.Color.White;
-            this.uiLabel2.Location = new System.Drawing.Point(3, 80);
+            this.uiLabel2.Location = new System.Drawing.Point(3, 60);
             this.uiLabel2.Name = "uiLabel2";
-            this.uiLabel2.Size = new System.Drawing.Size(101, 80);
+            this.uiLabel2.Size = new System.Drawing.Size(101, 60);
             this.uiLabel2.TabIndex = 2;
             this.uiLabel2.Text = "密码";
             this.uiLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -155,45 +164,49 @@
             this.txtPassword.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtPassword.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtPassword.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtPassword.Location = new System.Drawing.Point(131, 105);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(24, 25, 24, 25);
+            this.txtPassword.Location = new System.Drawing.Point(131, 70);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(24, 10, 24, 10);
             this.txtPassword.MinimumSize = new System.Drawing.Size(1, 16);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Padding = new System.Windows.Forms.Padding(5);
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.ShowText = false;
-            this.txtPassword.Size = new System.Drawing.Size(114, 30);
+            this.txtPassword.Size = new System.Drawing.Size(114, 40);
             this.txtPassword.TabIndex = 3;
+            this.txtPassword.Tag = "密码";
             this.txtPassword.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.txtPassword.Type = Sunny.UI.UITextBox.UIEditType.Integer;
             this.txtPassword.Watermark = "";
+            this.txtPassword.TextChanged += new System.EventHandler(this.txt_TextChanged);
             // 
             // uiLabel3
             // 
             this.uiLabel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiLabel3.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.uiLabel3.ForeColor = System.Drawing.Color.White;
-            this.uiLabel3.Location = new System.Drawing.Point(3, 160);
+            this.uiLabel3.Location = new System.Drawing.Point(3, 120);
             this.uiLabel3.Name = "uiLabel3";
-            this.uiLabel3.Size = new System.Drawing.Size(101, 81);
+            this.uiLabel3.Size = new System.Drawing.Size(101, 60);
             this.uiLabel3.TabIndex = 4;
-            this.uiLabel3.Text = "职级";
+            this.uiLabel3.Text = "姓名";
             this.uiLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // txtLevel
+            // txtUserName
             // 
-            this.txtLevel.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtLevel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtLevel.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtLevel.Location = new System.Drawing.Point(131, 185);
-            this.txtLevel.Margin = new System.Windows.Forms.Padding(24, 25, 24, 25);
-            this.txtLevel.MinimumSize = new System.Drawing.Size(1, 16);
-            this.txtLevel.Name = "txtLevel";
-            this.txtLevel.Padding = new System.Windows.Forms.Padding(5);
-            this.txtLevel.ShowText = false;
-            this.txtLevel.Size = new System.Drawing.Size(114, 31);
-            this.txtLevel.TabIndex = 5;
-            this.txtLevel.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            this.txtLevel.Watermark = "";
+            this.txtUserName.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtUserName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtUserName.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtUserName.Location = new System.Drawing.Point(131, 130);
+            this.txtUserName.Margin = new System.Windows.Forms.Padding(24, 10, 24, 10);
+            this.txtUserName.MinimumSize = new System.Drawing.Size(1, 16);
+            this.txtUserName.Name = "txtUserName";
+            this.txtUserName.Padding = new System.Windows.Forms.Padding(5);
+            this.txtUserName.ReadOnly = true;
+            this.txtUserName.ShowText = false;
+            this.txtUserName.Size = new System.Drawing.Size(114, 40);
+            this.txtUserName.TabIndex = 5;
+            this.txtUserName.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.txtUserName.Watermark = "";
             // 
             // btnOk
             // 
@@ -232,14 +245,45 @@
             this.uiAvatarUser.AvatarSize = 200;
             this.uiAvatarUser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiAvatarUser.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiAvatarUser.Icon = Sunny.UI.UIAvatar.UIIcon.Image;
-            this.uiAvatarUser.Image = ((System.Drawing.Image)(resources.GetObject("uiAvatarUser.Image")));
             this.uiAvatarUser.Location = new System.Drawing.Point(278, 3);
             this.uiAvatarUser.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiAvatarUser.Name = "uiAvatarUser";
             this.uiAvatarUser.Size = new System.Drawing.Size(270, 241);
             this.uiAvatarUser.TabIndex = 6;
             this.uiAvatarUser.Text = "uiAvatar1";
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
+            // uiLabel4
+            // 
+            this.uiLabel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uiLabel4.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiLabel4.ForeColor = System.Drawing.Color.White;
+            this.uiLabel4.Location = new System.Drawing.Point(3, 180);
+            this.uiLabel4.Name = "uiLabel4";
+            this.uiLabel4.Size = new System.Drawing.Size(101, 61);
+            this.uiLabel4.TabIndex = 6;
+            this.uiLabel4.Text = "职级";
+            this.uiLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // txtLevel
+            // 
+            this.txtLevel.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtLevel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtLevel.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtLevel.Location = new System.Drawing.Point(131, 190);
+            this.txtLevel.Margin = new System.Windows.Forms.Padding(24, 10, 24, 10);
+            this.txtLevel.MinimumSize = new System.Drawing.Size(1, 16);
+            this.txtLevel.Name = "txtLevel";
+            this.txtLevel.Padding = new System.Windows.Forms.Padding(5);
+            this.txtLevel.ReadOnly = true;
+            this.txtLevel.ShowText = false;
+            this.txtLevel.Size = new System.Drawing.Size(114, 41);
+            this.txtLevel.TabIndex = 7;
+            this.txtLevel.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.txtLevel.Watermark = "";
             // 
             // frmLogin
             // 
@@ -257,6 +301,7 @@
             this.uiTitlePanel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -269,11 +314,14 @@
         private Sunny.UI.UILabel uiLabel1;
         private Sunny.UI.UITextBox txtId;
         private Sunny.UI.UILabel uiLabel3;
-        private Sunny.UI.UITextBox txtLevel;
+        private Sunny.UI.UITextBox txtUserName;
         private Sunny.UI.UILabel uiLabel2;
         private Sunny.UI.UITextBox txtPassword;
         private Sunny.UI.UIButton btnCancel;
         private Sunny.UI.UIButton btnOk;
         private Sunny.UI.UIAvatar uiAvatarUser;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private Sunny.UI.UILabel uiLabel4;
+        private Sunny.UI.UITextBox txtLevel;
     }
 }
