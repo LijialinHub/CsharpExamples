@@ -27,6 +27,12 @@ namespace PanelSeparationMachineV1._26
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            frmLogin frmLogin = new frmLogin();
+            DialogResult result = frmLogin.ShowDialog();
+            if ((result == DialogResult.Cancel)) { return;}
+            
+
             Application.Run(new frmMain());
         }
     }

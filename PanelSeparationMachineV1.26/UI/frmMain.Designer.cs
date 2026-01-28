@@ -1626,12 +1626,12 @@
             this.uiButton3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiButton3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.uiButton3.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Bold);
-            this.uiButton3.Location = new System.Drawing.Point(92, 107);
-            this.uiButton3.Margin = new System.Windows.Forms.Padding(0);
+            this.uiButton3.Location = new System.Drawing.Point(107, 117);
+            this.uiButton3.Margin = new System.Windows.Forms.Padding(15, 10, 15, 10);
             this.uiButton3.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiButton3.Name = "uiButton3";
             this.uiButton3.Radius = 15;
-            this.uiButton3.Size = new System.Drawing.Size(120, 108);
+            this.uiButton3.Size = new System.Drawing.Size(90, 88);
             this.uiButton3.TabIndex = 13;
             this.uiButton3.Text = "原点复位";
             this.uiButton3.TipsFont = new System.Drawing.Font("宋体", 7F);
@@ -1644,15 +1644,16 @@
             this.btnEms1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnEms1.Image = ((System.Drawing.Image)(resources.GetObject("btnEms1.Image")));
             this.btnEms1.ImageSelected = ((System.Drawing.Image)(resources.GetObject("btnEms1.ImageSelected")));
-            this.btnEms1.Location = new System.Drawing.Point(217, 5);
-            this.btnEms1.Margin = new System.Windows.Forms.Padding(5);
+            this.btnEms1.Location = new System.Drawing.Point(227, 15);
+            this.btnEms1.Margin = new System.Windows.Forms.Padding(15);
             this.btnEms1.Name = "btnEms1";
             this.tableLayoutPanel7.SetRowSpan(this.btnEms1, 2);
-            this.btnEms1.Size = new System.Drawing.Size(177, 205);
+            this.btnEms1.Size = new System.Drawing.Size(157, 185);
             this.btnEms1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.btnEms1.TabIndex = 12;
             this.btnEms1.TabStop = false;
             this.btnEms1.Text = null;
+            this.btnEms1.Click += new System.EventHandler(this.btnEms_Click);
             // 
             // radGroupAutoSelect
             // 
@@ -1680,12 +1681,12 @@
             this.btnPause.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnPause.FillColor = System.Drawing.Color.Purple;
             this.btnPause.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Bold);
-            this.btnPause.Location = new System.Drawing.Point(0, 107);
-            this.btnPause.Margin = new System.Windows.Forms.Padding(0);
+            this.btnPause.Location = new System.Drawing.Point(5, 117);
+            this.btnPause.Margin = new System.Windows.Forms.Padding(5, 10, 5, 10);
             this.btnPause.MinimumSize = new System.Drawing.Size(1, 1);
             this.btnPause.Name = "btnPause";
             this.btnPause.Radius = 15;
-            this.btnPause.Size = new System.Drawing.Size(92, 108);
+            this.btnPause.Size = new System.Drawing.Size(82, 88);
             this.btnPause.TabIndex = 10;
             this.btnPause.Text = "暂停";
             this.btnPause.TipsFont = new System.Drawing.Font("宋体", 7F);
@@ -1696,12 +1697,12 @@
             this.btnStart.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnStart.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.btnStart.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Bold);
-            this.btnStart.Location = new System.Drawing.Point(0, 0);
-            this.btnStart.Margin = new System.Windows.Forms.Padding(0);
+            this.btnStart.Location = new System.Drawing.Point(5, 10);
+            this.btnStart.Margin = new System.Windows.Forms.Padding(5, 10, 5, 10);
             this.btnStart.MinimumSize = new System.Drawing.Size(1, 1);
             this.btnStart.Name = "btnStart";
             this.btnStart.Radius = 15;
-            this.btnStart.Size = new System.Drawing.Size(92, 107);
+            this.btnStart.Size = new System.Drawing.Size(82, 87);
             this.btnStart.TabIndex = 7;
             this.btnStart.Text = "自动启动";
             this.btnStart.TipsFont = new System.Drawing.Font("宋体", 7F);
@@ -2596,6 +2597,7 @@
             this.btnEms2.TabIndex = 14;
             this.btnEms2.TabStop = false;
             this.btnEms2.Text = null;
+            this.btnEms2.Click += new System.EventHandler(this.btnEms_Click);
             // 
             // btnOneKeyHome
             // 

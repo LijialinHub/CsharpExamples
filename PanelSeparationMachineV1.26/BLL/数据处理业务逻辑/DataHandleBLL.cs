@@ -18,13 +18,7 @@ namespace BLL
     public class DataHandleBLL
     {
 
-        /// <summary>
-        /// 加工坐标数据访问工具对象
-        /// </summary>
-        private ProcessCoordDAL ProcessCoordDAL = new ProcessCoordDAL() 
-        { 
-            DataBaseServer = new AccessDBHelper() 
-        }; //默认使用Access数据库
+        #region Ini设备参数数据读写
 
         /// <summary>
         /// 保存绘图参数到Ini文件
@@ -57,7 +51,7 @@ namespace BLL
         /// </summary>
         /// <param name="axis"></param>
         public void ReadAxisDataFromIni(Axis axis)
-        { 
+        {
             IniFiles iniFiles = new IniFiles(Environment.CurrentDirectory + @"\参数.ini");
 
             //脉冲当量 p/mm
@@ -97,7 +91,7 @@ namespace BLL
         /// </summary>
         /// <param name="axis"></param>
         public void WriteAxisDataFromIni(Axis axis)
-        { 
+        {
             IniFiles iniFiles = new IniFiles(Environment.CurrentDirectory + @"\参数.ini");
 
             //脉冲当量 p/mm
@@ -138,7 +132,7 @@ namespace BLL
         /// 从Ini文件读取IO工艺实体
         /// </summary>
         public void ReadIOCraftEntityFromIni(IOCraftEntity iOCraftEntity)
-        { 
+        {
             IniFiles iniFiles = new IniFiles(Environment.CurrentDirectory + @"\参数.ini");
 
             iOCraftEntity.MaterialSignals.Name = iniFiles.ReadString("物料到位信号", "信号名", "物料到位信号");
@@ -156,7 +150,7 @@ namespace BLL
         /// </summary>
         /// <param name="iOCraftEntity"></param>
         public void WriteIOCraftEntityToIni(IOCraftEntity iOCraftEntity)
-        { 
+        {
             IniFiles iniFiles = new IniFiles(Environment.CurrentDirectory + @"\参数.ini");
 
             iniFiles.WriteString("物料到位信号", "信号名", iOCraftEntity.MaterialSignals.Name);
@@ -166,7 +160,7 @@ namespace BLL
 
             iniFiles.WriteString("切割器信号", "信号名", iOCraftEntity.Cutter.Name);
             iniFiles.WriteString("切割器信号", "卡号", iOCraftEntity.Cutter.CardNo.ToString());
-            iniFiles.WriteString("切割器信号", "位号", iOCraftEntity.Cutter.BitNo.ToString());     
+            iniFiles.WriteString("切割器信号", "位号", iOCraftEntity.Cutter.BitNo.ToString());
         }
 
         /// <summary>
@@ -211,8 +205,19 @@ namespace BLL
             vision.YDirPixToMachine = double.Parse(iniFiles.ReadString("视觉参数", "Y方向像素和机械比值", "0"));
         }
 
+        #endregion
 
-       //****************************************数据库*******************************
+        #region 加工坐标数据库访问
+        //****************************************数据库*******************************
+
+        /// <summary>
+        /// 加工坐标数据访问工具对象
+        /// </summary>
+        private ProcessCoordDAL ProcessCoordDAL = new ProcessCoordDAL()
+        {
+            DataBaseServer = new AccessDBHelper()
+        }; //默认使用Access数据库
+
 
         /// <summary>
         /// 打开数据库
@@ -565,6 +570,61 @@ namespace BLL
             }
         }
 
+        #endregion
+
+        #region 用户数据访问
+
+        private UserInfoDAL UserInfoDAL = new UserInfoDAL();
+        
+        /// <summary>
+        /// 保存用户数据
+        /// </summary>
+        /// <param name="userEntities">用户集合</param>
+        /// <param name="res">执行结果</param>
+        /// <returns>True:成功 False:失败</returns>
+        public bool SaveUserData(List<UserEntity> userEntities, out string res)
+        {
+            try
+            {
+                UserInfoDAL.SaveUserData(userEntities);
+                res = "保存用户数据成功！";
+                return true;
+            }
+            catch (Exception ex)
+            {
+                res = "保存用户数据失败！ " + ex.Message;
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 读取用户数据
+        /// </summary>
+        /// <param name="userEntities">用户集合</param>
+        /// <param name="res">执行结果</param>
+        /// <returns>True:成功 False:失败</returns>
+        public bool ReadUserData(out List<UserEntity> userEntities, out string res)
+        {
+            try
+            {
+                userEntities = UserInfoDAL.ReadUserData();
+                if (userEntities == null || userEntities.Count == 0)
+                {
+                    throw new Exception("用户数据为空！");
+                }
+                res = "读取用户数据成功！";
+                return true;
+            }
+            catch (Exception ex)
+            {
+                res = "读取用户数据失败！ " + ex.Message;
+                userEntities = null;
+                return false;
+            }
+        }
+
+
+        #endregion
 
 
     }

@@ -88,10 +88,16 @@ namespace PanelSeparationMachineV1._26
         /// </summary>
         public static DrawParamsEntity DrawParamsEntity = new DrawParamsEntity();
 
+        /// <summary>
+        /// 当前用户实体对象
+        /// </summary>
+        public static UserEntity CurrentUserEntity = new UserEntity();
 
-        //轴实体
+        /// <summary>
+        /// 轴实体
+        /// </summary>
         public Axis X_Axis = new Axis() { Axis_CardNo = 0, Axis_Num = 0, Axis_Name = "X轴" };
-        public Axis Y_Axis = new Axis() { Axis_CardNo = 0, Axis_Num = 3, Axis_Name = "Y轴" };
+        public Axis Y_Axis = new Axis() { Axis_CardNo = 0, Axis_Num = 1, Axis_Name = "Y轴" };
         public Axis Z_Axis = new Axis() { Axis_CardNo = 0, Axis_Num = 2, Axis_Name = "Z轴" };
 
         /// <summary>
@@ -911,6 +917,25 @@ namespace PanelSeparationMachineV1._26
             {
                 chkMicroMove.Text = "点动";
                 chkMicroMove.BackColor = Color.FromArgb(0, 128, 255);
+            }
+        }
+
+        /// <summary>
+        /// 点动_紧急按钮
+        /// </summary>
+        private void btnEms_Click(object sender, EventArgs e)
+        {
+            UIImageButton uIButton = sender as UIImageButton;
+
+            if (!uIButton.Selected)
+            {
+                processFlowBLL.PressEmg();
+                uIButton.Selected = true;
+            }
+            else
+            {
+                processFlowBLL.LoosenEmg();
+                uIButton.Selected = false;
             }
         }
     }
