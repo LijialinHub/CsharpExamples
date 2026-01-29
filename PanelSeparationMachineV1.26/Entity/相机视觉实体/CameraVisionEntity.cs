@@ -16,6 +16,9 @@ namespace Entity
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+
+        #region 相机参数
+
         private string _StrSN;
         /// <summary>
         /// 相机序列号
@@ -112,6 +115,9 @@ namespace Entity
         }
 
 
+        #endregion
+
+
         #region 相机标定用到的数据
 
         private double _BDHeight;
@@ -162,6 +168,46 @@ namespace Entity
             }
         }
 
+        
+        /// <summary>
+        /// 示教板Mark1像素坐标
+        /// </summary>
+        public PixelCoordEntity TBImageMark1 { get; set; } = new PixelCoordEntity();
+
+        /// <summary>
+        /// 示教板Mark2像素坐标
+        /// </summary>
+        public PixelCoordEntity TBImageMark2 { get; set; } = new PixelCoordEntity();
+
+        /// <summary>
+        /// 示教板Mark1机械坐标(Mark1固定拍照位置)
+        /// </summary>
+        public MachineCoordEntity TBMachineMark1 { get; set; } = new MachineCoordEntity();
+
+        /// <summary>
+        /// 示教板Mark2机械坐标(Mark2固定拍照位置)
+        /// </summary>
+        public MachineCoordEntity TBMachineMark2 { get; set; } = new MachineCoordEntity();
+
+        /// <summary>
+        /// Mark2位置移动前匹配的像素坐标
+        /// </summary>
+        public PixelCoordEntity BDPixMark2MoveBefore { get; set; } = new PixelCoordEntity();
+
+        /// <summary>
+        /// Mark2位置移动钱匹配的机械坐标
+        /// </summary>
+        public MachineCoordEntity BDMachineMark2MoveBefore { get; set; } = new MachineCoordEntity();
+
+        /// <summary>
+        /// Mark2位置标定移动后的匹配的像素坐标
+        /// </summary>
+        public PixelCoordEntity BDPixMark2MoveAfter { get; set; } = new PixelCoordEntity();
+
+        /// <summary>
+        /// Mark2位置标定移动后的匹配的机械坐标
+        /// </summary>
+        public MachineCoordEntity BDMachineMark2MoveAfter { get; set; } = new MachineCoordEntity();
 
         #endregion
 

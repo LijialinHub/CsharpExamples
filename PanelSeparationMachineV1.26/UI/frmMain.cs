@@ -960,6 +960,10 @@ namespace PanelSeparationMachineV1._26
             int num = tabControlDisplay.SelectedIndex;
             if (num == -1) { return; }
 
+            bool isAllAxisGoHomeOver = X_Axis.OverGoHomeMark && 
+                                       Y_Axis.OverGoHomeMark &&
+                                       Z_Axis.OverGoHomeMark;
+
             if (num == 1) //选中示教页面
             {
                 if (AppData.CurrentUserEntity.JobLevel < UserEntity.Level.Technician)
@@ -976,6 +980,11 @@ namespace PanelSeparationMachineV1._26
                 {
                     tabControlDisplay.SelectedIndex = 0;
                     MessageBox.Show("您没有权限访问此页面！(工程师等级以上才能进入)", "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                if (!isAllAxisGoHomeOver)
+                {
+                    tabControlDisplay.SelectedIndex = 0;
+                    MessageBox.Show("有轴未执行回原点！", "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
 
@@ -1022,6 +1031,11 @@ namespace PanelSeparationMachineV1._26
         private void btnSelectRoi_Click(object sender, EventArgs e)
         {
 
+            //注销事件
+            hWindowControl1.HMouseDown -= hWindowControl1_HMouseDown;  //取消鼠标按下去指定位置功能
+
+
+
             //1. 停止连续采集并抓拍一张当前图像
             GrapAndUpdate();
 
@@ -1059,7 +1073,8 @@ namespace PanelSeparationMachineV1._26
             }
 
 
-
+            //注销事件
+            hWindowControl1.HMouseDown += hWindowControl1_HMouseDown;  //恢复鼠标按下去指定位置功能
 
         }
 
@@ -1121,6 +1136,259 @@ namespace PanelSeparationMachineV1._26
         /// <param name="e"></param>
         private void btnMatchMpdel_Click(object sender, EventArgs e)
         {
+            //1. 停止连续采集并抓拍一张当前图像
+            GrapAndUpdate();
+
+            if(radGroupMarkSelect.SelectedIndex == 0) //选择Mark1
+            {
+                PixelPos pixelPos = cemeraVisionHandleBLL.ExcuteMatch("Mark1", 
+                                                                        CameraVisionEntity.MatchScores,
+                                                                        CameraVisionEntity.MaxOverlap,
+                                                                        CameraVisionEntity.Greediness);
+
+                if(pixelPos != null)
+                {
+                    CameraVisionEntity.TBImageMark1.Row = pixelPos.Row;
+                    CameraVisionEntity.TBImageMark1.Column = pixelPos.Column;
+
+                    CameraVisionEntity.TBMachineMark1.X = X_Axis.Position;
+                    CameraVisionEntity.TBMachineMark1.Y = Y_Axis.Position;
+                }
+            }
+            else //选择Mark2
+            { 
+                PixelPos pixelPos = cemeraVisionHandleBLL.ExcuteMatch("Mark2",
+                                                                        CameraVisionEntity.MatchScores,
+                                                                        CameraVisionEntity.MaxOverlap,
+                                                                        CameraVisionEntity.Greediness);
+
+                if(pixelPos != null)
+                {
+                    CameraVisionEntity.TBImageMark2.Row = pixelPos.Row;
+                    CameraVisionEntity.TBImageMark2.Column = pixelPos.Column;
+
+                    CameraVisionEntity.TBMachineMark2.X = X_Axis.Position;
+                    CameraVisionEntity.TBMachineMark2.Y = Y_Axis.Position;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 去Mark点位置拍照
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void btnGoMarkPos_Click(object sender, EventArgs e)
+        {
+            chkContinuousAcq.Checked = true;
+            if (radGroupMarkSelect.SelectedIndex == 0) //选择Mark1
+            {
+                await motionHandleBLL.GotoMark1(Z_Axis, X_Axis, Y_Axis, CameraVisionEntity);
+            }
+            else //选择Mark2
+            {
+                await motionHandleBLL.GotoMark2(Z_Axis, X_Axis, Y_Axis, CameraVisionEntity);
+            }
+        }
+
+        // <summary>
+        /// 移动到Mark2位置
+        /// </summary>
+        private async Task btnGotoMark2_Click(object sender, EventArgs e)
+        {
+            if(!File.Exists(Environment.CurrentDirectory + $@"\Mark2ShapeModel.shm"))
+            {
+                MessageBox.Show("没有制作Mark2的模板", "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if(CameraVisionEntity.TBMachineMark2.X == 0 || CameraVisionEntity.TBMachineMark2.Y == 0)
+            {
+                MessageBox.Show("没有Mark2的拍照位置坐标，没有执行模板制作中的匹配模板! ", "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            chkContinuousAcq.Checked = true;
+
+            await motionHandleBLL.GotoMark2(Z_Axis, X_Axis, Y_Axis, CameraVisionEntity);
+
+            btnCalibrationPhotoGraph1.Enabled = true; //标定拍照1按钮允许
+            btnCalibrationPhotoGraph2.Enabled = false; //标定拍照2按钮禁止
+            btnCount.Enabled = false;  //计数按钮禁止
+        }
+
+        /// <summary>
+        /// 标定拍照1
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnCalibrationPhotoGraph1_Click(object sender, EventArgs e)
+        {
+
+            GrapAndUpdate();
+
+            //2. 匹配Mark2
+            PixelPos pixelPos = cemeraVisionHandleBLL.ExcuteMatch("Mark2",
+                                                                    CameraVisionEntity.MatchScores,
+                                                                    CameraVisionEntity.MaxOverlap,
+                                                                    CameraVisionEntity.Greediness);
+
+            if (pixelPos != null)
+            {
+                CameraVisionEntity.BDPixMark2MoveBefore.Row = pixelPos.Row;
+                CameraVisionEntity.BDPixMark2MoveBefore.Column = pixelPos.Column;
+
+                CameraVisionEntity.BDMachineMark2MoveBefore.X = X_Axis.Position;
+                CameraVisionEntity.BDMachineMark2MoveBefore.Y = Y_Axis.Position;
+            }
+            else
+            {
+                MessageBox.Show("匹配失败! ", "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            btnCalibrationPhotoGraph1.Enabled = false; //标定拍照1按钮禁止
+            btnCalibrationPhotoGraph2.Enabled = true; //标定拍照2按钮允许
+            btnCount.Enabled = false; //计算按钮禁止
+
+            MessageBox.Show("分别移动XY轴，然后继续进行拍照标定2! ", "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            chkContinuousAcq.Checked = true;
+        }
+
+
+        /// <summary>
+        /// 标定拍照2
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        private void btnCalibrationPhotoGraph2_Click(object sender, EventArgs e)
+        {
+
+            GrapAndUpdate();
+
+            //2. 匹配Mark2
+            PixelPos pixelPos = cemeraVisionHandleBLL.ExcuteMatch("Mark2",
+                                                                    CameraVisionEntity.MatchScores,
+                                                                    CameraVisionEntity.MaxOverlap,
+                                                                    CameraVisionEntity.Greediness);
+
+            if (pixelPos != null)
+            {
+                CameraVisionEntity.BDPixMark2MoveAfter.Row = pixelPos.Row;
+                CameraVisionEntity.BDPixMark2MoveAfter.Column = pixelPos.Column;
+
+                CameraVisionEntity.BDMachineMark2MoveAfter.X = X_Axis.Position;
+                CameraVisionEntity.BDMachineMark2MoveAfter.Y = Y_Axis.Position;
+            }
+            else
+            {
+                MessageBox.Show("匹配失败! ", "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            btnCalibrationPhotoGraph1.Enabled = false; //标定拍照1按钮禁止
+            btnCalibrationPhotoGraph2.Enabled = false; //标定拍照2按钮允许
+            btnCount.Enabled = true; //计算按钮禁止
+
+            MessageBox.Show("点击计算按钮进行计算! ", "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            chkContinuousAcq.Checked = true;
+
+
+        }
+
+        /// <summary>
+        /// 计算系数(像素和机械的比值)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        private void btnCount_Click(object sender, EventArgs e)
+        {
+            //两次拍照 X轴方向 的机械坐标差值
+            double diffX = Math.Abs(CameraVisionEntity.BDMachineMark2MoveAfter.X - 
+                                    CameraVisionEntity.BDMachineMark2MoveBefore.X);
+
+            if(diffX == 0)
+            {
+                MessageBox.Show("未移动X轴! ", "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                btnCalibrationPhotoGraph1.Enabled = false; //标定拍照1按钮禁止
+                btnCalibrationPhotoGraph2.Enabled = true; //标定拍照2按钮允许
+                btnCount.Enabled = false; //计算按钮禁止
+                return;
+            }
+
+            //两次拍照 列轴方向 的像素坐标差值
+            double diffC = Math.Abs(CameraVisionEntity.BDPixMark2MoveAfter.Column -
+                                   CameraVisionEntity.BDPixMark2MoveBefore.Column);
+
+            CameraVisionEntity.XDirPixToMachine = diffC / diffX;
+
+            //*************************************************************************
+
+
+            //两次拍照 Y轴方向 的机械坐标差值
+            double diffY = Math.Abs(CameraVisionEntity.BDMachineMark2MoveAfter.Y -
+                                    CameraVisionEntity.BDMachineMark2MoveBefore.Y);
+
+            if (diffY == 0)
+            {
+                MessageBox.Show("未移动X轴! ", "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                btnCalibrationPhotoGraph1.Enabled = false; //标定拍照1按钮禁止
+                btnCalibrationPhotoGraph2.Enabled = true; //标定拍照2按钮允许
+                btnCount.Enabled = false; //计算按钮禁止
+                return;
+            }
+
+            //两次拍照 行方向 的像素坐标差值
+            double diffR = Math.Abs(CameraVisionEntity.BDPixMark2MoveAfter.Row -
+                                   CameraVisionEntity.BDPixMark2MoveBefore.Row);
+
+            CameraVisionEntity.YDirPixToMachine = diffR / diffY;
+
+            MessageBox.Show("标定成功! ", "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            chkContinuousAcq.Checked = true;
+            btnCalibrationPhotoGraph1.Enabled = false;
+            btnCalibrationPhotoGraph2.Enabled = false;
+            btnCount.Enabled = false;
+
+        }
+
+
+        /// <summary>
+        /// 相机中心点去指定位置(鼠标按下事件)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void hWindowControl1_HMouseDown(object sender, HalconDotNet.HMouseEventArgs e)
+        {
+
+            if((CameraVisionEntity.XDirPixToMachine == 0) || (CameraVisionEntity.YDirPixToMachine == 0)){ return; }
+            if(CameraVisionEntity.BDHeight != Z_Axis.Position) { return; } //Z轴必须在标定高度位置 
+
+            if(e.Button == MouseButtons.Left)
+            {   
+                //获取鼠标按下位置像素坐标
+                double mouseDownRow = e.X;
+                double mouseDownColumn = e.Y;
+
+                //获取相机中心点像素坐标
+                double centerRow = cemeraVisionHandleBLL.ImageWidth / 2;
+                double centerColumn = cemeraVisionHandleBLL.ImageHeight / 2;
+
+                //计算机械坐标差值
+                double machineX = (mouseDownColumn - centerColumn) / CameraVisionEntity.XDirPixToMachine;
+                double machineY = (mouseDownRow - centerRow) / CameraVisionEntity.YDirPixToMachine;
+
+                //注意 是否加负号(根据XY轴实际机械方向确定)
+                motionHandleBLL.CrossGoToMouseDownPoint(X_Axis,- machineX,
+                                                          Y_Axis, -machineY);
+
+
+
+
+            }
+
 
         }
     }

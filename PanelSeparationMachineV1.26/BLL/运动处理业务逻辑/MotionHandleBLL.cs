@@ -398,5 +398,75 @@ namespace BLL
             });
         }
 
+
+        /// <summary>
+        /// 去Mark1拍照位置
+        /// </summary>
+        /// <param name="zAxis"></param>
+        /// <param name="xAxis"></param>
+        /// <param name="yAxis"></param>
+        /// <param name="cameraVisionEntity"></param>
+        public async Task GotoMark1(Axis zAxis, Axis xAxis, Axis yAxis,
+                                CameraVisionEntity cameraVisionEntity)
+        {
+
+            await Task.Run(() =>
+            {
+                //1.Z轴先到安全高度
+                motion.PtPAbsoluteMove(zAxis, zAxis.SafePosition);
+
+                //2.XY轴一起移动
+                motion.Line2AbsoluteMove(xAxis, cameraVisionEntity.TBMachineMark1.X,
+                                        yAxis, cameraVisionEntity.TBMachineMark1.Y);
+
+                //3.Z轴移动
+                motion.PtPAbsoluteMove(zAxis, cameraVisionEntity.BDHeight);
+            });
+        }
+
+        /// <summary>
+        /// 去Mark2拍照位置
+        /// </summary>
+        /// <param name="zAxis"></param>
+        /// <param name="xAxis"></param>
+        /// <param name="yAxis"></param>
+        /// <param name="cameraVisionEntity"></param>
+        public async Task GotoMark2(Axis zAxis, Axis xAxis, Axis yAxis,
+                                CameraVisionEntity cameraVisionEntity)
+        {
+
+            await Task.Run(() =>
+            {
+                //1.Z轴先到安全高度
+                motion.PtPAbsoluteMove(zAxis, zAxis.SafePosition);
+
+                //2.XY轴一起移动
+                motion.Line2AbsoluteMove(xAxis, cameraVisionEntity.TBMachineMark2.X,
+                                        yAxis, cameraVisionEntity.TBMachineMark2.Y);
+
+                //3.Z轴移动
+                motion.PtPAbsoluteMove(zAxis, cameraVisionEntity.BDHeight);
+            });
+        }
+
+
+        /// <summary>
+        /// 十字中心去指定点
+        /// </summary>
+        /// <param name="xAxis">X轴</param>
+        /// <param name="xDist">Y轴</param>
+        /// <param name="yAxis">X轴相对位置</param>
+        /// <param name="yDist">Y轴相对位置</param>
+        public void CrossGoToMouseDownPoint(Axis xAxis, double xDist, 
+                                            Axis yAxis, double yDist)
+        {
+
+            Task.Run(() =>
+            {
+               //XY轴一起移动
+               motion.Line2RelativelyMove(xAxis, xDist, yAxis, yDist);
+            });
+        }
+
     }
 }

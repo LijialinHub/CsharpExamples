@@ -182,6 +182,18 @@ namespace BLL
             iniFiles.WriteString("视觉参数", "拍照高度", vision.BDHeight.ToString());
             iniFiles.WriteString("视觉参数", "X方向像素和机械比值", vision.XDirPixToMachine.ToString());
             iniFiles.WriteString("视觉参数", "Y方向像素和机械比值", vision.YDirPixToMachine.ToString());
+
+            iniFiles.WriteString("视觉参数", "示教板Mark1像素行坐标", vision.TBImageMark1.Row.ToString());
+            iniFiles.WriteString("视觉参数", "示教板Mark1像素列坐标", vision.TBImageMark1.Column.ToString());
+
+            iniFiles.WriteString("视觉参数", "示教板Mark2像素行坐标", vision.TBImageMark2.Row.ToString());
+            iniFiles.WriteString("视觉参数", "示教板Mark2像素列坐标", vision.TBImageMark2.Column.ToString());
+
+            iniFiles.WriteString("视觉参数", "示教板Mark1机械X坐标", vision.TBMachineMark1.X.ToString());
+            iniFiles.WriteString("视觉参数", "示教板Mark1机械Y坐标", vision.TBMachineMark1.Y.ToString());
+
+            iniFiles.WriteString("视觉参数", "示教板Mark2机械X坐标", vision.TBMachineMark2.X.ToString());
+            iniFiles.WriteString("视觉参数", "示教板Mark2机械Y坐标", vision.TBMachineMark2.Y.ToString());
         }
 
         /// <summary>
@@ -203,6 +215,19 @@ namespace BLL
             vision.BDHeight = double.Parse(iniFiles.ReadString("视觉参数", "拍照高度", "0"));
             vision.XDirPixToMachine = double.Parse(iniFiles.ReadString("视觉参数", "X方向像素和机械比值", "0"));
             vision.YDirPixToMachine = double.Parse(iniFiles.ReadString("视觉参数", "Y方向像素和机械比值", "0"));
+
+            vision.TBImageMark1.Row = double.Parse(iniFiles.ReadString("视觉参数", "示教板Mark1像素行坐标", "0"));
+            vision.TBImageMark1.Column = double.Parse(iniFiles.ReadString("视觉参数", "示教板Mark1像素列坐标", "0"));
+
+            vision.TBImageMark2.Row = double.Parse(iniFiles.ReadString("视觉参数", "示教板Mark2像素行坐标", "0"));
+            vision.TBImageMark2.Column = double.Parse(iniFiles.ReadString("视觉参数", "示教板Mark2像素列坐标", "0"));
+
+            vision.TBMachineMark1.X = double.Parse(iniFiles.ReadString("视觉参数", "示教板Mark1机械X坐标", "0"));
+            vision.TBMachineMark1.Y = double.Parse(iniFiles.ReadString("视觉参数", "示教板Mark1机械Y坐标", "0"));
+
+            vision.TBMachineMark2.X = double.Parse(iniFiles.ReadString("视觉参数", "示教板Mark2机械X坐标", "0"));
+            vision.TBMachineMark2.Y = double.Parse(iniFiles.ReadString("视觉参数", "示教板Mark2机械Y坐标", "0"));
+
         }
 
         #endregion
