@@ -1,6 +1,7 @@
 using BLL;
 using Common;
 using Entity;
+using PanelSeparationMachineV1._26.UI;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
@@ -85,15 +86,7 @@ namespace PanelSeparationMachineV1._26
         /// </summary>
         private BindingList<string> tableNamesAuto = new BindingList<string>();
 
-        /// <summary>
-        /// 绘图参数(来自Ini文件)
-        /// </summary>
-        public static DrawParamsEntity DrawParamsEntity = new DrawParamsEntity();
-
-        /// <summary>
-        /// 当前用户实体对象
-        /// </summary>
-        public static UserEntity CurrentUserEntity = new UserEntity();
+        
 
         /// <summary>
         /// 轴实体
@@ -134,7 +127,7 @@ namespace PanelSeparationMachineV1._26
 
                 # region 绘图相关
 
-                dataHandleBLL.ReadDrawParamFromIni(DrawParamsEntity);
+                dataHandleBLL.ReadDrawParamFromIni(AppData.DrawParamsEntity);
                 drawHandleBLL = new DrawHandleBLL(picTrackDisplay);
                 drawHandleBLL.CoordinatesReset();
 
@@ -157,6 +150,13 @@ namespace PanelSeparationMachineV1._26
                 #region 相机和图像
 
                 DataHandleBLL.ReadCameraVisionFromIni(CameraVisionEntity);
+
+                picDisplayRoi.Image = File.Exists(Environment.CurrentDirectory + @"\Mark1ROI.bmp") ?
+                    Image.FromFile(Environment.CurrentDirectory + @"\Mark1ROI.bmp") : null;
+
+                picCalibrationDisplay.Image = File.Exists(Environment.CurrentDirectory + @"\Mark2ROI.bmp") ?
+                    Image.FromFile(Environment.CurrentDirectory + @"\Mark2ROI.bmp") : null;
+
                 cemeraVisionHandleBLL = new CemeraVisionHandleBLL(hWindowControl1);
                 cemeraVisionHandleBLL.OpenCamera(CameraVisionEntity.StrSN);
                 cemeraVisionHandleBLL.SingleAcq();
@@ -225,11 +225,11 @@ namespace PanelSeparationMachineV1._26
 
         private void DisplayCurrentUser()
         {
-            FieldInfo fieldInfo = typeof(UserEntity.Level).GetField(CurrentUserEntity.JobLevel.ToString());
+            FieldInfo fieldInfo = typeof(UserEntity.Level).GetField(AppData.CurrentUserEntity.JobLevel.ToString());
             DescriptionCustomAttribute descriptionCustomAttribute = (DescriptionCustomAttribute)fieldInfo.GetCustomAttribute(typeof(DescriptionCustomAttribute)); ;
 
             string level = descriptionCustomAttribute.Description;
-            this.Text = $"当前用户: {CurrentUserEntity.Name} {CurrentUserEntity.EmployeeID} {level}";
+            this.Text = $"当前用户: {AppData.CurrentUserEntity.Name} {AppData.CurrentUserEntity.EmployeeID} {level}";
         }
 
 
@@ -242,7 +242,7 @@ namespace PanelSeparationMachineV1._26
         {
             #region 绘图操作
 
-            dataHandleBLL.SaveDrawParamToIni(DrawParamsEntity);
+            dataHandleBLL.SaveDrawParamToIni(AppData.DrawParamsEntity);
 
             #endregion
 
@@ -308,13 +308,13 @@ namespace PanelSeparationMachineV1._26
             tkbExposureTime.DataBindings.Add("Value", CameraVisionEntity, "ExposeTime", false, DataSourceUpdateMode.OnPropertyChanged);
             tkbGain.DataBindings.Add("Value", CameraVisionEntity, "Gain", false, DataSourceUpdateMode.OnPropertyChanged);
 
-            nudExposureSet.DataBindings.Add("Value", CameraVisionEntity, "ExposeTime", false, DataSourceUpdateMode.OnPropertyChanged);
+            nudExposureSet.DataBindings.Add("Text", CameraVisionEntity, "ExposeTime", false, DataSourceUpdateMode.OnPropertyChanged);
 
-            nudGainSet.DataBindings.Add("Value", CameraVisionEntity, "Gain", false, DataSourceUpdateMode.OnPropertyChanged);
+            nudGainSet.DataBindings.Add("Text", CameraVisionEntity, "Gain", false, DataSourceUpdateMode.OnPropertyChanged);
 
             nudMaxOverlap.DataBindings.Add("Value", CameraVisionEntity, "MaxOverlap", false, DataSourceUpdateMode.OnPropertyChanged);
 
-            nudMaxGreed.DataBindings.Add("Value", CameraVisionEntity, "Greedness", false, DataSourceUpdateMode.OnPropertyChanged);
+            nudMaxGreed.DataBindings.Add("Value", CameraVisionEntity, "Greediness", false, DataSourceUpdateMode.OnPropertyChanged);
 
             nudMatchScoreSet.DataBindings.Add("Value", CameraVisionEntity, "MatchScores", false, DataSourceUpdateMode.OnPropertyChanged);
 
@@ -962,7 +962,7 @@ namespace PanelSeparationMachineV1._26
 
             if (num == 1) //选中示教页面
             {
-                if (CurrentUserEntity.JobLevel < UserEntity.Level.Technician)
+                if (AppData.CurrentUserEntity.JobLevel < UserEntity.Level.Technician)
                 {
                     tabControlDisplay.SelectedIndex = 0;
                     MessageBox.Show("您没有权限访问此页面！(技术员登记以上才能进入)", "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -972,7 +972,7 @@ namespace PanelSeparationMachineV1._26
 
             else if (num == 2) //相机设置页面
             {
-                if (CurrentUserEntity.JobLevel < UserEntity.Level.Engineer)
+                if (AppData.CurrentUserEntity.JobLevel < UserEntity.Level.Engineer)
                 {
                     tabControlDisplay.SelectedIndex = 0;
                     MessageBox.Show("您没有权限访问此页面！(工程师等级以上才能进入)", "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -992,6 +992,136 @@ namespace PanelSeparationMachineV1._26
                 tabControlDisplay.SelectedIndex = 0; //返回第一个画面
                 DisplayCurrentUser();
             }
+        }
+
+        /// <summary>
+        /// 增益设置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="value"></param>
+        private void nudGainSet_ValueChanged(object sender, double value)
+        {
+            cemeraVisionHandleBLL.SetGain(value);
+        }
+
+        /// <summary>
+        /// 曝光时间设置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="value"></param>
+        private void nudExposureSet_ValueChanged(object sender, double value)
+        {
+            cemeraVisionHandleBLL.SetExposure(value);
+        }
+
+        /// <summary>
+        /// 选择ROI
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSelectRoi_Click(object sender, EventArgs e)
+        {
+
+            //1. 停止连续采集并抓拍一张当前图像
+            GrapAndUpdate();
+
+            string roiName = radGroupMarkSelect.SelectedIndex == 0 ? "Mark1" : "Mark2";
+
+            //2. 确保PictureBox1对图像资源引用进行释放
+            if(picDisplayRoi.Image != null)
+            {
+                picDisplayRoi.Image.Dispose(); //取消和图片的关联
+            }
+
+            if(picCalibrationDisplay.Image != null && roiName == "Mark2")
+            {
+                picCalibrationDisplay.Image.Dispose();
+            }
+
+            //3. 显示ROI选择窗口 并绘制ROI
+            frmSelectRoi frmSelectRoi = new frmSelectRoi();
+            frmSelectRoi.ShowDialog();
+
+            if(cemeraVisionHandleBLL.DrawROI(AppData.RoiSelect, roiName, out string res))
+            {
+                //4. 显示Roi图像
+                picDisplayRoi.Image = Image.FromFile(Environment.CurrentDirectory + $@"\{roiName}ROI.bmp");
+                if(roiName == "Mark2")
+                {
+                    picCalibrationDisplay.Image = Image.FromFile(Environment.CurrentDirectory + @"\Mark2ROI.bmp");
+                }
+                //5. 确定拍照高度(Z轴位置)
+                CameraVisionEntity.BDHeight = Z_Axis.Position;
+            }
+            else //绘制ROI失败
+            {
+                MessageBox.Show(res, "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
+
+
+        }
+
+        /// <summary>
+        /// 停止连续采集并抓拍一张当前图像
+        /// </summary>
+        private void GrapAndUpdate()
+        { 
+            this.Invoke(new Action(() =>
+            {
+                chkContinuousAcq.Checked = false; //停止连续采集
+                cemeraVisionHandleBLL.SingleAcq();
+            }));
+        }
+
+        /// <summary>
+        /// 生成模板
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnCreateModel_Click(object sender, EventArgs e)
+        {
+            string str = radGroupMarkSelect.SelectedIndex == 0 ? "Mark1" : "Mark2";
+            if (cemeraVisionHandleBLL.CreateModel(str, out string res))
+            {
+                MessageBox.Show(res, "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show(res, "错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Mark1/Mark2点切换 显示不同的Mark图像
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="index"></param>
+        /// <param name="text"></param>
+        private void radGroupMarkSelect_ValueChanged(object sender, int index, string text)
+        {
+            if(index == 0)
+            {
+                picDisplayRoi.Image = File.Exists(Environment.CurrentDirectory + @"\Mark1ROI.bmp") ? 
+                    Image.FromFile(Environment.CurrentDirectory + @"\Mark1ROI.bmp") : null;
+            }
+            else
+            {
+                picDisplayRoi.Image = File.Exists(Environment.CurrentDirectory + @"\Mark2ROI.bmp") ?
+                    Image.FromFile(Environment.CurrentDirectory + @"\Mark2ROI.bmp") : null;
+            }
+        }
+        
+        
+        /// <summary>
+        /// 匹配模板
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnMatchMpdel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

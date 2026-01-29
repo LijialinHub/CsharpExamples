@@ -26,10 +26,10 @@ namespace PanelSeparationMachineV1._26
         /// <param name="e"></param>
         private void frmDrawParams_Load(object sender, EventArgs e)
         {
-            nudXAxisScalar.DataBindings.Add("Value", frmMain.DrawParamsEntity, "XDrawScale", false, DataSourceUpdateMode.OnPropertyChanged);
-            nudYAxisScalar.DataBindings.Add("Value", frmMain.DrawParamsEntity, "YDrawScale", false, DataSourceUpdateMode.OnPropertyChanged);
-            nudXOffset.DataBindings.Add("value", frmMain.DrawParamsEntity, "XDrawOffset", false, DataSourceUpdateMode.OnPropertyChanged);
-            nudYOffset.DataBindings.Add("value", frmMain.DrawParamsEntity, "YDrawOffset", false, DataSourceUpdateMode.OnPropertyChanged);
+            nudXAxisScalar.DataBindings.Add("Value", AppData.DrawParamsEntity, "XDrawScale", false, DataSourceUpdateMode.OnPropertyChanged);
+            nudYAxisScalar.DataBindings.Add("Value", AppData.DrawParamsEntity, "YDrawScale", false, DataSourceUpdateMode.OnPropertyChanged);
+            nudXOffset.DataBindings.Add("value", AppData.DrawParamsEntity, "XDrawOffset", false, DataSourceUpdateMode.OnPropertyChanged);
+            nudYOffset.DataBindings.Add("value", AppData.DrawParamsEntity, "YDrawOffset", false, DataSourceUpdateMode.OnPropertyChanged);
         }
     }
 }

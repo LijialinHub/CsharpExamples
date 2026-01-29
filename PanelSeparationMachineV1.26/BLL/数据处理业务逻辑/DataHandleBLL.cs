@@ -175,7 +175,7 @@ namespace BLL
             iniFiles.WriteString("视觉参数", "曝光时间", vision.ExposeTime.ToString());
             iniFiles.WriteString("视觉参数", "增益", vision.Gain.ToString());
 
-            iniFiles.WriteString("视觉参数", "贪婪度", vision.Greedness.ToString());
+            iniFiles.WriteString("视觉参数", "贪婪度", vision.Greediness.ToString());
             iniFiles.WriteString("视觉参数", "重叠度", vision.MaxOverlap.ToString());
             iniFiles.WriteString("视觉参数", "匹配分数", vision.MatchScores.ToString());
 
@@ -196,7 +196,7 @@ namespace BLL
             vision.ExposeTime = double.Parse(iniFiles.ReadString("视觉参数", "曝光时间", "6000.0"));
             vision.Gain = double.Parse(iniFiles.ReadString("视觉参数", "增益", "0.0"));
 
-            vision.Greedness = double.Parse(iniFiles.ReadString("视觉参数", "贪婪度", "0.0"));
+            vision.Greediness = double.Parse(iniFiles.ReadString("视觉参数", "贪婪度", "0.0"));
             vision.MaxOverlap = double.Parse(iniFiles.ReadString("视觉参数", "重叠度", "0.0"));
             vision.MatchScores = double.Parse(iniFiles.ReadString("视觉参数", "匹配分数", "0.0"));
 

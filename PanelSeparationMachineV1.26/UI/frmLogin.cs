@@ -66,17 +66,17 @@ namespace PanelSeparationMachineV1._26
             {
                 bool isOk = userEntities.Any(user => user.EmployeeID == txtId.Text && user.Password == int.Parse(txtPassword.Text));
 
-                UserEntity u1 = frmMain.CurrentUserEntity;  //上一次的用户
+                UserEntity u1 = AppData.CurrentUserEntity;  //上一次的用户
 
                 if (isOk) 
                 {
                     //Where返回的是集合 FirstOrDefault集合的第一个元素或者null
-                    frmMain.CurrentUserEntity = userEntities.Where(user => user.EmployeeID == txtId.Text).FirstOrDefault();
+                    AppData.CurrentUserEntity = userEntities.Where(user => user.EmployeeID == txtId.Text).FirstOrDefault();
 
                     //反射
                     Type type = typeof(UserEntity.Level); //获取的UserEntity.Level类型的Type  相当于typeof(UserEntity.Level)
 
-                    FieldInfo fieldInfo= type.GetField(frmMain.CurrentUserEntity.JobLevel.ToString());
+                    FieldInfo fieldInfo= type.GetField(AppData.CurrentUserEntity.JobLevel.ToString());
                     //
                     if(type.IsDefined(typeof(DescriptionCustomAttribute), false))
                     {
@@ -85,7 +85,7 @@ namespace PanelSeparationMachineV1._26
                     }
 
                     
-                    string path = Environment.CurrentDirectory + @"\头像\" + frmMain.CurrentUserEntity.AvatarFileName;
+                    string path = Environment.CurrentDirectory + @"\头像\" + AppData.CurrentUserEntity.AvatarFileName;
                     if(File.Exists(path))
                     {
                         uiAvatarUser.Icon = UIAvatar.UIIcon.Image;
@@ -95,8 +95,8 @@ namespace PanelSeparationMachineV1._26
                     {
                         uiAvatarUser.Icon = UIAvatar.UIIcon.Symbol;
                     }
-                    txtUserName.Text = frmMain.CurrentUserEntity.Name;
-                    txtLevel.Text = frmMain.CurrentUserEntity.JobLevel.ToString();
+                    txtUserName.Text = AppData.CurrentUserEntity.Name;
+                    txtLevel.Text = AppData.CurrentUserEntity.JobLevel.ToString();
 
                         DialogResult dialogResult = MessageBox.Show("验证成功! 是否进入主页面？", "消息提示",
                             MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -108,7 +108,7 @@ namespace PanelSeparationMachineV1._26
                     }
                     else
                     {
-                        frmMain.CurrentUserEntity = u1;
+                        AppData.CurrentUserEntity = u1;
                     }
 
                 }
@@ -122,8 +122,6 @@ namespace PanelSeparationMachineV1._26
                     txtId.Focus();
                     uiAvatarUser.Icon = UIAvatar.UIIcon.Symbol;
                 }
-
-
 
             }
             else

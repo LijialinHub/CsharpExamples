@@ -80,17 +80,17 @@ namespace Entity
 
 
 
-        private double _Greedness;
+        private double _Greediness;
         /// <summary>
         /// 贪婪度
         /// </summary>
-        public double Greedness
+        public double Greediness
         {
-            get { return _Greedness; }
+            get { return _Greediness; }
             set
             {
-                if (_Greedness == value) { return; }
-                _Greedness = value;
+                if (_Greediness == value) { return; }
+                _Greediness = value;
                 OnPropertyChanged();
             }
         }

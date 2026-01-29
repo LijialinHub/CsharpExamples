@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL;
+using Entity;
 using HalconDotNet;
 
 namespace BLL
@@ -31,6 +32,11 @@ namespace BLL
         {
             imageProcessing = new ImageProcessing(hWindowControl);
         }
+
+
+        #region 相机部分
+
+
 
         /// <summary>
         /// 打开相机
@@ -89,5 +95,98 @@ namespace BLL
         {
             camera.SetGainRaw(gain);
         }
+
+        #endregion
+
+
+        #region 视觉部分
+
+        /// <summary>
+        /// 绘制ROI
+        /// </summary>
+        /// <param name="roiSelect"></param>
+        /// <param name="roiName"></param>
+        public bool DrawROI(RoiSelect roiSelect, string roiName, out string res)
+        {
+            try
+            {
+                imageProcessing.MakeROI(roiSelect, roiName);
+                res = "绘制ROI成功!";
+                return true;
+            }
+            catch (Exception ex)
+            {
+                res = "绘制ROI失败！ "+ ex.Message;
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 创建模板
+        /// </summary>
+        /// <param name="modelName"></param>
+        public bool CreateModel(string modelName, out string res)
+        {
+            try
+            {
+                imageProcessing.CreateShapeModel(modelName);
+                res = "创建模板成功！";
+                return true;
+            }
+            catch (Exception ex)
+            {
+                res = "创建模板失败！" + ex.Message;
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 执行匹配
+        /// </summary>
+        /// <param name="shapeModeName"></param>
+        /// <param name="minScores"></param>
+        /// <param name="maxOverlap"></param>
+        /// <param name="greediness"></param>
+        /// <returns></returns>
+        public PixelPos ExcuteMatch(string shapeModeName, double minScores, double maxOverlap,
+                                    double greediness )
+        {
+            
+            List<PixelPos> matches = imageProcessing.FindShapeModel(shapeModeName, minScores, 1, maxOverlap,
+                                                                         greediness, "red", 2, "green", "yellow", 15);
+            imageProcessing.DisplayNGOrOK(matches);
+            if (matches.Count == 0) { return null; }
+            return matches[0];
+
+        }
+
+        /// <summary>
+        /// 图像高度
+        /// </summary>
+        public double ImageHeight
+        {
+            get
+            {
+                return imageProcessing.hv_Height;
+            }
+        }
+
+        /// <summary>
+        /// 图像宽度
+        /// </summary>
+        public double ImageWidth
+        {
+            get
+            {
+                return imageProcessing.hv_Width;
+            }
+        }
+
+
+
+
+        #endregion
+
+
     }
 }

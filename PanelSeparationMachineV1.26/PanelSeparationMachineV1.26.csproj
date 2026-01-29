@@ -70,6 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\AppData.cs" />
     <Compile Include="BLL\工艺流程业务逻辑\ProcessFlowBLL.cs" />
     <Compile Include="BLL\数据处理业务逻辑\DataHandleBLL.cs" />
     <Compile Include="BLL\相机视觉业务逻辑\CemeraVisionHandleBLL.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="DAL\相机和视觉访问类\ImageProcessing.cs" />
     <Compile Include="DAL\相机和视觉访问类\大恒相机相关类\MERCameraClass.cs" />
     <Compile Include="DAL\相机和视觉访问类\大恒相机相关类\Win32Bitmap.cs" />
+    <Compile Include="Entity\相机视觉实体\PixelCoordEntity.cs" />
     <Compile Include="Entity\轴实体\Axis.cs" />
     <Compile Include="Entity\相机视觉实体\CameraVisionEntity.cs" />
     <Compile Include="Entity\绘图参数实体\DrawParamsEntity.cs" />
