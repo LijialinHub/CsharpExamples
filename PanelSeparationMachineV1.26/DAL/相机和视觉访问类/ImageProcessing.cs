@@ -1018,60 +1018,63 @@ namespace DAL
         }
 
 
-        ///// <summary>
-        ///// 获取相机修正矩阵(平移和旋转)
-        ///// </summary>
-        ///// <param name="oldPos">示教板的机械坐标</param>
-        ///// <param name="newPos">加工板机械坐标</param>
-        ///// <param name="hv_HomMat2D">关系矩阵</param>
-        //public void GetCorrectMatrix(MachineCoordinatesEntity[] oldPos,
-        //                             MachineCoordinatesEntity[] newPos,
-        //                             out HTuple hv_HomMat2D)
-        //{
-        //    HTuple hv_oldX, hv_oldY, hv_newX, hv_newY;
+        /// <summary>
+        /// 获取相机修正矩阵(平移和旋转)
+        /// </summary>
+        /// <param name="oldPos">示教板的机械坐标</param>
+        /// <param name="newPos">加工板机械坐标</param>
+        /// <param name="hv_HomMat2D">关系矩阵</param>
+        public void GetCorrectMatrix(MachineCoordEntity[] oldPos,
+                                     MachineCoordEntity[] newPos,
+                                     out HTuple hv_HomMat2D)
+        {
+            HTuple hv_oldX, hv_oldY, hv_newX, hv_newY;
 
-        //    hv_oldX = new HTuple();
-        //    hv_oldX[0] = oldPos[0].X; hv_oldX[1] = oldPos[1].X;
+            hv_oldX = new HTuple();
+            hv_oldX[0] = oldPos[0].X; hv_oldX[1] = oldPos[1].X;
 
-        //    hv_oldY = new HTuple();
-        //    hv_oldY[0] = oldPos[0].Y; hv_oldY[1] = oldPos[1].Y;
+            hv_oldY = new HTuple();
+            hv_oldY[0] = oldPos[0].Y; hv_oldY[1] = oldPos[1].Y;
 
-        //    hv_newX = new HTuple();
-        //    hv_newX[0] = newPos[0].X; hv_newX[1] = newPos[1].X;
+            hv_newX = new HTuple();
+            hv_newX[0] = newPos[0].X; hv_newX[1] = newPos[1].X;
 
-        //    hv_newY = new HTuple();
-        //    hv_newY[0] = newPos[0].Y; hv_newY[1] = newPos[1].Y;
+            hv_newY = new HTuple();
+            hv_newY[0] = newPos[0].Y; hv_newY[1] = newPos[1].Y;
 
-        //    HOperatorSet.VectorToRigid(hv_oldX, hv_oldY, hv_newX, hv_newY, out hv_HomMat2D);
-        //}
+            HOperatorSet.VectorToRigid(hv_oldX, hv_oldY, hv_newX, hv_newY, out hv_HomMat2D);
+        }
 
-        ///// <summary>
-        ///// 获取仿射变换后的点
-        ///// </summary>
-        ///// <param name="hv_HomMat2D">矩阵</param>
-        ///// <param name="oldMPoint">之前的点坐标</param>
-        ///// <param name="newMPoint">仿射后的点坐标</param> 
-        //public void GetAffineTransPoint(HTuple hv_HomMat2D,
-        //                                MachineCoordinatesEntity oldMPoint,
-        //                                MachineCoordinatesEntity newMPoint)
-        //{
-        //    HTuple oldPointX, oldPointY, newPointX, newPointY;
-        //    oldPointX = oldMPoint.X; oldPointY = oldMPoint.Y;
+        /// <summary>
+        /// 获取仿射变换后的点
+        /// </summary>
+        /// <param name="hv_HomMat2D">矩阵</param>
+        /// <param name="oldMPoint">之前的点坐标</param>
+        /// <param name="newMPoint">仿射后的点坐标</param> 
+        public void GetAffineTransPoint(HTuple hv_HomMat2D,
+                                        MachineCoordEntity oldMPoint,
+                                        MachineCoordEntity newMPoint)
+        {
+            HTuple oldPointX, oldPointY, newPointX, newPointY;
+            oldPointX = oldMPoint.X; oldPointY = oldMPoint.Y;
 
-        //    HOperatorSet.AffineTransPoint2d(hv_HomMat2D, oldPointX, oldPointY,
-        //                                    out newPointX, out newPointY);
+            HOperatorSet.AffineTransPoint2d(hv_HomMat2D, oldPointX, oldPointY,
+                                            out newPointX, out newPointY);
 
-        //    newMPoint.X = newPointX; newMPoint.Y = newPointY;
+            newMPoint.X = newPointX; 
+            newMPoint.Y = newPointY;
 
-        //    HTuple hv_Sx, hv_Sy, hv_Phi, hv_Theta, hv_Tx, hv_Ty, hv_Deg1;
+            HTuple hv_Sx, hv_Sy, hv_Phi, hv_Theta, hv_Tx, hv_Ty, hv_Deg1;
 
-        //    HOperatorSet.HomMat2dToAffinePar(hv_HomMat2D, out hv_Sx, out hv_Sy, out hv_Phi,
-        //    out hv_Theta, out hv_Tx, out hv_Ty);
+            HOperatorSet.HomMat2dToAffinePar(hv_HomMat2D, out hv_Sx, out hv_Sy, out hv_Phi,
+            out hv_Theta, out hv_Tx, out hv_Ty);
 
-        //    HOperatorSet.TupleDeg(hv_Phi, out hv_Deg1);
+            HOperatorSet.TupleDeg(hv_Phi, out hv_Deg1);
 
-        //    newMPoint.Angle = hv_Deg1; newMPoint.Tx = hv_Tx; newMPoint.Ty = hv_Ty;
-        //}
+            newMPoint.Angle = hv_Deg1; 
+            newMPoint.Tx = hv_Tx; 
+            newMPoint.Ty = hv_Ty;
+        }
 
     }
 

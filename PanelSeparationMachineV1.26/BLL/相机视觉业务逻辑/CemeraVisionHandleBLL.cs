@@ -25,6 +25,11 @@ namespace BLL
         private ImageProcessing imageProcessing;
 
         /// <summary>
+        /// 视觉修正后的机械矩阵关系
+        /// </summary>
+        private HTuple visionCorrectMachineMatrix;
+
+        /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="hWindowControl"></param>
@@ -182,6 +187,40 @@ namespace BLL
             }
         }
 
+
+        /// <summary>
+        /// 获取视觉修正后的机械矩阵
+        /// </summary>
+        /// <param name="cameraVisionEntity">相机视觉参数实体</param>
+        /// <param name="newMarkPos">相机修正后坐标</param>
+        public void GetVisionCorrectMachineMatrix(CameraVisionEntity cameraVisionEntity,
+                                                MachineCoordEntity[] newMarkPos)
+        {
+            MachineCoordEntity[] oldPos = new MachineCoordEntity[2]
+            {
+                cameraVisionEntity.TBMachineMark1,
+                cameraVisionEntity.TBMachineMark2
+            };
+
+            imageProcessing.GetCorrectMatrix(oldPos, newMarkPos, out HTuple matrix);
+            visionCorrectMachineMatrix = matrix;
+        }
+
+
+        /// <summary>
+        /// 修改点坐标
+        /// </summary>
+        /// <param name="old">以前的点坐标</param>
+        /// <param name="newPos">新的点坐标</param>
+        public void CorrectPoint(MachineCoordEntity old,
+                                out MachineCoordEntity newPos)
+        {
+            MachineCoordEntity machine = new MachineCoordEntity();
+            imageProcessing.GetAffineTransPoint(visionCorrectMachineMatrix, 
+                                                old, machine);
+            newPos = machine;
+            
+        }
 
 
 

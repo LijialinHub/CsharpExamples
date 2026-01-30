@@ -130,7 +130,7 @@
             this.lblProductNum = new Sunny.UI.UILabel();
             this.uiButton1 = new Sunny.UI.UIButton();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
-            this.uiButton3 = new Sunny.UI.UIButton();
+            this.btnAutoGoHome = new Sunny.UI.UIButton();
             this.btnEms1 = new Sunny.UI.UIImageButton();
             this.radGroupAutoSelect = new Sunny.UI.UIRadioButtonGroup();
             this.btnPause = new Sunny.UI.UIButton();
@@ -230,9 +230,9 @@
             this.label11 = new System.Windows.Forms.Label();
             this.txtPixTomm_X = new Sunny.UI.UITextBox();
             this.picCalibrationDisplay = new System.Windows.Forms.PictureBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.uiToolTip1 = new Sunny.UI.UIToolTip(this.components);
-            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -334,7 +334,7 @@
             this.退出系统ToolStripMenuItem.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.退出系统ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("退出系统ToolStripMenuItem.Image")));
             this.退出系统ToolStripMenuItem.Name = "退出系统ToolStripMenuItem";
-            this.退出系统ToolStripMenuItem.Size = new System.Drawing.Size(136, 34);
+            this.退出系统ToolStripMenuItem.Size = new System.Drawing.Size(136, 36);
             this.退出系统ToolStripMenuItem.Text = "退出系统";
             this.退出系统ToolStripMenuItem.Click += new System.EventHandler(this.退出系统ToolStripMenuItem_Click_1);
             // 
@@ -343,7 +343,7 @@
             this.轴参数ToolStripMenuItem.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.轴参数ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("轴参数ToolStripMenuItem.Image")));
             this.轴参数ToolStripMenuItem.Name = "轴参数ToolStripMenuItem";
-            this.轴参数ToolStripMenuItem.Size = new System.Drawing.Size(115, 34);
+            this.轴参数ToolStripMenuItem.Size = new System.Drawing.Size(115, 36);
             this.轴参数ToolStripMenuItem.Text = "轴参数";
             this.轴参数ToolStripMenuItem.Click += new System.EventHandler(this.轴参数ToolStripMenuItem_Click);
             // 
@@ -352,7 +352,7 @@
             this.iO操作ToolStripMenuItem.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.iO操作ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("iO操作ToolStripMenuItem.Image")));
             this.iO操作ToolStripMenuItem.Name = "iO操作ToolStripMenuItem";
-            this.iO操作ToolStripMenuItem.Size = new System.Drawing.Size(118, 34);
+            this.iO操作ToolStripMenuItem.Size = new System.Drawing.Size(118, 36);
             this.iO操作ToolStripMenuItem.Text = "IO操作";
             // 
             // 工艺参数ToolStripMenuItem
@@ -360,7 +360,7 @@
             this.工艺参数ToolStripMenuItem.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.工艺参数ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("工艺参数ToolStripMenuItem.Image")));
             this.工艺参数ToolStripMenuItem.Name = "工艺参数ToolStripMenuItem";
-            this.工艺参数ToolStripMenuItem.Size = new System.Drawing.Size(136, 34);
+            this.工艺参数ToolStripMenuItem.Size = new System.Drawing.Size(136, 36);
             this.工艺参数ToolStripMenuItem.Text = "工艺参数";
             this.工艺参数ToolStripMenuItem.Click += new System.EventHandler(this.工艺参数ToolStripMenuItem_Click);
             // 
@@ -369,7 +369,7 @@
             this.历史报警ToolStripMenuItem.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.历史报警ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("历史报警ToolStripMenuItem.Image")));
             this.历史报警ToolStripMenuItem.Name = "历史报警ToolStripMenuItem";
-            this.历史报警ToolStripMenuItem.Size = new System.Drawing.Size(136, 34);
+            this.历史报警ToolStripMenuItem.Size = new System.Drawing.Size(136, 36);
             this.历史报警ToolStripMenuItem.Text = "历史报警";
             // 
             // 重新登录ToolStripMenuItem
@@ -377,7 +377,7 @@
             this.重新登录ToolStripMenuItem.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.重新登录ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("重新登录ToolStripMenuItem.Image")));
             this.重新登录ToolStripMenuItem.Name = "重新登录ToolStripMenuItem";
-            this.重新登录ToolStripMenuItem.Size = new System.Drawing.Size(136, 34);
+            this.重新登录ToolStripMenuItem.Size = new System.Drawing.Size(136, 36);
             this.重新登录ToolStripMenuItem.Text = "重新登录";
             this.重新登录ToolStripMenuItem.Click += new System.EventHandler(this.重新登录ToolStripMenuItem_Click);
             // 
@@ -386,7 +386,7 @@
             this.产品信息ToolStripMenuItem.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.产品信息ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("产品信息ToolStripMenuItem.Image")));
             this.产品信息ToolStripMenuItem.Name = "产品信息ToolStripMenuItem";
-            this.产品信息ToolStripMenuItem.Size = new System.Drawing.Size(136, 34);
+            this.产品信息ToolStripMenuItem.Size = new System.Drawing.Size(136, 36);
             this.产品信息ToolStripMenuItem.Text = "产品信息";
             // 
             // statusStrip1
@@ -967,6 +967,8 @@
             this.cmbProductName.Name = "cmbProductName";
             this.cmbProductName.Size = new System.Drawing.Size(183, 32);
             this.cmbProductName.TabIndex = 2;
+            this.cmbProductName.SelectedIndexChanged += new System.EventHandler(this.cmbProductName_SelectedIndexChanged);
+            this.cmbProductName.TextChanged += new System.EventHandler(this.cmbProductType_SelectedIndexChanged);
             // 
             // uiLabel5
             // 
@@ -1079,7 +1081,6 @@
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel8.Size = new System.Drawing.Size(399, 256);
             this.tableLayoutPanel8.TabIndex = 0;
-            this.tableLayoutPanel8.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel8_Paint);
             // 
             // uiLabel26
             // 
@@ -1617,7 +1618,7 @@
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 23.1405F));
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.30303F));
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.55647F));
-            this.tableLayoutPanel7.Controls.Add(this.uiButton3, 1, 1);
+            this.tableLayoutPanel7.Controls.Add(this.btnAutoGoHome, 1, 1);
             this.tableLayoutPanel7.Controls.Add(this.btnEms1, 2, 0);
             this.tableLayoutPanel7.Controls.Add(this.radGroupAutoSelect, 1, 0);
             this.tableLayoutPanel7.Controls.Add(this.btnPause, 0, 1);
@@ -1632,21 +1633,22 @@
             this.tableLayoutPanel7.Size = new System.Drawing.Size(399, 215);
             this.tableLayoutPanel7.TabIndex = 3;
             // 
-            // uiButton3
+            // btnAutoGoHome
             // 
-            this.uiButton3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiButton3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.uiButton3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.uiButton3.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Bold);
-            this.uiButton3.Location = new System.Drawing.Point(107, 117);
-            this.uiButton3.Margin = new System.Windows.Forms.Padding(15, 10, 15, 10);
-            this.uiButton3.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiButton3.Name = "uiButton3";
-            this.uiButton3.Radius = 15;
-            this.uiButton3.Size = new System.Drawing.Size(90, 88);
-            this.uiButton3.TabIndex = 13;
-            this.uiButton3.Text = "原点复位";
-            this.uiButton3.TipsFont = new System.Drawing.Font("宋体", 7F);
+            this.btnAutoGoHome.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAutoGoHome.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnAutoGoHome.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.btnAutoGoHome.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Bold);
+            this.btnAutoGoHome.Location = new System.Drawing.Point(107, 117);
+            this.btnAutoGoHome.Margin = new System.Windows.Forms.Padding(15, 10, 15, 10);
+            this.btnAutoGoHome.MinimumSize = new System.Drawing.Size(1, 1);
+            this.btnAutoGoHome.Name = "btnAutoGoHome";
+            this.btnAutoGoHome.Radius = 15;
+            this.btnAutoGoHome.Size = new System.Drawing.Size(90, 88);
+            this.btnAutoGoHome.TabIndex = 13;
+            this.btnAutoGoHome.Text = "原点复位";
+            this.btnAutoGoHome.TipsFont = new System.Drawing.Font("宋体", 7F);
+            this.btnAutoGoHome.Click += new System.EventHandler(this.btnAutoGoHome_Click);
             // 
             // btnEms1
             // 
@@ -1702,6 +1704,7 @@
             this.btnPause.TabIndex = 10;
             this.btnPause.Text = "暂停";
             this.btnPause.TipsFont = new System.Drawing.Font("宋体", 7F);
+            this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
             // 
             // btnStart
             // 
@@ -1718,6 +1721,7 @@
             this.btnStart.TabIndex = 7;
             this.btnStart.Text = "自动启动";
             this.btnStart.TipsFont = new System.Drawing.Font("宋体", 7F);
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // tabPage2
             // 
@@ -2339,6 +2343,7 @@
             this.cmbProductType.Size = new System.Drawing.Size(101, 32);
             this.cmbProductType.TabIndex = 3;
             this.cmbProductType.SelectedIndexChanged += new System.EventHandler(this.cmbProductType_SelectedIndexChanged);
+            this.cmbProductType.TextChanged += new System.EventHandler(this.cmbProductType_SelectedIndexChanged);
             this.cmbProductType.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmbProductType_KeyDown);
             // 
             // uiLabel2
@@ -3316,6 +3321,15 @@
             this.picCalibrationDisplay.TabIndex = 39;
             this.picCalibrationDisplay.TabStop = false;
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Location = new System.Drawing.Point(0, 40);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(745, 643);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "用户管理";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
             // timer1
             // 
             this.timer1.Enabled = true;
@@ -3327,15 +3341,6 @@
             this.uiToolTip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
             this.uiToolTip1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(239)))));
             this.uiToolTip1.OwnerDraw = true;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Location = new System.Drawing.Point(0, 40);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(745, 643);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "用户管理";
-            this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // frmMain
             // 
@@ -3353,7 +3358,6 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmMain_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.FontChanged += new System.EventHandler(this.frmMain_FontChanged);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -3516,7 +3520,7 @@
         private Sunny.UI.UIButton btnPause;
         private Sunny.UI.UIRadioButtonGroup radGroupAutoSelect;
         private Sunny.UI.UIImageButton btnEms1;
-        private Sunny.UI.UIButton uiButton3;
+        private Sunny.UI.UIButton btnAutoGoHome;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel10;
         private System.Windows.Forms.ComboBox cmbProductType;

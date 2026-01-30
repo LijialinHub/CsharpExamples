@@ -1,4 +1,5 @@
-﻿using DAL;
+﻿using Common;
+using DAL;
 using Entity;
 using Sunny.UI;
 using System;
@@ -50,6 +51,19 @@ namespace BLL
         /// 绘图参数实体
         /// </summary>
         public DrawParamsEntity drawParamsEntity { get; set; }
+
+
+        /// <summary>
+        /// 相机视觉业务逻辑对象
+        /// </summary>
+        public CemeraVisionHandleBLL CemeraVisionHandleBLL { get; set; }
+
+        /// <summary>
+        /// 相机视觉实体参数
+        /// </summary>
+        public CameraVisionEntity cameraVisionEntity { get; set; }
+
+        
 
         /// <summary>
         /// 全自动标志(True:全自动 False:半自动)
@@ -507,6 +521,183 @@ namespace BLL
             Task.WaitAll(tx, ty); //等待所有任务完成
         }
 
+
+        /// <summary>
+        /// 执行去Mark2位置
+        /// </summary>
+        /// <param name="xAxis">X轴</param>
+        /// <param name="yAxis">Y轴</param>
+        /// <param name="zAxis">Z轴</param>
+        /// <param name="cameraVisionEntity"></param>
+        private async void ExcecuteMoveToMark2(Axis xAxis, Axis yAxis, Axis zAxis,
+                                        CameraVisionEntity cameraVisionEntity)
+        {
+            //1.Z轴先到安全高度
+            motion.PtPAbsoluteMove(zAxis, zAxis.SafePosition);
+
+            //2.XY轴一起移动
+            motion.Line2AbsoluteMove(xAxis, cameraVisionEntity.TBMachineMark2.X,
+                                    yAxis, cameraVisionEntity.TBMachineMark2.Y);
+
+            //3.Z轴移动
+            motion.PtPAbsoluteMove(zAxis, cameraVisionEntity.BDHeight);
+        }
+
+
+        /// <summary>
+        /// 执行去Mark2位置拍照
+        /// </summary>
+        /// <param name="uiIGrapAndUpdate">UI停止实时采集并更新图像</param>
+        /// <param name="cemeraVisionHandleBLL">相机视觉处理业务逻辑</param>
+        /// <param name="cameraVisionEntity">相机视觉实体</param>
+        /// <param name="mark2MachinePos">加工板Mark2位置坐标</param>
+        private bool ExecuteMark2PositionPhotograph(Action uiIGrapAndUpdate,
+                                                    CemeraVisionHandleBLL cemeraVisionHandleBLL,
+                                                    CameraVisionEntity cameraVisionEntity,
+                                                    out MachineCoordEntity mark2MachinePos,
+                                                    out string res)
+        {
+            try
+            {
+                //1. UI停止实时采集并更新图像
+                uiIGrapAndUpdate?.Invoke();
+
+                //2. 匹配Mark2，得到加工板Mark2像素坐标
+                PixelPos pixelPos = cemeraVisionHandleBLL.ExcuteMatch("Mark2",
+                                                                    cameraVisionEntity.MatchScores,
+                                                                    cameraVisionEntity.MaxOverlap,
+                                                                    cameraVisionEntity.Greediness
+                                                                    );
+                if (pixelPos != null)  //匹配成功
+                { 
+                    double diffRow = pixelPos.Row - cameraVisionEntity.TBImageMark2.Row;
+                    double diffColumn = pixelPos.Column - cameraVisionEntity.TBImageMark2.Column;
+
+                    double diffX = diffColumn / cameraVisionEntity.XDirPixToMachine;
+                    double diffY = diffRow / cameraVisionEntity.YDirPixToMachine;
+
+                    //根据匹配结果修正拍照位置，得到新的拍照位置(相机 还是相减 要根据机械坐标系方向来判断)
+                    mark2MachinePos = new MachineCoordEntity()
+                    {   
+                        X = cameraVisionEntity.TBMachineMark2.X - diffX,
+                        Y = cameraVisionEntity.TBMachineMark2.Y - diffY,
+                    };
+
+                    res = "Mark2位置匹配成功：";
+                    return true;
+                }
+                else  //匹配失败
+                {
+                    res = "Mark2位置匹配失败：";
+                    mark2MachinePos = null;
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        /// <summary>
+        /// 执行去Mark1位置
+        /// </summary>
+        /// <param name="xAxis">X轴</param>
+        /// <param name="yAxis">Y轴</param>
+        /// <param name="zAxis">Z轴</param>
+        /// <param name="cameraVisionEntity"></param>
+        private async void ExcecuteMoveToMark1(Axis xAxis, Axis yAxis, Axis zAxis,
+                                        CameraVisionEntity cameraVisionEntity)
+        {
+            //1.Z轴先到安全高度
+            motion.PtPAbsoluteMove(zAxis, zAxis.SafePosition);
+
+            //2.XY轴一起移动
+            motion.Line2AbsoluteMove(xAxis, cameraVisionEntity.TBMachineMark1.X,
+                                    yAxis, cameraVisionEntity.TBMachineMark1.Y);
+
+            //3.Z轴移动
+            motion.PtPAbsoluteMove(zAxis, cameraVisionEntity.BDHeight);
+        }
+
+
+        /// <summary>
+        /// 执行去Mark1位置拍照
+        /// </summary>
+        /// <param name="uiIGrapAndUpdate">UI停止实时采集并更新图像</param>
+        /// <param name="cemeraVisionHandleBLL">相机视觉处理业务逻辑</param>
+        /// <param name="cameraVisionEntity">相机视觉实体</param>
+        /// <param name="mark1MachinePos">加工板Mark1位置坐标</param>
+        private bool ExecuteMark1PositionPhotograph(Action uiIGrapAndUpdate,
+                                                    CemeraVisionHandleBLL cemeraVisionHandleBLL,
+                                                    CameraVisionEntity cameraVisionEntity,
+                                                    out MachineCoordEntity mark1MachinePos,
+                                                    out string res)
+        {
+            try
+            {
+                //1. UI停止实时采集并更新图像
+                uiIGrapAndUpdate?.Invoke();
+
+                //2. 匹配Mark1，得到加工板Mark2像素坐标
+                PixelPos pixelPos = cemeraVisionHandleBLL.ExcuteMatch("Mark1",
+                                                                    cameraVisionEntity.MatchScores,
+                                                                    cameraVisionEntity.MaxOverlap,
+                                                                    cameraVisionEntity.Greediness
+                                                                    );
+                if (pixelPos != null)  //匹配成功
+                {
+                    double diffRow = pixelPos.Row - cameraVisionEntity.TBImageMark1.Row;
+                    double diffColumn = pixelPos.Column - cameraVisionEntity.TBImageMark1.Column;
+
+                    double diffX = diffColumn / cameraVisionEntity.XDirPixToMachine;
+                    double diffY = diffRow / cameraVisionEntity.YDirPixToMachine;
+
+                    //根据匹配结果修正拍照位置，得到新的拍照位置(相机 还是相减 要根据机械坐标系方向来判断)
+                    mark1MachinePos = new MachineCoordEntity()
+                    {
+                        X = cameraVisionEntity.TBMachineMark1.X - diffX,
+                        Y = cameraVisionEntity.TBMachineMark1.Y - diffY,
+                    };
+
+                    res = "Mark1位置匹配成功：";
+                    return true;
+                }
+                else  //匹配失败
+                {
+                    res = "Mark1位置匹配失败：";
+                    mark1MachinePos = null;
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+
+        /// <summary>
+        /// 执行计算修正坐标矩阵
+        /// </summary>
+        /// <param name="cemeraVisionHandleBLL">相机视觉处理业务逻辑</param>
+        /// <param name="markMachinePos">加工板Mark1和Mark2机械位置坐标</param>
+        /// <param name="cameraVisionEntity">相机视觉实体</param>
+        private void ExecuteCalculateCorrectionMatrix(CemeraVisionHandleBLL cemeraVisionHandleBLL,
+                                                        MachineCoordEntity[] markMachinePos,
+                                                        CameraVisionEntity cameraVisionEntity
+                                                        )
+        {
+
+            cemeraVisionHandleBLL.GetVisionCorrectMachineMatrix(cameraVisionEntity, markMachinePos);
+
+        }
+
+
     }
 
 
@@ -518,46 +709,93 @@ namespace BLL
         /// <summary>
         /// 自动停止中
         /// </summary>
+        [DescriptionCustomAttribute("自动停止中")]
         AutomaticallyStopping,
 
         /// <summary>
         /// 移动到待加工位置
         /// </summary>
+        [DescriptionCustomAttribute("移动到待加工位置")]
         MoveToProcessedPosition,
 
         /// <summary>
         /// 检测物料到位信号
         /// </summary>
+        [DescriptionCustomAttribute("检测物料到位信号")]
         DetectMaterialSignal,
+
+        /// <summary>
+        /// 移动到Mark2
+        /// </summary>
+        [DescriptionCustomAttribute("移动到Mark2")]
+        MoveToMark2,
+
+        /// <summary>
+        /// Mark2位置拍照
+        /// </summary>
+        [DescriptionCustomAttribute("Mark2位置拍照")]
+        Mark2PositionPhotograph,
+
+
+        /// <summary>
+        /// 移动到Mark1
+        /// </summary>
+        [DescriptionCustomAttribute("移动到Mark1")]
+        MoveToMark1,
+
+        /// <summary>
+        /// Mark1位置拍照
+        /// </summary>
+        [DescriptionCustomAttribute("Mark1位置拍照")]
+        Mark1PositionPhotograph,
+
+        /// <summary>
+        /// 计算修正坐标矩阵
+        /// </summary>
+        [DescriptionCustomAttribute("计算修正坐标矩阵")]
+        CalculateCorrectionMatrix,
+
 
         /// <summary>
         /// 打开切割器
         /// </summary>
+        [DescriptionCustomAttribute("打开切割器")]
         TurnOnCutter,
+
+        /// <summary>
+        /// 移动到修正后的第一个点
+        /// </summary>
+        [DescriptionCustomAttribute("移动到修正后的第一个点")]
+        GoToCorrectionFirstPoint,
 
         /// <summary>
         /// Z轴移动到加工的第一个点
         /// </summary>
+        [DescriptionCustomAttribute("Z轴移动到加工的第一个点")]
         ZAxisMoveToFitstPoint,
 
         /// <summary>
         /// 按表格数据进行加工
         /// </summary>
+        [DescriptionCustomAttribute("按表格数据进行加工")]
         ProcessFromTableData,
 
         /// <summary>
-        /// Z轴移动到安全位置
+        /// Z轴上升到安全位置
         /// </summary>
+        [DescriptionCustomAttribute("Z轴上升到安全位置")]
         AxisGotoSafePosition,
 
-        // <summary>
+        /// <summary>
         /// 关闭切割器
         /// </summary>
+        [DescriptionCustomAttribute("关闭切割器")]
         TurnOffCutter,
 
         /// <summary>
-        /// 消除误差
+        /// 回原点消除误差
         /// </summary>
+        [DescriptionCustomAttribute("回原点消除误差")]
         GoHomeEliminateErrors
 
     }

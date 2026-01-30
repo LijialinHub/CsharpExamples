@@ -30,11 +30,6 @@ namespace PanelSeparationMachineV1._26
         /// </summary>
         private CemeraVisionHandleBLL cemeraVisionHandleBLL;
 
-        /// <summary>
-        /// 数据处理业务逻辑对象
-        /// </summary>
-        private DataHandleBLL DataHandleBLL = new DataHandleBLL();
-
 
         /// <summary>
         /// 数据处理业务逻辑对象
@@ -119,7 +114,7 @@ namespace PanelSeparationMachineV1._26
         private void Form1_Load(object sender, EventArgs e)
         {
 
-            if (!motionHandleBLL.OpenCard(out string res))
+            if (motionHandleBLL.OpenCard(out string res))
             {
                 MessageBox.Show(res, "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -133,7 +128,6 @@ namespace PanelSeparationMachineV1._26
 
                 #endregion
 
-
                 #region 控制卡相关
 
                 dataHandleBLL.ReadAxisDataFromIni(X_Axis);
@@ -145,11 +139,9 @@ namespace PanelSeparationMachineV1._26
 
                 #endregion
 
-
-
                 #region 相机和图像
 
-                DataHandleBLL.ReadCameraVisionFromIni(CameraVisionEntity);
+                dataHandleBLL.ReadCameraVisionFromIni(CameraVisionEntity);
 
                 picDisplayRoi.Image = File.Exists(Environment.CurrentDirectory + @"\Mark1ROI.bmp") ?
                     Image.FromFile(Environment.CurrentDirectory + @"\Mark1ROI.bmp") : null;
@@ -163,9 +155,6 @@ namespace PanelSeparationMachineV1._26
 
                 #endregion
 
-                
-
-
                 #region 数据库
 
                 //固定数据库名字
@@ -173,7 +162,7 @@ namespace PanelSeparationMachineV1._26
 
                 if(!File.Exists(path))
                 {
-                    bool isOk = DataHandleBLL.CreateDataBase(path, out string res1);
+                    bool isOk = dataHandleBLL.CreateDataBase(path, out string res1);
                     tsslExecuteResult.ForeColor = isOk ? Color.Green : Color.Red;
                     tsslExecuteResult.Text = res1;
 
@@ -207,20 +196,50 @@ namespace PanelSeparationMachineV1._26
                 }
 
 
-                    #endregion
+                #endregion
 
-                    //控件相关
-                    ControlBindingEntityData();
+                #region 自动工艺流程的相关数据
+
+                processFlowBLL.processCoordEntities = processCoordAuto;
+                processFlowBLL.AxisList = new List<Axis>() { X_Axis, Y_Axis, Z_Axis };
+                processFlowBLL.iOCraftEntity = IOCraftEntity;
+
+                processFlowBLL.drawHandleBLL = drawHandleBLL;
+                processFlowBLL.drawParamsEntity = AppData.DrawParamsEntity;
+
+                processFlowBLL.CemeraVisionHandleBLL = cemeraVisionHandleBLL;
+                processFlowBLL.cameraVisionEntity = CameraVisionEntity;
+                
+                processFlowBLL.UiDoSomething -= processFlowBLL_UiDgvSelectUpdate;
+                processFlowBLL.UiDoSomething += processFlowBLL_UiDgvSelectUpdate;
+
+                #endregion
+
+
+                //控件相关
+                ControlBindingEntityData();
 
             }
             else
             {
                 MessageBox.Show(res, "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                //Environment.Exit(0);
+                Environment.Exit(0);
             }
 
 
 
+        }
+
+        /// <summary>
+        /// 自动流程运行到哪个点位 DataGridView空间就选中哪行 
+        /// </summary>
+        /// <param name="num"></param>
+        private void processFlowBLL_UiDgvSelectUpdate(int num)
+        {
+            this.Invoke(new Action(() =>
+            {
+                dgvAutoDisplay.Rows[num].Selected = true;
+            }));
         }
 
         private void DisplayCurrentUser()
@@ -257,7 +276,7 @@ namespace PanelSeparationMachineV1._26
 
             #region 相机和图像
             chkContinuousAcq.Checked = false;
-            DataHandleBLL.WriteCameraVisionToIni(CameraVisionEntity); //保存相机视觉参数
+            dataHandleBLL.WriteCameraVisionToIni(CameraVisionEntity); //保存相机视觉参数
             cemeraVisionHandleBLL.CloseCamera(); //关闭相机
 
             #endregion
@@ -429,71 +448,22 @@ namespace PanelSeparationMachineV1._26
 
             #region 自动运行状态
 
-            uiLightCuterStatus.State = IOCraftEntity.Cutter.StatusValue ? UILightState.On : UILightState.Off;
-
-
-            switch (processFlowBLL.autoProcessStep)
+            Type type = typeof(AutoProcessStep);
+            FieldInfo fieldInfo = type.GetField(processFlowBLL.autoProcessStep.ToString());
+            if(fieldInfo.IsDefined(typeof(DescriptionCustomAttribute), false))
             {
-                case AutoProcessStep.AutomaticallyStopping:
-                    lblStatus.Text = "自动停止中...";
-                    break;
-                case AutoProcessStep.MoveToProcessedPosition:
-                    lblStatus.Text = "移动到待加工位置" + (Axis.PauseMark ? "_暂停中" : "");
-                    break;
+                DescriptionCustomAttribute descriptionCustomAttribute = (DescriptionCustomAttribute)fieldInfo.GetCustomAttribute(typeof(DescriptionCustomAttribute), false);
 
-                case AutoProcessStep.DetectMaterialSignal:
-                    lblStatus.Text = "检测物料到位信号" + (Axis.PauseMark ? "_暂停中" : "");
-                    break;
-
-                case AutoProcessStep.TurnOnCutter:
-                    lblStatus.Text = "打开切割器" + (Axis.PauseMark ? "_暂停中" : "");
-                    break;
-
-                case AutoProcessStep.ZAxisMoveToFitstPoint:
-                    lblStatus.Text = "Z轴移动到加工的第一个点" + (Axis.PauseMark ? "_暂停中" : "");
-                    break;
-
-                case AutoProcessStep.ProcessFromTableData:
-                    lblStatus.Text = "从表格数据中获取加工数据" + (Axis.PauseMark ? "_暂停中" : "");
-                    break;
-
-                case AutoProcessStep.AxisGotoSafePosition:
-                    lblStatus.Text = "Z轴移动到安全位置" + (Axis.PauseMark ? "_暂停中" : "");
-                    break;
-
-                case AutoProcessStep.TurnOffCutter:
-                    lblStatus.Text = "关闭切割器" + (Axis.PauseMark ? "_暂停中" : "");
-                    break;
-
-                case AutoProcessStep.GoHomeEliminateErrors:
-                    lblStatus.Text = "消除误差" + (Axis.PauseMark ? "_暂停中" : "");
-                    break;
+                lblStatus.Text = descriptionCustomAttribute.Description + (Axis.PauseMark ? "_暂停中" : "");
             }
 
-
-            //lblStatus.Text = processFlowBLL.autoProcessStep.ToString();
-
-
-
+            uiLightCuterStatus.State = IOCraftEntity.Cutter.StatusValue ? UILightState.On : UILightState.Off;
 
             #endregion
-        }
-
-        private void tableLayoutPanel8_Paint(object sender, PaintEventArgs e)
-        {
 
         }
 
-        private void 退出系统ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-
-        }
-
-        private void frmMain_FontChanged(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -524,6 +494,12 @@ namespace PanelSeparationMachineV1._26
             this.Close();
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmbProductType_SelectedIndexChanged(object sender, EventArgs e)
         {
             dataHandleBLL.GetTableData(cmbProductName.Text, processCoordTeaching, out string res);
@@ -546,8 +522,14 @@ namespace PanelSeparationMachineV1._26
 
                     tsslExecuteResult.ForeColor = isOk ? Color.Green : Color.Red;
                     tsslExecuteResult.Text = res;
+
+                    string tn = cmbProductName.Text;  
                     if (isOk)
                     {
+                        tableNamesAuto.Clear();
+                        tableNamesTeaching.ForEach(str => { tableNamesAuto.Add(str); });
+
+                        cmbProductName.Text = tn;   //生产页面显示之前的表
                         cmbProductType.SelectedItem = tableName;  //选中创建的表格
                     }
                 }
@@ -561,20 +543,40 @@ namespace PanelSeparationMachineV1._26
         /// <param name="e"></param>
         private void btnDelProduct_Click(object sender, EventArgs e)
         {
+           
+            string currentTableNamesTeaching = cmbProductType.Text;
+            string currentTableNamesTeachingAuto = cmbProductName.Text;
+
             bool isOk = dataHandleBLL.DeleteTable(cmbProductType.Text, tableNamesTeaching, out string res);
+
 
             tsslExecuteResult.ForeColor = isOk ? Color.Green : Color.Red;
             tsslExecuteResult.Text = res;
 
             if (isOk)
             {
-                if (cmbProductType.Items.Count > 0)
+                tableNamesAuto.Clear();
+                tableNamesTeaching.ForEach(str => { tableNamesAuto.Add(str); });
+
+                if (tableNamesTeaching.Count > 0)
                 {
-                    cmbProductType.SelectedIndex = 0;
+                    
+                    if(currentTableNamesTeaching == currentTableNamesTeachingAuto)
+                    {
+                        cmbProductName.Text = tableNamesAuto[0];
+                    }
+                    else
+                    {
+                        cmbProductName.Text = currentTableNamesTeachingAuto;
+                    }
+
+                        cmbProductType.Text = tableNamesTeaching[0];
+
                 }
                 else//没有表
                 {
                     cmbProductType.Text = "";
+                    cmbProductName.Text = "";
                 }
             }
         }
@@ -608,6 +610,13 @@ namespace PanelSeparationMachineV1._26
                 bool isOk = dataHandleBLL.InsertRecord(cmbProductName.Text, tableNamesTeaching, processCoordEntity, out string res);
 
                 dataHandleBLL.GetTableData(cmbProductName.Text, processCoordTeaching, out string res2);
+
+                //更新生产页面表格
+                if (cmbProductType.Name == cmbProductName.Text)
+                {
+                    dataHandleBLL.GetTableData(cmbProductName.Text, processCoordAuto, out string res3);
+
+                }
 
                 tsslExecuteResult.ForeColor = isOk ? Color.Green : Color.Red;
                 tsslExecuteResult.Text = res;
@@ -646,6 +655,13 @@ namespace PanelSeparationMachineV1._26
                 bool isOk = dataHandleBLL.DeleteRecord(cmbProductName.Text, tableNamesTeaching, num, out string res);
 
                 dataHandleBLL.GetTableData(cmbProductName.Text, processCoordTeaching, out string res1);
+
+                //更新生产页面表格
+                if (cmbProductType.Name == cmbProductName.Text)
+                {
+                    dataHandleBLL.GetTableData(cmbProductName.Text, processCoordAuto, out string res3);
+
+                }
 
                 tsslExecuteResult.ForeColor = isOk ? Color.Green : Color.Red;
                 tsslExecuteResult.Text = res;
@@ -695,6 +711,14 @@ namespace PanelSeparationMachineV1._26
                 bool isOk = dataHandleBLL.AddRecord(cmbProductName.Text, tableNamesTeaching, processCoordEntity, out string res);
 
                 dataHandleBLL.GetTableData(cmbProductName.Text, processCoordTeaching, out string res2);
+
+                //更新生产页面表格
+                if(cmbProductType.Name == cmbProductName.Text)
+                {
+                    dataHandleBLL.GetTableData(cmbProductName.Text, processCoordAuto, out string res3);
+                    
+                }
+
                 tsslExecuteResult.ForeColor = isOk ? Color.Green : Color.Red;
                 tsslExecuteResult.Text = res;
 
@@ -779,6 +803,13 @@ namespace PanelSeparationMachineV1._26
                 bool isOk = dataHandleBLL.ModifyRecord(cmbProductName.Text, tableNamesTeaching, num, processCoordEntity, out string res);
 
                 dataHandleBLL.GetTableData(cmbProductName.Text, processCoordTeaching, out string res1);
+
+                //更新生产页面表格
+                if (cmbProductType.Name == cmbProductName.Text)
+                {
+                    dataHandleBLL.GetTableData(cmbProductName.Text, processCoordAuto, out string res3);
+
+                }
 
                 tsslExecuteResult.ForeColor = isOk ? Color.Green : Color.Red;
                 tsslExecuteResult.Text = res;
@@ -972,6 +1003,13 @@ namespace PanelSeparationMachineV1._26
                     MessageBox.Show("您没有权限访问此页面！(技术员登记以上才能进入)", "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
+                if (processFlowBLL.autoProcessStep != AutoProcessStep.AutomaticallyStopping)
+                {   
+                    tabControlDisplay.SelectedIndex = 0;
+                    MessageBox.Show("自动进行中！", "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
             }
 
             else if (num == 2) //相机设置页面
@@ -985,6 +1023,13 @@ namespace PanelSeparationMachineV1._26
                 {
                     tabControlDisplay.SelectedIndex = 0;
                     MessageBox.Show("有轴未执行回原点！", "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+                if (processFlowBLL.autoProcessStep != AutoProcessStep.AutomaticallyStopping)
+                {
+                    tabControlDisplay.SelectedIndex = 0;
+                    MessageBox.Show("自动进行中！", "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
             }
 
@@ -1194,7 +1239,7 @@ namespace PanelSeparationMachineV1._26
         // <summary>
         /// 移动到Mark2位置
         /// </summary>
-        private async Task btnGotoMark2_Click(object sender, EventArgs e)
+        private async void btnGotoMark2_Click(object sender, EventArgs e)
         {
             if(!File.Exists(Environment.CurrentDirectory + $@"\Mark2ShapeModel.shm"))
             {
@@ -1384,11 +1429,81 @@ namespace PanelSeparationMachineV1._26
                 motionHandleBLL.CrossGoToMouseDownPoint(X_Axis,- machineX,
                                                           Y_Axis, -machineY);
 
-
-
-
             }
 
+
+        }
+
+
+        /// <summary>
+        /// 生产界面切换不同表
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmbProductName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dataHandleBLL.GetTableData(cmbProductName.Text, processCoordAuto, out string res);
+        }
+
+        /// <summary>
+        /// 自动启动
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async  void btnStart_Click(object sender, EventArgs e)
+        {
+
+            if (!X_Axis.OverGoHomeMark || !Y_Axis.OverGoHomeMark || !Z_Axis.OverGoHomeMark)
+            {
+                MessageBox.Show("回原点未完成！", "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (dgvAutoDisplay.Rows.Count == 0)
+            {
+                MessageBox.Show("表格中没有任何数据！", "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            if (processFlowBLL.autoProcessStep != AutoProcessStep.AutomaticallyStopping)
+            {
+                MessageBox.Show("自动进行中！", "消息提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+
+            cmbProductName.Enabled = false; //运行过程中不允许切换表格
+            btnAutoGoHome.Enabled = false; //运行过程中不允许回原点
+
+            await processFlowBLL.AutoRunAsync();   //自动运行
+
+            cmbProductName.Enabled = true; //自动运行结束后释放
+            btnAutoGoHome.Enabled = true; //自动运行结束后释放
+
+
+        }
+
+
+
+        /// <summary>
+        /// 回原点
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnAutoGoHome_Click(object sender, EventArgs e)
+        {
+            motionHandleBLL.AllGoHome(new Axis[] { X_Axis, Y_Axis, Z_Axis },
+                                     (ushort)(radGroupGoHomeMode.SelectedIndex == 0 ? 0 : 2),
+                                     2, (ushort)(radGroupGoHomeSpeedSelect.SelectedIndex == 0 ? 0 : 1));
+        }
+
+
+        /// <summary>
+        /// 暂停
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnPause_Click(object sender, EventArgs e)
+        {
 
         }
     }
