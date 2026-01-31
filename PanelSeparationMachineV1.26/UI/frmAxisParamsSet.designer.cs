@@ -92,6 +92,9 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.comboAxis = new System.Windows.Forms.ComboBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.txtWaitingPosition = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
             this.groupBox5.SuspendLayout();
             this.gpbGoHome.SuspendLayout();
             this.gpbAuto.SuspendLayout();
@@ -263,10 +266,13 @@
             this.gpbAuto.Controls.Add(this.label32);
             this.gpbAuto.Controls.Add(this.label33);
             this.gpbAuto.Controls.Add(this.label30);
+            this.gpbAuto.Controls.Add(this.label21);
             this.gpbAuto.Controls.Add(this.label31);
             this.gpbAuto.Controls.Add(this.txtSpeed_autoStart);
             this.gpbAuto.Controls.Add(this.label13);
+            this.gpbAuto.Controls.Add(this.label20);
             this.gpbAuto.Controls.Add(this.label5);
+            this.gpbAuto.Controls.Add(this.txtWaitingPosition);
             this.gpbAuto.Controls.Add(this.txtSpeed_autoDecTime);
             this.gpbAuto.Controls.Add(this.txtSpeed_autoAccTime);
             this.gpbAuto.Controls.Add(this.label6);
@@ -323,10 +329,10 @@
             // 
             // txtSpeed_autoStart
             // 
-            this.txtSpeed_autoStart.Location = new System.Drawing.Point(107, 29);
+            this.txtSpeed_autoStart.Location = new System.Drawing.Point(127, 29);
             this.txtSpeed_autoStart.Margin = new System.Windows.Forms.Padding(4);
             this.txtSpeed_autoStart.Name = "txtSpeed_autoStart";
-            this.txtSpeed_autoStart.Size = new System.Drawing.Size(144, 28);
+            this.txtSpeed_autoStart.Size = new System.Drawing.Size(124, 28);
             this.txtSpeed_autoStart.TabIndex = 11;
             // 
             // label13
@@ -351,18 +357,18 @@
             // 
             // txtSpeed_autoDecTime
             // 
-            this.txtSpeed_autoDecTime.Location = new System.Drawing.Point(107, 164);
+            this.txtSpeed_autoDecTime.Location = new System.Drawing.Point(127, 164);
             this.txtSpeed_autoDecTime.Margin = new System.Windows.Forms.Padding(4);
             this.txtSpeed_autoDecTime.Name = "txtSpeed_autoDecTime";
-            this.txtSpeed_autoDecTime.Size = new System.Drawing.Size(144, 28);
+            this.txtSpeed_autoDecTime.Size = new System.Drawing.Size(124, 28);
             this.txtSpeed_autoDecTime.TabIndex = 7;
             // 
             // txtSpeed_autoAccTime
             // 
-            this.txtSpeed_autoAccTime.Location = new System.Drawing.Point(107, 119);
+            this.txtSpeed_autoAccTime.Location = new System.Drawing.Point(127, 119);
             this.txtSpeed_autoAccTime.Margin = new System.Windows.Forms.Padding(4);
             this.txtSpeed_autoAccTime.Name = "txtSpeed_autoAccTime";
-            this.txtSpeed_autoAccTime.Size = new System.Drawing.Size(144, 28);
+            this.txtSpeed_autoAccTime.Size = new System.Drawing.Size(124, 28);
             this.txtSpeed_autoAccTime.TabIndex = 5;
             // 
             // label6
@@ -377,10 +383,10 @@
             // 
             // txtSpeed_autoMax
             // 
-            this.txtSpeed_autoMax.Location = new System.Drawing.Point(107, 74);
+            this.txtSpeed_autoMax.Location = new System.Drawing.Point(127, 74);
             this.txtSpeed_autoMax.Margin = new System.Windows.Forms.Padding(4);
             this.txtSpeed_autoMax.Name = "txtSpeed_autoMax";
-            this.txtSpeed_autoMax.Size = new System.Drawing.Size(144, 28);
+            this.txtSpeed_autoMax.Size = new System.Drawing.Size(124, 28);
             this.txtSpeed_autoMax.TabIndex = 3;
             // 
             // label7
@@ -774,6 +780,34 @@
             this.comboAxis.TabIndex = 35;
             this.comboAxis.SelectedIndexChanged += new System.EventHandler(this.comboAxis_SelectedIndexChanged);
             // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(-3, 206);
+            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(122, 18);
+            this.label20.TabIndex = 8;
+            this.label20.Text = "加工等待位置";
+            // 
+            // txtWaitingPosition
+            // 
+            this.txtWaitingPosition.Location = new System.Drawing.Point(127, 203);
+            this.txtWaitingPosition.Margin = new System.Windows.Forms.Padding(4);
+            this.txtWaitingPosition.Name = "txtWaitingPosition";
+            this.txtWaitingPosition.Size = new System.Drawing.Size(124, 28);
+            this.txtWaitingPosition.TabIndex = 7;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(259, 209);
+            this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(28, 18);
+            this.label21.TabIndex = 21;
+            this.label21.Text = "mm";
+            // 
             // frmAxisParamsSet
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -875,5 +909,8 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox comboAxis;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox txtWaitingPosition;
     }
 }

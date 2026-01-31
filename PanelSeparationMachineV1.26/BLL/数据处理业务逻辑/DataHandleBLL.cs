@@ -69,6 +69,7 @@ namespace BLL
             axis.Speed_autoMax = double.Parse(iniFiles.ReadString(axis.Axis_Name, "Speed_autoMax", "0"));
             axis.Speed_autoAccTime = double.Parse(iniFiles.ReadString(axis.Axis_Name, "Speed_autoAccTime", "0"));
             axis.Speed_autoDecTime = double.Parse(iniFiles.ReadString(axis.Axis_Name, "Speed_autoDecTime", "0"));
+            axis.WaitingPosition = double.Parse(iniFiles.ReadString(axis.Axis_Name, "WaitingPosition", "0"));
 
             //回原点参数设置
             axis.Speed_homeStart = double.Parse(iniFiles.ReadString(axis.Axis_Name, "Speed_homeStart", "0"));
@@ -109,6 +110,7 @@ namespace BLL
             iniFiles.WriteString(axis.Axis_Name, "Speed_autoMax", axis.Speed_autoMax.ToString());
             iniFiles.WriteString(axis.Axis_Name, "Speed_autoAccTime", axis.Speed_autoAccTime.ToString());
             iniFiles.WriteString(axis.Axis_Name, "Speed_autoDecTime", axis.Speed_autoDecTime.ToString());
+            iniFiles.WriteString(axis.Axis_Name, "WaitingPosition", axis.WaitingPosition.ToString());
 
             //回原点参数设置
             iniFiles.WriteString(axis.Axis_Name, "Speed_homeStart", axis.Speed_homeStart.ToString());

@@ -70,6 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\工艺流程业务逻辑\CuttingWorkStationOperation.cs" />
     <Compile Include="Common\AppData.cs" />
     <Compile Include="BLL\工艺流程业务逻辑\ProcessFlowBLL.cs" />
     <Compile Include="BLL\数据处理业务逻辑\DataHandleBLL.cs" />

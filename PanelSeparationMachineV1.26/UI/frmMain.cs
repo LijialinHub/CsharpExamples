@@ -213,6 +213,12 @@ namespace PanelSeparationMachineV1._26
                 processFlowBLL.UiDoSomething -= processFlowBLL_UiDgvSelectUpdate;
                 processFlowBLL.UiDoSomething += processFlowBLL_UiDgvSelectUpdate;
 
+                processFlowBLL.UIGrapAndUpdate -= GrapAndUpdate;
+                processFlowBLL.UIGrapAndUpdate += GrapAndUpdate;
+
+                processFlowBLL.UIRealTimeAcq -= processFlowBLL_UIRealTimeAcq;
+                processFlowBLL.UIRealTimeAcq += processFlowBLL_UIRealTimeAcq;
+
                 #endregion
 
 
@@ -228,6 +234,19 @@ namespace PanelSeparationMachineV1._26
 
 
 
+        }
+
+
+        /// <summary>
+        /// 继续实时采集
+        /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
+        private void processFlowBLL_UIRealTimeAcq()
+        {
+            this.Invoke(new Action(() =>
+            {
+                chkContinuousAcq.Checked = true;
+            }));
         }
 
         /// <summary>
@@ -496,13 +515,13 @@ namespace PanelSeparationMachineV1._26
 
 
         /// <summary>
-        /// 
+        /// 切换表格
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void cmbProductType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            dataHandleBLL.GetTableData(cmbProductName.Text, processCoordTeaching, out string res);
+            dataHandleBLL.GetTableData(cmbProductType.Text, processCoordTeaching, out string res);
         }
 
         /// <summary>
@@ -1418,16 +1437,16 @@ namespace PanelSeparationMachineV1._26
                 double mouseDownColumn = e.Y;
 
                 //获取相机中心点像素坐标
-                double centerRow = cemeraVisionHandleBLL.ImageWidth / 2;
-                double centerColumn = cemeraVisionHandleBLL.ImageHeight / 2;
+                double centerRow = cemeraVisionHandleBLL.ImageHeight / 2;
+                double centerColumn = cemeraVisionHandleBLL.ImageWidth / 2;
 
                 //计算机械坐标差值
                 double machineX = (mouseDownColumn - centerColumn) / CameraVisionEntity.XDirPixToMachine;
                 double machineY = (mouseDownRow - centerRow) / CameraVisionEntity.YDirPixToMachine;
 
                 //注意 是否加负号(根据XY轴实际机械方向确定)
-                motionHandleBLL.CrossGoToMouseDownPoint(X_Axis,- machineX,
-                                                          Y_Axis, -machineY);
+                motionHandleBLL.CrossGoToMouseDownPoint(X_Axis, -machineX,
+                                                        Y_Axis, -machineY);
 
             }
 
@@ -1504,7 +1523,39 @@ namespace PanelSeparationMachineV1._26
         /// <param name="e"></param>
         private void btnPause_Click(object sender, EventArgs e)
         {
+            //如果不是自动运行中，则无法执行暂停
+            if (processFlowBLL.autoProcessStep == AutoProcessStep.AutomaticallyStopping) { return; }
 
+            if (btnPause.Text == "暂停")
+            {
+                processFlowBLL.Pause();
+                btnPause.Text = "再启动";
+                btnPause.FillColor = Color.Red;
+            }
+            else
+            {
+                processFlowBLL.StartAgain();
+                btnPause.Text = "暂停";
+                btnPause.FillColor = Color.FromArgb(255, 128, 0);
+            }
+        }
+
+        /// <summary>
+        /// 自动选择 全自动或半自动选择
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="index"></param>
+        /// <param name="text"></param>
+        private void radGroupAutoSelect_ValueChanged(object sender, int index, string text)
+        {
+            if (text == "半自动")
+            {
+                processFlowBLL.FullyAutomaticMark = false;
+            }
+            else
+            {
+                processFlowBLL.FullyAutomaticMark = true;
+            }
         }
     }
 }

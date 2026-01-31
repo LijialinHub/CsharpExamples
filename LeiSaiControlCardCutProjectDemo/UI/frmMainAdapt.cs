@@ -885,5 +885,15 @@ namespace LeiSaiControlCardCutProjectDemo
                 throw;
             }
         }
+
+        private void radGroupGoHomeSpeedSelect_ValueChanged(object sender, int index, string text)
+        {
+
+        }
+
+        private void radGroupGoHomeMode_ValueChanged(object sender, int index, string text)
+        {
+
+        }
     }
 }
