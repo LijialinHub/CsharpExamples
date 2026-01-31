@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -230,8 +231,8 @@
             this.txtPixTomm_X = new Sunny.UI.UITextBox();
             this.picCalibrationDisplay = new System.Windows.Forms.PictureBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.timer1 = new System.Windows.Forms.Timer();
-            this.uiToolTip1 = new Sunny.UI.UIToolTip();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.uiToolTip1 = new Sunny.UI.UIToolTip(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -2335,7 +2336,6 @@
             // cmbProductType
             // 
             this.cmbProductType.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmbProductType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbProductType.FormattingEnabled = true;
             this.cmbProductType.Location = new System.Drawing.Point(108, 20);
             this.cmbProductType.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
@@ -3325,7 +3325,7 @@
             // 
             this.tabPage4.Location = new System.Drawing.Point(0, 40);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(745, 643);
+            this.tabPage4.Size = new System.Drawing.Size(200, 60);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "用户管理";
             this.tabPage4.UseVisualStyleBackColor = true;

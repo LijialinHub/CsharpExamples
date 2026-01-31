@@ -1433,8 +1433,8 @@ namespace PanelSeparationMachineV1._26
             if(e.Button == MouseButtons.Left)
             {   
                 //获取鼠标按下位置像素坐标
-                double mouseDownRow = e.X;
-                double mouseDownColumn = e.Y;
+                double mouseDownRow = e.Y;
+                double mouseDownColumn = e.X;
 
                 //获取相机中心点像素坐标
                 double centerRow = cemeraVisionHandleBLL.ImageHeight / 2;
