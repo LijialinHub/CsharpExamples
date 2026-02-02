@@ -97,6 +97,7 @@
     <Compile Include="DAL\相机和视觉访问类\大恒相机相关类\Win32Bitmap.cs" />
     <Compile Include="Entity\相机视觉实体\MachineCoordEntity.cs" />
     <Compile Include="Entity\相机视觉实体\PixelCoordEntity.cs" />
+    <Compile Include="Entity\设备信息实体\DeviceInfoEntity.cs" />
     <Compile Include="Entity\轴实体\Axis.cs" />
     <Compile Include="Entity\相机视觉实体\CameraVisionEntity.cs" />
     <Compile Include="Entity\绘图参数实体\DrawParamsEntity.cs" />
@@ -176,7 +177,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="favicon.ico" />
     <Content Include="i6tse-3rp8m-001.ico" />
   </ItemGroup>
   <ItemGroup />

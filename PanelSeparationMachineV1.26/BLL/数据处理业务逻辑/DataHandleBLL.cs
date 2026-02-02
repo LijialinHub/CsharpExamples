@@ -4,6 +4,7 @@ using IniHelper;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Net.Configuration;
 using System.Text;
@@ -129,7 +130,6 @@ namespace BLL
 
         }
 
-
         /// <summary>
         /// 从Ini文件读取IO工艺实体
         /// </summary>
@@ -231,6 +231,57 @@ namespace BLL
             vision.TBMachineMark2.Y = double.Parse(iniFiles.ReadString("视觉参数", "示教板Mark2机械Y坐标", "0"));
 
         }
+
+        /// <summary>
+        /// 写入设备信息
+        /// </summary>
+        /// <param name="deviceInfoEntity"></param>
+        public void SaveDeviceInfoToIni(DeviceInfoEntity deviceInfoEntity)
+        {
+            IniFiles iniFiles = new IniFiles(Environment.CurrentDirectory + @"\参数.ini");
+
+            iniFiles.WriteString("设备信息", "接口ID", deviceInfoEntity.InterfaceID);
+            iniFiles.WriteString("设备信息", "产品总数", deviceInfoEntity.ProductNum.ToString());
+            iniFiles.WriteString("设备信息", "已运行时间_天", deviceInfoEntity.RunningTime.Days.ToString());
+            iniFiles.WriteString("设备信息", "已运行时间_小时", deviceInfoEntity.RunningTime.Hours.ToString());
+            iniFiles.WriteString("设备信息", "已运行时间_分", deviceInfoEntity.RunningTime.Minutes.ToString());
+            iniFiles.WriteString("设备信息", "已运行时间_秒", deviceInfoEntity.RunningTime.Seconds.ToString());
+
+        }
+
+        /// <summary>
+        /// 从Ini文件读取设备信息
+        /// </summary>
+        /// <param name="deviceInfoEntity"></param>
+        public void ReadDeviceInfoFromIni(DeviceInfoEntity deviceInfoEntity)
+        {
+            IniFiles iniFiles = new IniFiles(Environment.CurrentDirectory + @"\参数.ini");
+            deviceInfoEntity.InterfaceID = iniFiles.ReadString("设备信息", "接口ID", "S220050916");
+            deviceInfoEntity.ProductNum = int.Parse(iniFiles.ReadString("设备信息", "产品总数", "0"));
+            deviceInfoEntity.RunningTime.Days = int.Parse(iniFiles.ReadString("设备信息", "已运行时间_天", "0"));
+            deviceInfoEntity.RunningTime.Hours = int.Parse(iniFiles.ReadString("设备信息", "已运行时间_小时", "0"));
+            deviceInfoEntity.RunningTime.Minutes = int.Parse(iniFiles.ReadString("设备信息", "已运行时间_分", "0"));
+            deviceInfoEntity.RunningTime.Seconds = int.Parse(iniFiles.ReadString("设备信息", "已运行时间_秒", "0"));
+        }
+
+        /// <summary>
+        /// 保存设备信息到INI文件
+        /// </summary>
+        /// <param name="userEntity">用户实体</param>
+        /// <param name="content"></param>
+        public void OperationRecord(UserEntity userEntity, string content)
+        {
+            string contents = "时间:" + DateTime.Now.ToString("HH:mm:ss") + "\r\n" +
+                        "工号:" + userEntity.EmployeeID + "-" + 
+                        "姓名: " + userEntity.Name + "-" +          
+                        "职级: " + userEntity.JobLevel + ": " + 
+                        "动作: " + content + "\r\n\r\n";
+
+            string path = Environment.CurrentDirectory + $@"\操作日志\{DateTime.Now.ToString("MM月dd日")}.txt";
+
+            File.AppendAllText(path, content);
+        }    
+
 
         #endregion
 

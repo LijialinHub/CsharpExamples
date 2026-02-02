@@ -1,7 +1,9 @@
 ﻿using Entity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,7 +13,7 @@ namespace PanelSeparationMachineV1._26
     /// <summary>
     /// 应用程序数据类
     /// </summary>
-    public class AppData
+    public class AppData : INotifyPropertyChanged
     {
 
         /// <summary>
@@ -29,5 +31,18 @@ namespace PanelSeparationMachineV1._26
         /// </summary>
         public static RoiSelect RoiSelect;
 
+        /// <summary>
+        /// 设备信息实体
+        /// </summary>
+        public static DeviceInfoEntity deviceInfoEntity = new DeviceInfoEntity();
+
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName]string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

@@ -11,6 +11,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Remoting.Channels;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -94,11 +95,12 @@ namespace PanelSeparationMachineV1._26
         /// IO工艺实体
         /// </summary>
         public IOCraftEntity IOCraftEntity = new IOCraftEntity();
-
+        
         #endregion
 
         #endregion
 
+        
 
 
         public frmMain()
@@ -209,7 +211,10 @@ namespace PanelSeparationMachineV1._26
 
                 processFlowBLL.CemeraVisionHandleBLL = cemeraVisionHandleBLL;
                 processFlowBLL.cameraVisionEntity = CameraVisionEntity;
-                
+
+                processFlowBLL.deviceInfoEntity = AppData.deviceInfoEntity;
+
+
                 processFlowBLL.UiDoSomething -= processFlowBLL_UiDgvSelectUpdate;
                 processFlowBLL.UiDoSomething += processFlowBLL_UiDgvSelectUpdate;
 
@@ -221,9 +226,11 @@ namespace PanelSeparationMachineV1._26
 
                 #endregion
 
-
                 //控件相关
                 ControlBindingEntityData();
+
+                //设备信息
+                dataHandleBLL.ReadDeviceInfoFromIni(AppData.deviceInfoEntity);
 
             }
             else
@@ -300,7 +307,10 @@ namespace PanelSeparationMachineV1._26
 
             #endregion
 
-            Environment.Exit(0); //退出程序
+            //保存设备信息
+            dataHandleBLL.SaveDeviceInfoToIni(AppData.deviceInfoEntity);
+
+        Environment.Exit(0); //退出程序
         }
 
         
@@ -363,7 +373,14 @@ namespace PanelSeparationMachineV1._26
 
             txtCalibrationHeight.DataBindings.Add("Text", CameraVisionEntity, "BDHeight", false, DataSourceUpdateMode.OnPropertyChanged);
 
-
+            Binding binding = lblProductNum.DataBindings.Add("Text", AppData.deviceInfoEntity, "ProductNum");
+            binding.Parse += (sender, e) =>  //主线程执行
+            {
+                this.Invoke(new Action(() =>
+                {
+                    e.Value = e.Value.ToString();
+                }));
+            };
 
             //表名集合绑定cmbProductName控件
             cmbProductType.DataSource = tableNamesTeaching;
@@ -406,8 +423,15 @@ namespace PanelSeparationMachineV1._26
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+
+        
         private void timer1_Tick(object sender, EventArgs e)
         {
+            int num = (int)timer1.Tag;
+            num++;
+            timer1.Tag = num;
+
+            
             #region 位置显示
 
             lblPositionX.Value = X_Axis.Position;  // 保留4位小数显示
@@ -480,9 +504,42 @@ namespace PanelSeparationMachineV1._26
 
             #endregion
 
+            #region 设备已运行时间
+
+            if (num ==5)
+            {
+                AppData.deviceInfoEntity.RunningTime.Seconds++;
+                if (AppData.deviceInfoEntity.RunningTime.Seconds == 60)
+                {
+                    AppData.deviceInfoEntity.RunningTime.Seconds = 0;
+                    AppData.deviceInfoEntity.RunningTime.Minutes++;
+                }
+                if (AppData.deviceInfoEntity.RunningTime.Minutes == 60)
+                {
+                    AppData.deviceInfoEntity.RunningTime.Minutes = 0;
+                    AppData.deviceInfoEntity.RunningTime.Hours++;
+                }
+                if(AppData.deviceInfoEntity.RunningTime.Hours == 24)
+                {
+                    AppData.deviceInfoEntity.RunningTime.Hours = 0;
+                    AppData.deviceInfoEntity.RunningTime.Days++;
+                }
+
+                tsslDeviceRunTime.Text = $"{AppData.deviceInfoEntity.RunningTime.Days}天" +
+                                         $"{AppData.deviceInfoEntity.RunningTime.Hours}时" +
+                                         $"{AppData.deviceInfoEntity.RunningTime.Minutes}分" +
+                                         $"{AppData.deviceInfoEntity.RunningTime.Seconds}秒";
+                                         
+                num = 0;
+                timer1.Tag = 0;
+
+            }
+
+            #endregion
+
         }
 
-        
+
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -1490,6 +1547,8 @@ namespace PanelSeparationMachineV1._26
             }
 
 
+            dataHandleBLL.OperationRecord(AppData.CurrentUserEntity, "按下了 自动启动按钮");
+
             cmbProductName.Enabled = false; //运行过程中不允许切换表格
             btnAutoGoHome.Enabled = false; //运行过程中不允许回原点
 
@@ -1528,12 +1587,14 @@ namespace PanelSeparationMachineV1._26
 
             if (btnPause.Text == "暂停")
             {
+                dataHandleBLL.OperationRecord(AppData.CurrentUserEntity, "按下了 暂停按钮");
                 processFlowBLL.Pause();
                 btnPause.Text = "再启动";
                 btnPause.FillColor = Color.Red;
             }
             else
             {
+                dataHandleBLL.OperationRecord(AppData.CurrentUserEntity, "按下了 再启动按钮");
                 processFlowBLL.StartAgain();
                 btnPause.Text = "暂停";
                 btnPause.FillColor = Color.FromArgb(255, 128, 0);
@@ -1556,6 +1617,11 @@ namespace PanelSeparationMachineV1._26
             {
                 processFlowBLL.FullyAutomaticMark = true;
             }
+        }
+
+        private void lblProcessTime_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

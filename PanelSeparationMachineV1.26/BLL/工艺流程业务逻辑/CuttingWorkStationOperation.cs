@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using static BLL.CuttingWorkStationOperation;
 
 namespace BLL
 {   
@@ -16,6 +17,9 @@ namespace BLL
     /// </summary>
     public class CuttingWorkStationOperation
     {
+
+       
+
 
         /// <summary>
         /// 执行移动到待加工位置
@@ -28,18 +32,17 @@ namespace BLL
         /// <param name="mr">人为阻塞</param>
         /// <param name="processPauseMark">暂停标志</param>
         public static void ExecuteMoveToProcessedPosition(MotionCard motion,
-                                                    Axis xAxis, Axis yAxis, Axis zAxis,   
-                                                    ManualResetEvent mr, 
-                                                    bool processPauseMark,
+                                                    Axis xAxis, Axis yAxis, Axis zAxis,
+                                                    PauseParams pauseParams,
                                                     Action<int> UIdo = null)
         {
         Pos1:
             //1. Z轴移动到安全位置
             motion.PtPAbsoluteMove(zAxis, zAxis.SafePosition);
-            mr.WaitOne();
-            if (processPauseMark)
+            pauseParams.mr?.WaitOne();
+            if (pauseParams.processPauseMark)
             {
-                processPauseMark = false;
+                pauseParams.processPauseMark = false;
                 goto Pos1;
             }
             if (Axis.EmgMark) { return; } //按下急停 跳出方法
@@ -51,10 +54,10 @@ namespace BLL
 
         Pos2:
             motion.Line2AbsoluteMove(xAxis, x1, yAxis, y1);
-            mr.WaitOne();
-            if (processPauseMark)
+            pauseParams.mr?.WaitOne();
+            if (pauseParams.processPauseMark)
             {
-                processPauseMark = false;
+                pauseParams.processPauseMark = false;
                 goto Pos2;
             }
             //if (Axis.EmgMark) { return; } //按下急停 跳出方法
@@ -85,37 +88,37 @@ namespace BLL
         /// <param name="cameraVisionEntity"></param>
         public static  async void ExcecuteMoveToMark2(MotionCard motion,
                                         Axis xAxis, Axis yAxis, Axis zAxis,
-                                        CameraVisionEntity cameraVisionEntity,
-                                        ManualResetEvent mr,
-                                        bool processPauseMark)
+                                        PauseParams pauseParams,
+                                        CameraVisionEntity cameraVisionEntity
+                                        )
         {
         Pos1:
             //1.Z轴先到安全高度
             motion.PtPAbsoluteMove(zAxis, zAxis.SafePosition);
-            mr.WaitOne();
-            if (processPauseMark)
+            pauseParams.mr?.WaitOne();
+            if (pauseParams.processPauseMark)
             {
-                processPauseMark = false;
+                pauseParams.processPauseMark = false;
                 goto Pos1;
             }
         Pos2:
             //2.XY轴一起移动
             motion.Line2AbsoluteMove(xAxis, cameraVisionEntity.TBMachineMark2.X,
                                     yAxis, cameraVisionEntity.TBMachineMark2.Y);
-            mr.WaitOne();
-            if (processPauseMark)
+            pauseParams.mr?.WaitOne();
+            if (pauseParams.processPauseMark)
             {
-                processPauseMark = false;
+                pauseParams.processPauseMark = false;
                 goto Pos2;
             }
 
         Pos3:
             //3.Z轴移动
             motion.PtPAbsoluteMove(zAxis, cameraVisionEntity.BDHeight);
-            mr.WaitOne();
-            if (processPauseMark)
+            pauseParams.mr?.WaitOne();
+            if (pauseParams.processPauseMark)
             {
-                processPauseMark = false;
+                pauseParams.processPauseMark = false;
                 goto Pos3;
             }
         }
@@ -189,18 +192,18 @@ namespace BLL
         public static async void ExcecuteMoveToMark1(MotionCard motion,
                                         Axis xAxis, Axis yAxis, Axis zAxis,
                                         CameraVisionEntity cameraVisionEntity,
-                                         ManualResetEvent mr,
-                                                    bool processPauseMark)
+                                        PauseParams pauseParams
+                                         )
         {
 
         Pos1:
             //1.Z轴先到安全高度
             motion.PtPAbsoluteMove(zAxis, zAxis.SafePosition);
 
-            mr.WaitOne();
-            if (processPauseMark)
+            pauseParams.mr?.WaitOne();
+            if (pauseParams.processPauseMark)
             {
-                processPauseMark = false;
+                pauseParams.processPauseMark = false;
                 goto Pos1;
             }
 
@@ -210,20 +213,20 @@ namespace BLL
                                     yAxis, cameraVisionEntity.TBMachineMark1.Y);
 
 
-            mr.WaitOne();
-            if (processPauseMark)
+            pauseParams.mr?.WaitOne();
+            if (pauseParams.processPauseMark)
             {
-                processPauseMark = false;
+                pauseParams.processPauseMark = false;
                 goto Pos2;
             }
         Pos3:
             //3.Z轴移动
             motion.PtPAbsoluteMove(zAxis, cameraVisionEntity.BDHeight);
 
-            mr.WaitOne();
-            if (processPauseMark)
+            pauseParams.mr? .WaitOne();
+            if (pauseParams.processPauseMark)
             {
-                processPauseMark = false;
+                pauseParams.processPauseMark = false;
                 goto Pos3;
             }
         }
@@ -316,18 +319,17 @@ namespace BLL
         public static void ExecuteGoToCorrectionFirstPoint(MotionCard motion,
                                                     Axis xAxis, Axis yAxis, Axis zAxis,
                                                     BindingList<ProcessCoordEntity> processCoordEntities,
-                                                    CemeraVisionHandleBLL cemeraVisionHandleBLL,
-                                                    ManualResetEvent mr,
-                                                    bool processPauseMark,
+                                                    CemeraVisionHandleBLL cemeraVisionHandleBLL ,
+                                                    PauseParams pauseParams,
                                                     Action<int> UIDoing = null)
         {
         Pos1:
             //1. Z轴移动到安全位置
             motion.PtPAbsoluteMove(zAxis, zAxis.SafePosition);
-            mr.WaitOne();
-            if (processPauseMark)
+            pauseParams.mr?.WaitOne();
+            if (pauseParams.processPauseMark)
             {
-                processPauseMark = false;
+                pauseParams.processPauseMark = false;
                 goto Pos1;
             }
             if (Axis.EmgMark) { return; } //按下急停 跳出方法
@@ -348,10 +350,10 @@ namespace BLL
 
         Pos2:
             motion.Line2AbsoluteMove(xAxis, x1, yAxis, y1);
-            mr.WaitOne();
-            if (processPauseMark)
+            pauseParams.mr?.WaitOne();
+            if (pauseParams.processPauseMark)
             {
-                processPauseMark = false;
+                pauseParams.processPauseMark = false;
                 goto Pos2;
             }
             //if (Axis.EmgMark) { return; } //按下急停 跳出方法
@@ -383,16 +385,16 @@ namespace BLL
         public static void ExecuteZAxisMoveToFitstPoint(MotionCard motion,
                                                 BindingList<ProcessCoordEntity> processCoordEntities,
                                                     Axis zAxis,
-                                                    ManualResetEvent mr,
-                                                    bool processPauseMark)
+                                                    PauseParams pauseParams
+                                                    )
         {
             double zFirst = processCoordEntities[0].ZPosition;
         Pos1:
             motion.PtPAbsoluteMove(zAxis, zFirst);
-            mr.WaitOne();
-            if (processPauseMark)
+            pauseParams.mr?.WaitOne();
+            if (pauseParams.processPauseMark)
             {
-                processPauseMark = false;
+                pauseParams.processPauseMark = false;
                 goto Pos1;
             }
             if (Axis.EmgMark) { return; } //按下急停 跳出方法
@@ -410,8 +412,7 @@ namespace BLL
                                             BindingList<ProcessCoordEntity> processCoordEntities,
                                             Axis xAxis, Axis yAxis, Axis zAxis,
                                             CemeraVisionHandleBLL cemeraVisionHandleBLL,
-                                            ManualResetEvent mr,
-                                            bool processPauseMark,
+                                            PauseParams pauseParams,
                                             Action<int> UIdo = null)
         {
             for (int i = 1; i < processCoordEntities.Count; i++)
@@ -431,9 +432,9 @@ namespace BLL
 
             Pos1:
                 motion.Line3AbsoluteMove(xAxis, newPos.X, yAxis, newPos.Y, zAxis, z);
-                if (processPauseMark)
+                if (pauseParams.processPauseMark)
                 {
-                    processPauseMark = false;
+                    pauseParams.processPauseMark = false;
                     goto Pos1;
                 }
                 if (Axis.EmgMark) { return; } //按下急停 跳出方法
@@ -448,16 +449,16 @@ namespace BLL
         /// <param name="zAxis">Z轴</param>
         public static void ExecuteAxisGotoSafePosition(MotionCard motion,
                                                         Axis zAxis,
-                                                        ManualResetEvent mr,
-                                                        bool processPauseMark)
+                                                        PauseParams pauseParams
+                                                        )
         {
         // 1. Z轴移动到安全位置
         Pos1:
             motion.PtPAbsoluteMove(zAxis, zAxis.SafePosition);
-            mr.WaitOne();
-            if (processPauseMark)
+            pauseParams.mr?.WaitOne();
+            if (pauseParams.processPauseMark)
             {
-                processPauseMark = false;
+                pauseParams.processPauseMark = false;
                 goto Pos1;
             }
             if (Axis.EmgMark) { return; } //按下急停 跳出方法
@@ -485,18 +486,18 @@ namespace BLL
         /// <param name="zAxis"></param>
         public static void ExecuteGoHomeEliminateErrors(MotionCard motion, 
                                                         Axis xAxis, Axis yAxis, Axis zAxis,
-                                                        ManualResetEvent mr,
-                                                        bool processPauseMark)
+                                                        PauseParams pauseParams
+                                                        )
         {
             //1.Z轴先回原点
             Task tz = Task.Run(() =>
             {
             Pos1:
                 motion.GoHome(zAxis);
-                mr.WaitOne();
-                if (processPauseMark)
+                pauseParams.mr?.WaitOne();
+                if (pauseParams.processPauseMark)
                 {
-                    processPauseMark = false;
+                    pauseParams.processPauseMark = false;
                     goto Pos1;
                 }
                 if (Axis.EmgMark) { return; } //按下急停 跳出方法
@@ -509,10 +510,10 @@ namespace BLL
                 if (!zAxis.OverGoHomeMark) { return; }
             Pos2:
                 motion.GoHome(xAxis);
-                mr.WaitOne();
-                if (processPauseMark)
+                pauseParams.mr?.WaitOne();
+                if (pauseParams.processPauseMark)
                 {
-                    processPauseMark = false;
+                    pauseParams.processPauseMark = false;
                     goto Pos2;
                 }
                 if (Axis.EmgMark) { return; } //按下急停 跳出方法
@@ -525,10 +526,10 @@ namespace BLL
                 if (!zAxis.OverGoHomeMark) { return; }
             Pos3:
                 motion.GoHome(yAxis);
-                mr.WaitOne();
-                if (processPauseMark)
+                pauseParams.mr?.WaitOne();
+                if (pauseParams.processPauseMark)
                 {
-                    processPauseMark = false;
+                    pauseParams.processPauseMark = false;
                     goto Pos3;
                 }
                 if (Axis.EmgMark) { return; } //按下急停 跳出方法

@@ -99,17 +99,37 @@ namespace BLL
         /// <summary>
         /// 人为阻塞信号对象
         /// </summary>
-        private volatile ManualResetEvent mr = new ManualResetEvent(true);
+        //private volatile ManualResetEvent mr = new ManualResetEvent(true);
 
         /// <summary>
         /// 暂停标志
         /// </summary>
-        public volatile bool processPauseMark = false;
+        //public volatile bool processPauseMark = false;
 
         /// <summary>
         /// 暂停前切割器状态
         /// </summary>
         public volatile bool brforePauseCutterStatus;
+
+        /// <summary>
+        /// 设备信息
+        /// </summary>
+        public DeviceInfoEntity deviceInfoEntity = new DeviceInfoEntity();
+
+
+        public volatile PauseParams PauseParams = new PauseParams()
+        {
+
+            /// <summary>
+            /// 人为阻塞信号对象
+            /// </summary>
+            mr = new ManualResetEvent(true),
+
+            /// <summary>
+            /// 暂停标志
+            /// </summary>
+            processPauseMark = false
+        };
 
 
         /// <summary>
@@ -129,8 +149,8 @@ namespace BLL
                         case AutoProcessStep.MoveToProcessedPosition:
                             // 移动到待加工位置
                             CuttingWorkStationOperation.ExecuteMoveToProcessedPosition(motion,
-                                                 AxisList[0], AxisList[1], AxisList[2], 
-                                                 mr, processPauseMark);
+                                                 AxisList[0], AxisList[1], AxisList[2],
+                                                 PauseParams);
                             autoProcessStep = AutoProcessStep.DetectMaterialSignal;
 
                             if(Axis.EmgMark)
@@ -159,8 +179,8 @@ namespace BLL
                             // 移动到Mark2
                             CuttingWorkStationOperation.ExcecuteMoveToMark2(motion,
                                                 AxisList[0], AxisList[1], AxisList[2],
-                                                cameraVisionEntity,
-                                                mr, processPauseMark
+                                                PauseParams,
+                                                cameraVisionEntity
                                                 );
 
                             autoProcessStep = AutoProcessStep.Mark2PositionPhotograph;
@@ -202,8 +222,7 @@ namespace BLL
                             // 移动到Mark1
                             CuttingWorkStationOperation.ExcecuteMoveToMark1(motion,
                                                 AxisList[0], AxisList[1], AxisList[2],
-                                                cameraVisionEntity,
-                                                mr, processPauseMark
+                                                cameraVisionEntity, PauseParams
                                                 );
 
                             autoProcessStep = AutoProcessStep.Mark1PositionPhotograph;
@@ -262,7 +281,7 @@ namespace BLL
                                                 AxisList[0], AxisList[1], AxisList[2],
                                                 processCoordEntities,
                                                 CemeraVisionHandleBLL,
-                                                mr, processPauseMark,
+                                                PauseParams,
                                                 UiDoSomething
                                                 );
 
@@ -292,9 +311,8 @@ namespace BLL
 
                         case AutoProcessStep.ZAxisMoveToFitstPoint:
                             // Z轴移动到加工的第一个点
-                            CuttingWorkStationOperation.ExecuteZAxisMoveToFitstPoint(motion,processCoordEntities, AxisList[2],
-                                mr,
-                                processPauseMark);
+                            CuttingWorkStationOperation.ExecuteZAxisMoveToFitstPoint(motion,processCoordEntities, AxisList[2], PauseParams
+                               );
                             autoProcessStep = AutoProcessStep.ProcessFromTableData;
 
                             if (Axis.EmgMark)
@@ -314,7 +332,7 @@ namespace BLL
                                                                     processCoordEntities, 
                                                                     AxisList[0], AxisList[1], AxisList[2], 
                                                                     CemeraVisionHandleBLL,
-                                                                    mr, processPauseMark,
+                                                                    PauseParams,
                                                                     UiDoSomething);
                             drawHandleBLL.StopDraw(); //停止绘制
                             autoProcessStep = AutoProcessStep.AxisGotoSafePosition;
@@ -330,7 +348,8 @@ namespace BLL
                             // Z轴移动到安全位置
                             CuttingWorkStationOperation.ExecuteAxisGotoSafePosition(motion, 
                                                                                     AxisList[2],
-                                                                                    mr, processPauseMark);
+                                                                                    PauseParams
+                                                                                   );
                             autoProcessStep = AutoProcessStep.TurnOffCutter;
 
                             if (Axis.EmgMark)
@@ -367,12 +386,15 @@ namespace BLL
                                 return;
                             }
 
+                            deviceInfoEntity.ProductNum++;
+
                             break;
                         case AutoProcessStep.GoHomeEliminateErrors:
                             // 移动到原点消除错误
                             CuttingWorkStationOperation.ExecuteGoHomeEliminateErrors(motion,
                                                                                     AxisList[0], AxisList[1], AxisList[2],
-                                                                                    mr, processPauseMark);
+                                                                                    PauseParams
+                                                                                   );
                            
                             if (FullyAutomaticMark)
                             {
@@ -404,9 +426,9 @@ namespace BLL
         /// </summary>
         public void Pause()
         { 
-            mr.Reset(); //阻塞自动的执行流
+            PauseParams.mr.Reset(); //阻塞自动的执行流
             motion.PressPause(); //所有轴停止
-            processPauseMark = true;
+            PauseParams.processPauseMark = true;
             Axis axis = new Axis() { Axis_CardNo = iOCraftEntity.Cutter.CardNo };
             brforePauseCutterStatus = motion.ReadOutBit(axis, iOCraftEntity.Cutter.BitNo);
             motion.WriteOutBit(axis, iOCraftEntity.Cutter.BitNo, false); //切割器关闭
@@ -423,7 +445,7 @@ namespace BLL
             Axis axis = new Axis() { Axis_CardNo = iOCraftEntity.Cutter.CardNo };
             motion.WriteOutBit(axis, iOCraftEntity.Cutter.BitNo, brforePauseCutterStatus);
             Thread.Sleep(200);
-            mr.Set(); //取消阻塞
+            PauseParams.mr.Set(); //取消阻塞
         }
 
         /// <summary>
@@ -566,7 +588,16 @@ namespace BLL
     }
 
 
+    /// <summary>
+    /// 暂停参数类
+    /// </summary>
+    public class PauseParams
+    {
+        public  ManualResetEvent mr;
 
+        public  bool processPauseMark;
+
+    }
 
 
 }
