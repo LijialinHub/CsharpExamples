@@ -6,6 +6,7 @@ using Sunny.UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -97,6 +98,11 @@ namespace BLL
         public event Action UIRealTimeAcq;
 
         /// <summary>
+        /// UI更新产品数和时间
+        /// </summary>
+        public event Action<double> UIUpDateProductNumAndTime; 
+
+        /// <summary>
         /// 人为阻塞信号对象
         /// </summary>
         //private volatile ManualResetEvent mr = new ManualResetEvent(true);
@@ -114,7 +120,7 @@ namespace BLL
         /// <summary>
         /// 设备信息
         /// </summary>
-        public DeviceInfoEntity deviceInfoEntity = new DeviceInfoEntity();
+        //public DeviceInfoEntity deviceInfoEntity = new DeviceInfoEntity();
 
 
         public volatile PauseParams PauseParams = new PauseParams()
@@ -142,10 +148,12 @@ namespace BLL
                 autoProcessStep = AutoProcessStep.MoveToProcessedPosition;
                 MachineCoordEntity[] markMachinePos = new MachineCoordEntity[2];
 
+                Stopwatch stopwatch = new Stopwatch(); //测量生产时间
+
                 while (true)
                 {
                     switch (autoProcessStep)
-                    {
+                    {   
                         case AutoProcessStep.MoveToProcessedPosition:
                             // 移动到待加工位置
                             CuttingWorkStationOperation.ExecuteMoveToProcessedPosition(motion,
@@ -171,6 +179,10 @@ namespace BLL
                                 autoProcessStep = AutoProcessStep.AutomaticallyStopping;
                                 return;
                             }
+
+                            stopwatch.Restart(); //开始计时(清零并计时)
+                            UIUpDateProductNumAndTime?.Invoke(0);
+
                             drawHandleBLL.CoordinatesReset(); 
                             break;
 
@@ -363,6 +375,13 @@ namespace BLL
                             // 关闭切割器
                             CuttingWorkStationOperation.ExecuteTurnOffCutter(motion, 
                                                                             iOCraftEntity);
+                            
+                            
+                            //停止计时
+                            stopwatch.Stop();
+                            //委托事件 通知外部更新到UI
+                            UIUpDateProductNumAndTime?.Invoke(Math.Round(stopwatch.ElapsedMilliseconds / 1000d,2)); //毫秒转秒
+
                             EliminateErrorsCount++;
                             if (EliminateErrorsCount == 10)  // 10次回原点
                             {
@@ -386,7 +405,7 @@ namespace BLL
                                 return;
                             }
 
-                            deviceInfoEntity.ProductNum++;
+                            //deviceInfoEntity.ProductNum++;
 
                             break;
                         case AutoProcessStep.GoHomeEliminateErrors:

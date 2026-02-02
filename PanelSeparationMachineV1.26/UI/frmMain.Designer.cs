@@ -128,7 +128,7 @@
             this.uiLabel12 = new Sunny.UI.UILabel();
             this.uiLabel10 = new Sunny.UI.UILabel();
             this.lblProductNum = new Sunny.UI.UILabel();
-            this.uiButton1 = new Sunny.UI.UIButton();
+            this.btnClear = new Sunny.UI.UIButton();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.btnAutoGoHome = new Sunny.UI.UIButton();
             this.btnEms1 = new Sunny.UI.UIImageButton();
@@ -1539,7 +1539,7 @@
             this.tableLayoutPanel6.Controls.Add(this.uiLabel12, 0, 1);
             this.tableLayoutPanel6.Controls.Add(this.uiLabel10, 2, 0);
             this.tableLayoutPanel6.Controls.Add(this.lblProductNum, 1, 0);
-            this.tableLayoutPanel6.Controls.Add(this.uiButton1, 2, 1);
+            this.tableLayoutPanel6.Controls.Add(this.btnClear, 2, 1);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel6.Location = new System.Drawing.Point(0, 32);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
@@ -1600,20 +1600,21 @@
             this.lblProductNum.Text = "0";
             this.lblProductNum.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // uiButton1
+            // btnClear
             // 
-            this.uiButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiButton1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.uiButton1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiButton1.Location = new System.Drawing.Point(277, 53);
-            this.uiButton1.Margin = new System.Windows.Forms.Padding(13, 3, 13, 3);
-            this.uiButton1.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiButton1.Name = "uiButton1";
-            this.uiButton1.Radius = 15;
-            this.uiButton1.Size = new System.Drawing.Size(107, 44);
-            this.uiButton1.TabIndex = 6;
-            this.uiButton1.Text = "产量清零";
-            this.uiButton1.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnClear.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnClear.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnClear.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnClear.Location = new System.Drawing.Point(277, 53);
+            this.btnClear.Margin = new System.Windows.Forms.Padding(13, 3, 13, 3);
+            this.btnClear.MinimumSize = new System.Drawing.Size(1, 1);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Radius = 15;
+            this.btnClear.Size = new System.Drawing.Size(107, 44);
+            this.btnClear.TabIndex = 6;
+            this.btnClear.Text = "产量清零";
+            this.btnClear.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // tableLayoutPanel7
             // 
@@ -3518,7 +3519,7 @@
         private Sunny.UI.UILabel uiLabel10;
         private Sunny.UI.UILabel lblProcessTime;
         private Sunny.UI.UILabel uiLabel12;
-        private Sunny.UI.UIButton uiButton1;
+        private Sunny.UI.UIButton btnClear;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
         private Sunny.UI.UIButton btnStart;
         private Sunny.UI.UIButton btnPause;

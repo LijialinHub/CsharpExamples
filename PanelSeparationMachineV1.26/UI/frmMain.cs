@@ -212,7 +212,7 @@ namespace PanelSeparationMachineV1._26
                 processFlowBLL.CemeraVisionHandleBLL = cemeraVisionHandleBLL;
                 processFlowBLL.cameraVisionEntity = CameraVisionEntity;
 
-                processFlowBLL.deviceInfoEntity = AppData.deviceInfoEntity;
+                //processFlowBLL.deviceInfoEntity = AppData.deviceInfoEntity;
 
 
                 processFlowBLL.UiDoSomething -= processFlowBLL_UiDgvSelectUpdate;
@@ -223,6 +223,9 @@ namespace PanelSeparationMachineV1._26
 
                 processFlowBLL.UIRealTimeAcq -= processFlowBLL_UIRealTimeAcq;
                 processFlowBLL.UIRealTimeAcq += processFlowBLL_UIRealTimeAcq;
+
+                processFlowBLL.UIUpDateProductNumAndTime -= processFlowBLL_UIUpDateProductNumAndTime;
+                processFlowBLL.UIUpDateProductNumAndTime += processFlowBLL_UIUpDateProductNumAndTime;
 
                 #endregion
 
@@ -241,6 +244,25 @@ namespace PanelSeparationMachineV1._26
 
 
 
+        }
+
+
+        /// <summary>
+        /// 更新个数和加工时间
+        /// </summary>
+        /// <param name="timeValue"></param>
+        private void processFlowBLL_UIUpDateProductNumAndTime(double timeValue)
+        {
+            this.Invoke(new Action(() => 
+            {
+                if(timeValue !=0)
+                {
+                    AppData.deviceInfoEntity.ProductNum++;
+
+                }
+                lblProcessTime.Text = timeValue.ToString("F2");
+            
+            }));
         }
 
 
@@ -373,15 +395,8 @@ namespace PanelSeparationMachineV1._26
 
             txtCalibrationHeight.DataBindings.Add("Text", CameraVisionEntity, "BDHeight", false, DataSourceUpdateMode.OnPropertyChanged);
 
-            Binding binding = lblProductNum.DataBindings.Add("Text", AppData.deviceInfoEntity, "ProductNum");
-            binding.Parse += (sender, e) =>  //主线程执行
-            {
-                this.Invoke(new Action(() =>
-                {
-                    e.Value = e.Value.ToString();
-                }));
-            };
-
+            lblProductNum.DataBindings.Add("Text", AppData.deviceInfoEntity, "ProductNum");
+            
             //表名集合绑定cmbProductName控件
             cmbProductType.DataSource = tableNamesTeaching;
             cmbProductName.DataSource = tableNamesAuto;
@@ -427,7 +442,7 @@ namespace PanelSeparationMachineV1._26
         
         private void timer1_Tick(object sender, EventArgs e)
         {
-            int num = (int)timer1.Tag;
+            int num = int.Parse(timer1.Tag.ToString());
             num++;
             timer1.Tag = num;
 
@@ -1622,6 +1637,16 @@ namespace PanelSeparationMachineV1._26
         private void lblProcessTime_Click(object sender, EventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// 产量清零
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            AppData.deviceInfoEntity.ProductNum = 0;
         }
     }
 }

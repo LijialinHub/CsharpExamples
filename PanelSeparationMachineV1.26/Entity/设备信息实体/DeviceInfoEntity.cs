@@ -37,7 +37,7 @@ namespace Entity
             {   
                 if (_ProductNum == value) { return; }
                 _ProductNum = value;
-                OnPropertyChanged("ProductNum");
+                OnPropertyChanged();
             }
         }
 
