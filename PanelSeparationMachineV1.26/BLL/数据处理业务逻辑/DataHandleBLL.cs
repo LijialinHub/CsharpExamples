@@ -704,6 +704,116 @@ namespace BLL
 
         #endregion
 
+        #region 产品信息访问
+
+        /// <summary>
+        /// 添加产品信息
+        /// </summary>
+        /// <param name="productInfoEntity"></param>
+        /// <param name="res"></param>
+        /// <returns></returns>
+        public bool AddProductRecord(ProductInfoEntity productInfoEntity,
+                                    out string res)
+        {
+            try
+            {
+                using (SQLServerDbContext db = new SQLServerDbContext())
+                {
+                    db.productInfoEntities.Add(productInfoEntity);
+                    db.SaveChanges();  //执行SaveChanges()方法后 数据库才会变更
+                }
+                res = "添加产品信息成功！";
+                return true;
+            }
+            catch (Exception ex)
+            {
+                res = "添加产品信息失败！ " + ex.Message;
+                return false;
+            }
+        }
+
+
+        /// <summary>
+        /// 查询上一页
+        /// </summary>
+        /// <param name="pageNums">每一页个数</param>
+        /// <param name="res">执行结果</param>
+        /// <param name="products">查询出来的集合</param>
+        /// <param name="perPageNum">当前页数</</param>
+        /// <returns></returns>
+        public bool QueryProviousPageProductRecord(ref int pageNums,
+                                                   out string res,
+                                                   out List<ProductInfoEntity> products,
+                                                   int perPageNum = 5
+                                                   ) 
+        { 
+            try
+            {
+                using (SQLServerDbContext db = new SQLServerDbContext())
+                {
+                    pageNums--;
+                    if (pageNums == 0) { pageNums = 1;}
+                    //Skip 跳过多少个  Take 取多少个
+                    products = db.productInfoEntities.OrderBy(p => p.Id)
+                                    .Skip((pageNums - 1) * perPageNum)
+                                    .Take(perPageNum).ToList();
+
+                    res = "查询上一页产品信息成功！";
+                    return true;
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                res = "查询上一页产品信息失败！ " + ex.Message;
+                products = new List<ProductInfoEntity>();
+                return false;
+            }
+
+        }
+
+
+
+        /// <summary>
+        /// 查询下一页
+        /// </summary>
+        /// <param name="pageNums">每一页个数</param>
+        /// <param name="res">执行结果</param>
+        /// <param name="products">查询出来的集合</param>
+        /// <param name="perPageNum">当前页数</param>
+        /// <returns></returns>
+        public bool QueryNextPageProductRecord(ref int pageNums,
+                                                out string res,
+                                                out List<ProductInfoEntity> products,
+                                                int perPageNum = 5
+                                                )
+        {
+            try
+            {
+                using (SQLServerDbContext db = new SQLServerDbContext())
+                {
+                    pageNums++;
+                    //Skip 跳过多少个  Take 取多少个
+                    products = db.productInfoEntities.OrderBy(p => p.Id)
+                                    .Skip((pageNums - 1) * perPageNum)
+                                    .Take(perPageNum).ToList();
+
+                    res = "查询下一页产品信息成功！";
+                    return true;
+                }             
+
+            }
+            catch (Exception ex)
+            {
+                res = "查询下一页产品信息失败！ " + ex.Message;
+                products = new List<ProductInfoEntity>();
+                return false;
+            }
+        }
+
+
+
+        #endregion
 
     }
 

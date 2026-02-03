@@ -119,6 +119,12 @@
     <Compile Include="Entity\加工坐标实体\ProcessCoordEntity.cs" />
     <Compile Include="Entity\相机视觉实体\RoiSelect.cs" />
     <Compile Include="Entity\用户实体\UserEntity.cs" />
+    <Compile Include="UI\frmProductInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\frmProductInfo.Designer.cs">
+      <DependentUpon>frmProductInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -172,6 +178,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UI\frmProductInfo.resx">
+      <DependentUpon>frmProductInfo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\frmSelectRoi.resx">
       <DependentUpon>frmSelectRoi.cs</DependentUpon>
     </EmbeddedResource>

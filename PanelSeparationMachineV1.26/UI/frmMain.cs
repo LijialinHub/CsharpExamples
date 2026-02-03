@@ -212,7 +212,7 @@ namespace PanelSeparationMachineV1._26
                 processFlowBLL.CemeraVisionHandleBLL = cemeraVisionHandleBLL;
                 processFlowBLL.cameraVisionEntity = CameraVisionEntity;
 
-                //processFlowBLL.deviceInfoEntity = AppData.deviceInfoEntity;
+                processFlowBLL.dataHandleBLL = dataHandleBLL;
 
 
                 processFlowBLL.UiDoSomething -= processFlowBLL_UiDgvSelectUpdate;
@@ -1567,6 +1567,8 @@ namespace PanelSeparationMachineV1._26
             cmbProductName.Enabled = false; //运行过程中不允许切换表格
             btnAutoGoHome.Enabled = false; //运行过程中不允许回原点
 
+            processFlowBLL.CurrentTableName = cmbProductName.Text;
+
             await processFlowBLL.AutoRunAsync();   //自动运行
 
             cmbProductName.Enabled = true; //自动运行结束后释放
@@ -1647,6 +1649,12 @@ namespace PanelSeparationMachineV1._26
         private void btnClear_Click(object sender, EventArgs e)
         {
             AppData.deviceInfoEntity.ProductNum = 0;
+        }
+
+        private void 产品信息ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmProductInfo frmProductInfo = new frmProductInfo();
+            frmProductInfo.ShowDialog();
         }
     }
 }

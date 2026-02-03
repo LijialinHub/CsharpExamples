@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -65,7 +66,15 @@ namespace BLL
         /// </summary>
         public CameraVisionEntity cameraVisionEntity { get; set; }
 
-        
+        /// <summary>
+        /// 数据处理业务逻辑对象
+        /// </summary>
+        public DataHandleBLL dataHandleBLL { get; set; }
+
+        /// <summary>
+        /// 表名
+        /// </summary>
+        public string CurrentTableName { get; set; }
 
         /// <summary>
         /// 全自动标志(True:全自动 False:半自动)
@@ -149,6 +158,7 @@ namespace BLL
                 MachineCoordEntity[] markMachinePos = new MachineCoordEntity[2];
 
                 Stopwatch stopwatch = new Stopwatch(); //测量生产时间
+                string startTime = "";
 
                 while (true)
                 {
@@ -182,6 +192,7 @@ namespace BLL
 
                             stopwatch.Restart(); //开始计时(清零并计时)
                             UIUpDateProductNumAndTime?.Invoke(0);
+                            startTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
                             drawHandleBLL.CoordinatesReset(); 
                             break;
@@ -381,6 +392,15 @@ namespace BLL
                             stopwatch.Stop();
                             //委托事件 通知外部更新到UI
                             UIUpDateProductNumAndTime?.Invoke(Math.Round(stopwatch.ElapsedMilliseconds / 1000d,2)); //毫秒转秒
+
+                            //添加产品信息(添加到了数据库 SQLServer)
+                            dataHandleBLL.AddProductRecord(new ProductInfoEntity() 
+                            { 
+                                Name = CurrentTableName,
+                                StartMakeTime = startTime,
+                                TakeTime = stopwatch.ElapsedMilliseconds / 1000d
+                            }, out string res2);
+                            
 
                             EliminateErrorsCount++;
                             if (EliminateErrorsCount == 10)  // 10次回原点
