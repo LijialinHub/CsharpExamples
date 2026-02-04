@@ -26,18 +26,20 @@ namespace PanelSeparationMachineV1._26
         public frmProductInfo()
         {
             InitializeComponent();
-        }
 
-        private void frmProductInfo_Load(object sender, EventArgs e)
-        {
             dgvProductInfo.AutoGenerateColumns = false;
-            DataHandleBLL.QueryProviousPageProductRecord(ref currentPageNum, 
-                                                    out string res, 
+            DataHandleBLL.QueryProviousPageProductRecord(ref currentPageNum,
+                                                    out string res,
                                                     out List<ProductInfoEntity> products);
 
             dgvProductInfo.DataSource = null;
             dgvProductInfo.DataSource = products;
             lblPages.Text = currentPageNum.ToString();
+        }
+
+        private void frmProductInfo_Load(object sender, EventArgs e)
+        {
+            
 
 
         }
